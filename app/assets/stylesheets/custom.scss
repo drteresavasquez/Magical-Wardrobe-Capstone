@@ -1,0 +1,64 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+$magic-purple: #781E5D;
+
+/* universal */
+
+header{
+    background-color: $magic-purple;
+}
+
+.navbar.navbar-default.navbar-inverse{
+    background-color: $magic-purple;
+    color: white;
+    a {
+        color: white;
+        &:hover {
+          background-color: white;
+          color: $magic-purple;
+        }
+      }
+}
+  
+  section {
+    overflow: auto;
+  }
+  
+  textarea {
+    resize: vertical;
+  }
+  
+  .center {
+    text-align: center;
+  }
+  
+  .center h1 {
+    margin-bottom: 10px;
+  }
+
+  /* footer */
+
+  footer {
+    margin-top: 45px;
+    padding-top: 5px;
+    border-top: 1px solid #eaeaea;
+    color: #777;
+    a {
+      color: #555;
+      &:hover {
+        color: #222;
+      }
+    }
+    small {
+      float: left;
+    }
+    ul {
+      float: right;
+      list-style: none;
+      li {
+        float: left;
+        margin-left: 15px;
+      }
+    }
+  }
