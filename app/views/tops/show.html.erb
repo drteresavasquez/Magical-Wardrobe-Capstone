@@ -7,6 +7,8 @@
   <%= @top.name %>
 </p>
 
+<%= image_tag @top.picture.url if @top.picture? %>
+
 <p>
   <strong>Weather Type:</strong>
   <%= @top.weather_type.name %>

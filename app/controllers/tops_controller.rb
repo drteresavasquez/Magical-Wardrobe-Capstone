@@ -75,6 +75,7 @@ class TopsController < ApplicationController
         :style_type_id, 
         :description, 
         :favorite, 
-        :active)
+        :active,
+        :picture)
     end
 end

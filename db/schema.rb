@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171208161023) do
+ActiveRecord::Schema.define(version: 20171208202908) do
 
   create_table "accessory_types", force: :cascade do |t|
     t.string "name"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20171208161023) do
     t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "picture"
     t.index ["style_type_id"], name: "index_tops_on_style_type_id"
     t.index ["top_type_id"], name: "index_tops_on_top_type_id"
     t.index ["user_id"], name: "index_tops_on_user_id"
