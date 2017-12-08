@@ -1,0 +1,2 @@
+class BottomType < ApplicationRecord
+end

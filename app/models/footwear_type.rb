@@ -1,0 +1,2 @@
+class FootwearType < ApplicationRecord
+end

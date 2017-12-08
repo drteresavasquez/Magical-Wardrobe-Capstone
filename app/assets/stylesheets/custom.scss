@@ -1,12 +1,20 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+
 $magic-purple: #781E5D;
 
 /* universal */
 
+body{
+  margin: 0 auto !important;
+}
 header{
     background-color: $magic-purple;
+}
+
+.container{
+  margin: 10px auto;
 }
 
 .navbar.navbar-default.navbar-inverse{
@@ -45,7 +53,7 @@ header{
 
   footer {
     margin-top: 45px;
-    padding-top: 5px;
+    padding: 15px;
     border-top: 1px solid #eaeaea;
     color: #777;
     a {

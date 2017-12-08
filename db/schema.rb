@@ -10,7 +10,55 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171207153951) do
+ActiveRecord::Schema.define(version: 20171208161023) do
+
+  create_table "accessory_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bottom_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "footwear_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "style_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "top_types", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tops", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "name"
+    t.integer "weather_type_id"
+    t.integer "top_type_id"
+    t.integer "style_type_id"
+    t.string "description"
+    t.boolean "favorite"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["style_type_id"], name: "index_tops_on_style_type_id"
+    t.index ["top_type_id"], name: "index_tops_on_top_type_id"
+    t.index ["user_id"], name: "index_tops_on_user_id"
+    t.index ["weather_type_id"], name: "index_tops_on_weather_type_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
@@ -26,6 +74,12 @@ ActiveRecord::Schema.define(version: 20171207153951) do
     t.string "reset_digest"
     t.datetime "reset_sent_at"
     t.index ["email"], name: "index_users_on_email", unique: true
+  end
+
+  create_table "weather_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

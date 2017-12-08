@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Tops</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Name</th>
+      <th>Weather type</th>
+      <th>Top type</th>
+      <th>Style Type</th>
+      <th>Description</th>
+      <th>Favorite</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tops.each do |top| %>
+      <tr>
+        <td><%= top.user.name %></td>
+        <td><%= top.name %></td>
+        <td><%= top.weather_type.name %></td>
+        <td><%= top.top_type.name %></td>
+        <td><%= top.style_type.name %></td>
+        <td><%= top.description %></td>
+        <td><%= top.favorite %></td>
+        <td><%= link_to 'Show', top %></td>
+        <td><%= link_to 'Edit', edit_top_path(top) %></td>
+        <td><%= link_to 'Destroy', top, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Top', new_top_path %>

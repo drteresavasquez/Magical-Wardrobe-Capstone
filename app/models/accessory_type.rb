@@ -1,0 +1,2 @@
+class AccessoryType < ApplicationRecord
+end

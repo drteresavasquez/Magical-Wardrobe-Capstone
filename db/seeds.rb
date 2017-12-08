@@ -17,3 +17,59 @@ User.create!(name:  name,
   activated: true,
   activated_at: Time.zone.now)
 end
+
+    TopType.create!([
+      {name: "Sweater", description: "An article that is worn over a shirt"},
+      {name: "Hoodie", description: "Any top with a hood"},
+      {name: "T-shirt", description: "With sleeve, either half or full"},
+      {name: "Blouse", description: "A shirt that is worn with dressy attire"},
+      {name: "Dress Shirt", description: "A button-down or collared shirt"},
+      {name: "Tank Top", description: "Sleeveless, maybe just strap over shoulder"}
+    ])
+
+    BottomType.create!([
+      {name: "Jeans"},
+      {name: "Slacks"},
+      {name: "Khakis"},
+      {name: "Shorts"},
+      {name: "Skirts"}
+    ])
+
+    FootwearType.create!([
+      {name: "Sandals"},
+      {name: "Boots"},
+      {name: "Sneakers"},
+      {name: "Dress Shoes"}
+    ])
+
+    AccessoryType.create!([
+      {name: "Umbrella"},
+      {name: "Belts"},
+      {name: "Jewelry"},
+      {name: "Coats"},
+      {name: "Jackets"}
+    ])
+
+    StyleType.create!([
+      {name: "Slumming"},
+      {name: "Casual"},
+      {name: "Business Casual"},
+      {name: "Business Professional"}
+    ])
+
+    WeatherType.create!([
+      {name: "Cold"},
+      {name: "Hot"},
+      {name: "Rain"},
+      {name: "Snow"},
+      {name: "Cool"}
+    ])
+
+    
+
+
+
+
+
+
+
