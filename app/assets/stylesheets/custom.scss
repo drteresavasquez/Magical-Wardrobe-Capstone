@@ -3,34 +3,56 @@
 
 
 $magic-purple: #781E5D;
+$hover-links: #1E8CBE;
 
 /* universal */
 
 body{
   margin: 0 auto !important;
 }
+
 header{
     background-color: $magic-purple;
 }
 
 .container{
   margin: 10px auto;
+  a{
+    color: $magic-purple !important;
+    &:hover{
+      color: $hover-links !important;
+      background: none !important;
+      text-decoration: none;
+    }
+  }
+  .btn{
+    color: white !important;
+    background: default !important;
+  }
 }
 
 .navbar.navbar-default.navbar-inverse{
     background-color: $magic-purple;
-    color: white;
+    height: 60px !important;
     a {
         color: white;
         &:hover {
-          background-color: white;
-          color: $magic-purple;
+          background-color: $magic-purple;
+          color: #D0FDFF;
         }
       }
 }
 
 .dropdown-menu{
-  background-color: lightgrey;
+  background-color: white;
+  a {
+    color: $magic-purple !important;
+    height: 30px !important;
+    &:hover {
+      background-color: $magic-purple !important;
+      color: white !important;
+    }
+  }
 }
   
   section {
@@ -56,10 +78,12 @@ header{
     padding: 15px;
     border-top: 1px solid #eaeaea;
     color: #777;
+    margin-top: 130px;
     a {
       color: #555;
       &:hover {
         color: #222;
+        background: none !important;
       }
     }
     small {
@@ -111,6 +135,7 @@ header{
 .gravatar_edit {
   margin-top: 15px;
 }
+
 @mixin box_sizing {
   -moz-box-sizing:    border-box;
   -webkit-box-sizing: border-box;
@@ -176,10 +201,52 @@ input {
   }
 }
 
+/* Login Page */
+
+.login{
+  background: url(./background.jpg) fixed;
+  color: white;
+  a {
+    color: #1E8CBE;
+    padding: 5px;
+    &:hover {
+      color: white;
+      background: none;
+    }
+  }
+  h1 {
+    color: white;
+    text-align: center;
+  }
+  label {
+    color: rgb(255, 255, 255);
+  }
+  input, textarea, select, .uneditable-input {
+    background: rgba(255, 2555, 255, .3);
+    color: white;
+    width: 100%;
+    margin-bottom: 15px;
+    @include box_sizing;
+  }
+  input {
+    height: auto !important;
+    padding: 10px;
+  }
+  .btn-purple{
+    background: $magic-purple;
+    color: white;
+  }
+  
+  .btn-purple:hover{
+    color: white;
+    background: #8A0A43;
+  }
+}
+
+/* Responsive */
 @media (max-width: 1150px) {
   .hide-on-mobile{
     visibility: hidden;
     height: 0px;
   }
-
 }
