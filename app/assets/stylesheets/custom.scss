@@ -117,6 +117,11 @@ header{
   box-sizing:         border-box;
 }
 
+/* cards */
+.card{
+  margin-bottom: 10px;
+}
+
 /* forms */
 
 input, textarea, select, .uneditable-input {
@@ -171,7 +176,7 @@ input {
   }
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1150px) {
   .hide-on-mobile{
     visibility: hidden;
   }

@@ -1,29 +1,24 @@
 <p id="notice">
-  <%= notice %>
-</p>
-
-<h1>Tops
-  <%= link_to 'New Top', new_top_path, class: "btn btn-primary" %>
-</h1>
-
-<div class="col-sm-9">
-  <div class="row">
-    <% @tops.each do |top| %>
-      <div class="col-sm-4">
-        <div class="thumbnail">
-          <%= image_tag top.picture.url if top.picture? %>
-            <div class="caption">
-              <%= top.name %>
-                <p>
-                  <%= top.description %>
-                    <%= top.favorite %>
-                </p>
-                <p>
-                  <%= link_to 'Show', top, class: "btn btn-primary"%>
+    <%= notice %>
+  </p>
+  
+  <h1>Tops
+    <%= link_to 'New Top', new_top_path, class: "btn btn-primary" %>
+  </h1>
+  <div class="col-sm-12">
+    <div class="row">
+      <% @tops.each do |top| %>
+        <div class="card col-sm-3">
+            <img class="card-img-top"  alt="Card image cap" <%= image_tag top.picture.url if top.picture? %> 
+            <div class="card-body">
+              <h4 class="card-title"> <%= top.name %></h4>
+                    <%= link_to 'Show', top, class: "btn btn-primary"%>
                     <%= link_to 'Edit', edit_top_path(top), class: "btn btn-primary" %>
+                    <%= link_to 'Delete', top, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %>
+                   
             </div>
-        </div>
-      </div>
-      <% end %>
+          </div>
+        <% end %>
+    </div>
   </div>
-</div>
+
