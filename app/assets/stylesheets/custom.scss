@@ -77,7 +77,7 @@ header{
 
   /* sidebar */
 
-aside {
+.sidebar-home {
   section.user_info {
     margin-top: 20px;
   }
@@ -168,5 +168,14 @@ input {
     overflow: auto;
     padding: 10px 0;
     border-bottom: 1px solid $gray-lighter;
+  }
+}
+
+@media (max-width: 1300px) {
+  .hide-on-mobile{
+    visibility: hidden;
+  }
+  .sidebar-home{
+    margin-bottom: -1000px;
   }
 }

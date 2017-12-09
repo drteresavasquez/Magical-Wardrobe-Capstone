@@ -1,38 +1,37 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @top.name %>
+<p id="notice">
+  <%= notice %>
 </p>
+  <p>
+    <strong>Name:</strong>
+    <%= @top.name %>
+  </p>
 
-<%= image_tag @top.picture.url if @top.picture? %>
+  <%= image_tag @top.picture.url if @top.picture? %>
 
-<p>
-  <strong>Weather Type:</strong>
-  <%= @top.weather_type.name %>
-</p>
+    <p>
+      <strong>Weather Type:</strong>
+      <%= @top.weather_type.name %>
+    </p>
 
-<p>
-  <strong>Top type:</strong>
-  <%= @top.top_type.name %>
-</p>
+    <p>
+      <strong>Top type:</strong>
+      <%= @top.top_type.name %>
+    </p>
 
-<p>
-  <strong>Style:</strong>
-  <%= @top.style_type.name %>
-</p>
+    <p>
+      <strong>Style:</strong>
+      <%= @top.style_type.name %>
+    </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @top.description %>
-</p>
+    <p>
+      <strong>Description:</strong>
+      <%= @top.description %>
+    </p>
 
-<p>
-  <strong>Favorite:</strong>
-  <%= @top.favorite %>
-</p>
+    <p>
+      <strong>Favorite:</strong>
+      <%= @top.favorite %>
+    </p>
 
-<%= link_to 'Edit', edit_top_path(@top) %> |
-<%= link_to 'Back', tops_path %>
+    <%= link_to 'Edit', edit_top_path(@top) %> |
+      <%= link_to 'Back', tops_path %>

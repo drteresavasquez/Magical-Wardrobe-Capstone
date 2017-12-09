@@ -1,0 +1,63 @@
+<%= form_for(@top) do |form| %>
+<% if top.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(top.errors.count, "error") %> prohibited this top from being saved:</h2>
+
+    <ul>
+    <% top.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form.hidden_field :user_id, :value => current_user.id %>
+<%= form.hidden_field :active, :value => true %>
+
+<div class="field">
+  <%= form.label :name %>
+  <%= form.text_field :name, class: 'form-control' %>
+</div>
+
+<div class="field">
+  <%= form.label :weather_type_id %>
+  <%= form.collection_select :weather_type_id, @weather, :id, :name , :prompt => "Select a Weather Type"%>
+</div>
+
+<div class="field">
+  <%= form.label :top_type_id %>
+  <%= form.collection_select :top_type_id, @type, :id, :name, :prompt => "Select a Top Type"%>
+</div>
+
+<div class="field">
+  <%= form.label :style_type_id %>
+  <%= form.collection_select :style_type_id, @style, :id, :name, :prompt => "Select a Style"%>
+</div>
+
+<div class="field">
+  <%= form.label :description %>
+  <%= form.text_field :description, class: 'form-control' %>
+</div>
+
+<div class="field">
+  <%= form.label :favorite %>
+  <%= form.check_box :favorite, class: 'form-control' %>
+</div>
+
+<span class="picture">
+    <%= form.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+  </span>
+
+<div class="actions">
+  <%= form.submit %>
+</div>
+<% end %>
+
+<script type="text/javascript">
+$('#micropost_picture').bind('change', function() {
+  var size_in_megabytes = this.files[0].size/1024/1024;
+  if (size_in_megabytes > 5) {
+    alert('Maximum file size is 5MB. Please choose a smaller file.');
+  }
+});
+</script>
