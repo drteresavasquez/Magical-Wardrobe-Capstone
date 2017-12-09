@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-
+    #connects the model and destroys all items belonging to user if user is deleted.
+    has_many :tops, dependent: :destroy
 
     attr_accessor :remember_token, :activation_token, :reset_token
     before_save   :downcase_email

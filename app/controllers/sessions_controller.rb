@@ -1,5 +1,10 @@
 class SessionsController < ApplicationController
   def new
+    @top = Top.where(user_id: current_user.id).order('id DESC').limit(4) if logged_in?
+    #@bottom
+    #@footwear
+    #@accessory
+    #@outfit
   end
 
   def create

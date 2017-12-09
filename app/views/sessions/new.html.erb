@@ -1,3 +1,14 @@
+<% if logged_in? %>
+<div class="row">
+        <%= render 'shared/sidebar' %>
+    </div>
+    <div class="col-sm-9 hide-on-mobile">
+        <div class="row">
+            <%= render 'shared/recent_tops' %>
+        </div>
+    </div>
+</div>
+<% else %>
 <% provide(:title, "Log in") %>
 <h1>Log in</h1>
 
@@ -23,3 +34,4 @@
     <p>New user? <%= link_to "Sign up now!", signup_path %></p>
   </div>
 </div>
+<% end %>

@@ -10,8 +10,9 @@ activated_at: Time.zone.now)
 name  = Faker::Name.name
 email = "example-#{n+1}@magicalwardrobeapp.com"
 password = "password"
-User.create!(name:  name,
-  email: email,
+User.create!(
+  name:                  name,
+  email:                 email,
   password:              password,
   password_confirmation: password,
   activated: true,
