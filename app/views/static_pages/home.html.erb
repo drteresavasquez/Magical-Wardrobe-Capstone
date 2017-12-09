@@ -2,45 +2,11 @@
 
     <% if logged_in? %>
         <div class="row">
-            <div class="sidebar-home col-sm-3">
-                <section class="user_info">
-                    <%= render 'shared/user_info' %>
-                </section>
-                <section class="home-buttons">
-                    <p>
-                        <%= link_to "Create Top", new_top_path, class: "btn btn-primary btn-lg btn-block" %>
-                    </p>
-                    <p>
-                        <%= link_to "Create Bottom", "#", class: "btn btn-primary btn-lg btn-block" %>
-                    </p>
-                    <p>
-                        <%= link_to "Create Accessory", "#", class: "btn btn-primary btn-lg btn-block" %>
-                    </p>
-                    <p>
-                        <%= link_to "Create Footwear", "#", class: "btn btn-primary btn-lg btn-block" %>
-                    </p>
-                    <p>
-                        <%= link_to "Create Outfit", "#", class: "btn btn-primary btn-lg btn-block" %>
-                    </p>
-                    <p>
-                        <%= link_to "Check Hamper", "#", class: "btn btn-primary btn-lg btn-block" %>
-                    </p>
-
-                </section>
+                <%= render 'shared/sidebar' %>
             </div>
             <div class="col-sm-9 hide-on-mobile">
                 <div class="row">
-                    <% @top.each do |top| %>
-                        <div class="card col-sm-3">
-                        <%=image_tag top.picture.url, :class => "card-img-top" %>
-                            <div class="card-body">
-                                <h4 class="card-title">
-                                    <%= top.name %>
-                                </h4>
-                                <%= link_to 'Details', top, class: "btn btn-primary"%>
-                            </div>
-                        </div>
-                        <% end %>
+                    <%= render 'recent_tops' %>
                 </div>
             </div>
         </div>

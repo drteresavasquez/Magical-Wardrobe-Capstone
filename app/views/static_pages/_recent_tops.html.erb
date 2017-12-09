@@ -1,0 +1,13 @@
+<h3>Recently Added Tops</h3>
+<% @top.each do |top| %>
+<div class="col-sm-3">
+  <div class="thumbnail">
+    <%= image_tag top.picture.url if top.picture? %> 
+    <div class="caption">
+      <h5><%= top.name %></h5>
+      <p> <%= link_to 'Details', top, class: "btn btn-primary"%>
+        </p>
+    </div>
+  </div>
+</div>
+<% end %>

@@ -3,7 +3,7 @@ class TopsController < ApplicationController
 
   def index
     # @tops = Top.all
-    @tops = Top.where(user_id: current_user.id)
+    @top = Top.where(user_id: current_user.id)
   end
 
   def show

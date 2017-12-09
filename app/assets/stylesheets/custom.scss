@@ -119,7 +119,7 @@ header{
 
 /* cards */
 .card{
-  margin-bottom: 10px;
+  margin-bottom: 40px;
 }
 
 /* forms */
@@ -179,8 +179,7 @@ input {
 @media (max-width: 1150px) {
   .hide-on-mobile{
     visibility: hidden;
+    height: 0px;
   }
-  .sidebar-home{
-    margin-bottom: -1000px;
-  }
+
 }
