@@ -1,12 +1,25 @@
-<p id="notice">
-  <%= notice %>
 </p>
   <p>
-    <strong>Name:</strong>
-    <%= @top.name %>
+    <h3>
+        <% unless @top.favorite? %>
+        <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+        <% else %>
+        <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span>
+        <% end %>
+        <%= @top.name %></h3>
+   
   </p>
 
   <%= image_tag @top.picture.url if @top.picture? %>
+
+  <p>
+      <strong>Status:</strong>
+      <% if @top.active? %>
+        Clean
+        <% else %>
+        Dirty
+        <% end %>
+    </p>
 
     <p>
       <strong>Weather Type:</strong>
@@ -27,11 +40,14 @@
       <strong>Description:</strong>
       <%= @top.description %>
     </p>
+    <%= form_for(@top) do |form| -%>
+      <% if @top.active? %>
+      <%= form.hidden_field :active, :value => false %>
+      <%= submit_tag 'Wear This!', class: "btn btn-info wearthis" -%>
+        <% else %>
+        <%= form.hidden_field :active, :value => true %>
+        <%= submit_tag 'Wash This!', class: "btn btn-warning wearthis" -%>
+      <% end %>
+      <% end %>
 
-    <p>
-      <strong>Favorite:</strong>
-      <%= @top.favorite %>
-    </p>
-
-    <%= link_to 'Edit', edit_top_path(@top), class: "btn btn-primary" %> |
-      <%= link_to 'See All Tops', tops_path, class: "btn btn-primary" %>
+      <%= link_to 'See All Tops', tops_path, class: "btn btn-primary" %>  <%= link_to 'Edit', edit_top_path(@top), class: "btn btn-primary" %>

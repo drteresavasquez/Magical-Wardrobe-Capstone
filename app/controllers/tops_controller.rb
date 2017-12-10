@@ -1,15 +1,17 @@
 class TopsController < ApplicationController
   include SessionsHelper
 
+  #limits users to view only their tops
   def index
-    # @tops = Top.all
     @top = Top.where(user_id: current_user.id)
   end
 
+  #show the specific top that is selected
   def show
     @top = Top.find(params[:id])
   end
 
+  #to create a top, all the elements should be present in the form
   def new
     @top = Top.new
     @weather = WeatherType.all
@@ -27,7 +29,7 @@ class TopsController < ApplicationController
   def create
     @top = Top.new(top_params)
     if @top.save
-      flash[:success] = "Top was created!"
+      flash.now[:success] = "Top was created!"
       redirect_to @top
     else
       @weather = WeatherType.all
@@ -41,7 +43,10 @@ class TopsController < ApplicationController
     @top = Top.find(params[:id])
     respond_to do |format|
       if @top.update(top_params)
-        format.html { redirect_to @top, notice: 'Top was successfully updated.' }
+        format.html { 
+          flash.now[:success] = 'Top was successfully updated.' 
+          redirect_to @top
+        }
         format.json { render :show, status: :ok, location: @top }
       else
         format.html { render :edit }
@@ -54,7 +59,10 @@ class TopsController < ApplicationController
     @top = Top.find(params[:id])
     @top.destroy
     respond_to do |format|
-      format.html { redirect_to tops_url, notice: 'Top was successfully deleted.' }
+      format.html { 
+        flash.now[:success] = 'Top was successfully deleted.' 
+        redirect_to tops_url 
+        }
       format.json { head :no_content }
     end
   end
@@ -65,7 +73,7 @@ class TopsController < ApplicationController
       @top = Top.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Accepts only these params
     def top_params
       params.require(:top).permit(
         :user_id, 

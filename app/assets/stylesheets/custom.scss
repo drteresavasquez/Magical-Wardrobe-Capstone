@@ -1,12 +1,10 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-
 $magic-purple: #781E5D;
 $hover-links: #1E8CBE;
 
 /* universal */
-
 body{
   margin: 0 auto !important;
 }
@@ -147,6 +145,21 @@ header{
   margin-bottom: 40px;
 }
 
+/* favorites */
+
+.glyphicon.glyphicon-heart{
+  color: lightgray;
+}
+
+.glyphicon.glyphicon-heart.fav{
+  color: red;
+}
+
+.wearthis{
+  width: 200px;
+  margin: 10px;
+}
+
 /* forms */
 
 input, textarea, select, .uneditable-input {
@@ -205,12 +218,12 @@ input {
 
 .login{
   background: url(./background.jpg) fixed;
-  color: white;
+  color: white !important;
   a {
-    color: #1E8CBE;
+    color: #1E8CBE !important;
     padding: 5px;
     &:hover {
-      color: white;
+      color: white !important;
       background: none;
     }
   }
