@@ -6,9 +6,13 @@ class TopsController < ApplicationController
     @top = Top.where(user_id: current_user.id)
   end
 
-  #show the specific top that is selected
+  #show the specific top that is selected only if it belongs to current user
   def show
-    @top = Top.find(params[:id])
+      if current_user.id == Top.find(params[:id]).user_id
+        @top = Top.find(params[:id])
+      else
+        redirect_to tops_url
+      end
   end
 
   #to create a top, all the elements should be present in the form
@@ -19,11 +23,16 @@ class TopsController < ApplicationController
     @type = TopType.all
   end
 
+  #if top belongs to current user, allow edit
   def edit
-    @weather = WeatherType.all
-    @style = StyleType.all
-    @type = TopType.all
-    @top = Top.find(params[:id])
+    if current_user.id == Top.find(params[:id]).user_id
+      @weather = WeatherType.all
+      @style = StyleType.all
+      @type = TopType.all
+      @top = Top.find(params[:id])
+    else
+      redirect_to tops_url
+    end
   end
 
   def create

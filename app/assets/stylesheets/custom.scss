@@ -25,13 +25,12 @@ header{
   }
   .btn{
     color: white !important;
-    background: default !important;
   }
 }
 
 .navbar.navbar-default.navbar-inverse{
     background-color: $magic-purple;
-    height: 60px !important;
+    
     a {
         color: white;
         &:hover {
@@ -42,15 +41,16 @@ header{
 }
 
 .dropdown-menu{
-  background-color: white;
+  background-color: white !important;
+  color: $magic-purple !important;
   a {
     color: $magic-purple !important;
-    height: 30px !important;
     &:hover {
       background-color: $magic-purple !important;
       color: white !important;
     }
   }
+  
 }
   
   section {
@@ -72,7 +72,6 @@ header{
   /* footer */
 
   footer {
-    margin-top: 45px;
     padding: 15px;
     border-top: 1px solid #eaeaea;
     color: #777;
@@ -146,10 +145,6 @@ header{
 }
 
 /* favorites */
-
-button.glyphicon.glyphicon-heart{
-  background: none;
-}
 
 .glyphicon.glyphicon-heart{
   color: lightgray;
@@ -268,7 +263,12 @@ input {
 /* Responsive */
 @media (max-width: 1150px) {
   .hide-on-mobile{
-    visibility: hidden;
-    height: 0px;
+    display: none;
+  }
+  .footer{
+    display: none;
+  }
+  .recently-tops{
+    display: none;
   }
 }
