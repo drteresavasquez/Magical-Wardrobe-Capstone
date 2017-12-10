@@ -5,6 +5,7 @@ class SessionsController < ApplicationController
     #@footwear
     #@accessory
     #@outfit
+    #api call = api.openweathermap.org/data/2.5/forecast?zip=#{:zip_code},us&&appid=ea2449ceaa9da5d4322f0604b9c58bd9
   end
 
   def create

@@ -147,8 +147,13 @@ header{
 
 /* favorites */
 
+button.glyphicon.glyphicon-heart{
+  background: none;
+}
+
 .glyphicon.glyphicon-heart{
   color: lightgray;
+  background: none;
 }
 
 .glyphicon.glyphicon-heart.fav{
@@ -256,6 +261,10 @@ input {
   }
 }
 
+
+.item-img{
+  margin-left: 15px;
+}
 /* Responsive */
 @media (max-width: 1150px) {
   .hide-on-mobile{

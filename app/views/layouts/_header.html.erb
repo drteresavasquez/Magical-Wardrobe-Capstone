@@ -12,7 +12,7 @@
                 </button>
                 <a class="navbar-brand" href="#">
                     <%= link_to image_tag("mwlogowhite.png", alt: "Magical Wardrobe Logo"),
-                        '#' %>
+                        root_path %>
                 </a>
             </div>
 
@@ -27,6 +27,9 @@
                     <li><%= link_to "Users", users_path %></li>
                         <%= render 'layouts/nav' %>
                         <% elsif logged_in? %>
+                        <li>
+                                <%= link_to "Home", root_path %>
+                            </li>
                             <%= render 'layouts/nav' %>
                         <% else %>
                           <li><%= link_to "Log in", login_path %></li>

@@ -1,18 +1,36 @@
 <% if @top.empty? %>
-<center><h3>You Don't Have Any Tops...</h3>
-  <%= link_to 'Add a Top', new_top_path, class: "btn btn-primary" %></center>
-<% else %>
-<h3>Recently Added Tops</h3>
-<% @top.each do |top| %>
-<div class="col-sm-3">
-  <div class="thumbnail">
-    <%= image_tag top.picture.url if top.picture? %> 
-    <div class="caption">
-      <h5><%= top.name %></h5>
-      <p> <%= link_to 'Details', top, class: "btn btn-info"%>
-        </p>
-    </div>
-  </div>
-</div>
-<% end %>
-<% end %>
+  <center>
+    <h3>You Don't Have Any Tops...</h3>
+    <%= link_to 'Add a Top', new_top_path, class: "btn btn-primary" %>
+  </center>
+  <% else %>
+    <h3>Recently Added Tops</h3>
+    <% @top.each do |top| %>
+      <div class="col-sm-3">
+        <div class="thumbnail">
+          <%= link_to image_tag(top.picture.url), top %>
+            <div class="caption">
+              <h4>
+                <% unless top.favorite? %>
+                  <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                  <% else %>
+                    <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span>
+                    <% end %>
+                      <%= top.name %>
+              </h4>
+              <p>
+                <strong>Status:</strong>
+                <% if top.active? %>
+                  Clean
+                  <% else %>
+                    Dirty
+                    <% end %>
+              </p>
+              <p>
+                <%= link_to 'Details', top, class: "btn btn-info"%>
+              </p>
+            </div>
+        </div>
+      </div>
+      <% end %>
+        <% end %>

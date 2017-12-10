@@ -4,18 +4,21 @@ password:              "123456",
 password_confirmation: "123456",
 admin: true,
 activated: true,
+zip_code: 37013,
 activated_at: Time.zone.now)
 
 99.times do |n|
 name  = Faker::Name.name
 email = "example-#{n+1}@magicalwardrobeapp.com"
 password = "password"
+zip_code = Faker::Address.zip_code
 User.create!(
   name:                  name,
   email:                 email,
   password:              password,
   password_confirmation: password,
   activated: true,
+  zip_code:              zip_code,
   activated_at: Time.zone.now)
 end
 

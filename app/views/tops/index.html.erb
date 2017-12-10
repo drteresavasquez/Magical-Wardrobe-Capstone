@@ -21,18 +21,6 @@
         <% end %>
         <div class="caption">
           <h4> 
-              <%= form_for(top) do |form| -%>
-              <% if top.favorite? %>
-              <%= form.hidden_field :favorite, :value => false %>
-              <%= submit_tag 'fav', class: "btn glyphicon glyphicon-heart" -%>
-                <% else %>
-                <%= form.hidden_field :favorite, :value => true %>
-               <%= submit_tag fa_icon 'fa-envelope lg', class: "btn glyphicon glyphicon-heart" -%>
-             
-              <% end %>
-              <% end %>
-
-
             <% unless top.favorite? %>
             <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
             <% else %>
@@ -40,6 +28,12 @@
             <% end %>
             <%= top.name %>
           </h4>
+          <p><strong>Status:</strong>
+            <% if top.active? %>
+            Clean
+            <% else %>
+            Dirty
+            <% end %></p>
           <p> <%= link_to 'Info', top, class: "btn btn-info"%>
             <%= link_to 'Edit', edit_top_path(top), class: "btn btn-warning" %>
             <%= link_to 'Delete', top, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %></p>

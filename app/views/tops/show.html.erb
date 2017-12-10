@@ -1,16 +1,20 @@
-</p>
-  <p>
-    <h3>
+
+<div class="row">      
+<div class="row">
+  <div class="hide-on-mobile">
+    <%= render 'shared/sidebar' %>
+  </div>
+</div>
+<div class="row">
+    <div class="col-sm-8">
+    <center><h3>
         <% unless @top.favorite? %>
         <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
         <% else %>
         <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span>
         <% end %>
         <%= @top.name %></h3>
-   
-  </p>
-
-  <%= image_tag @top.picture.url if @top.picture? %>
+        <%= image_tag @top.picture.url if @top.picture? %>
 
   <p>
       <strong>Status:</strong>
@@ -50,4 +54,10 @@
       <% end %>
       <% end %>
 
-      <%= link_to 'See All Tops', tops_path, class: "btn btn-primary" %>  <%= link_to 'Edit', edit_top_path(@top), class: "btn btn-primary" %>
+      <%= link_to 'See All Tops', tops_path, class: "btn btn-primary" %>  
+      <%= link_to 'Edit', edit_top_path(@top), class: "btn btn-primary" %>
+       <%= link_to 'Delete', @top, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %>
+      </center>
+      </div>
+    </div>
+  </div>

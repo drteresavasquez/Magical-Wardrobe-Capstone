@@ -29,7 +29,7 @@ class TopsController < ApplicationController
   def create
     @top = Top.new(top_params)
     if @top.save
-      flash.now[:success] = "Top was created!"
+      flash[:success] = "Top was created!"
       redirect_to @top
     else
       @weather = WeatherType.all
@@ -40,11 +40,11 @@ class TopsController < ApplicationController
   end
 
   def update
-    @top = Top.find(params[:id])
+    @top = set_top
     respond_to do |format|
       if @top.update(top_params)
         format.html { 
-          flash.now[:success] = 'Top was successfully updated.' 
+          flash[:success] = 'Top was successfully updated.' 
           redirect_to @top
         }
         format.json { render :show, status: :ok, location: @top }
@@ -60,7 +60,7 @@ class TopsController < ApplicationController
     @top.destroy
     respond_to do |format|
       format.html { 
-        flash.now[:success] = 'Top was successfully deleted.' 
+        flash[:success] = 'Top was successfully deleted.' 
         redirect_to tops_url 
         }
       format.json { head :no_content }
