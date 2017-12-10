@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
   get    '/hamper',  to: 'hamper#index'
+  post   'hamper/wash_all', to: 'hamper#wash_all'
   resources :tops
   resources :users
   resources :account_activations, only: [:edit]
