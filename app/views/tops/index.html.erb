@@ -34,9 +34,18 @@
             <% else %>
             Dirty
             <% end %></p>
-          <p> <%= link_to 'Info', top, class: "btn btn-info"%>
+            <%= form_for(top) do |form| -%>
+            <% if top.active? %>
+            <%= form.hidden_field :active, :value => false %>
+            <%= submit_tag 'Wear This!', class: "btn btn-info" -%>
+              <% else %>
+              <%= form.hidden_field :active, :value => true %>
+              <%= submit_tag 'Wash This!', class: "btn btn-warning" -%>
+            <% end %>
+            <% end %>
+          <p> <center><%= link_to 'Info', top, class: "btn btn-info"%>
             <%= link_to 'Edit', edit_top_path(top), class: "btn btn-warning" %>
-            <%= link_to 'Delete', top, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %></p>
+            <%= link_to 'Delete', top, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %></center></p>
         </div>
       </div>
     </div>

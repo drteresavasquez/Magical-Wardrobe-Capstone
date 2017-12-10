@@ -8,7 +8,11 @@
 
 <div class="row">
   <div class="col-sm-8">
+        <% if @top.empty? %>
+        <center><h3>You Don't Have Dirty Clothes!</h3>
+        <% else %>
         <%= render 'hamper_tops'%>
+        <% end %>
 </div>
 </div>
 </div>

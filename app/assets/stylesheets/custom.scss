@@ -156,8 +156,12 @@ header{
 }
 
 .wearthis{
-  width: 200px;
-  margin: 10px;
+  width: 30%;
+  margin: 10px 0px;
+}
+
+.washthis{
+  width: 40%;
 }
 
 /* forms */
@@ -271,4 +275,5 @@ input {
   .recently-tops{
     display: none;
   }
+ 
 }
