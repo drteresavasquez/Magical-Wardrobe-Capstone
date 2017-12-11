@@ -1,5 +1,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "font-awesome";
 
 $magic-purple: #781E5D;
 $hover-links: #1E8CBE;
@@ -146,6 +147,15 @@ header{
 
 /* favorites */
 
+.fa.fa-heart{
+  color: lightgray;
+  background: none;
+}
+
+.fa.fa-heart.fav{
+  color: red;
+}
+
 .glyphicon.glyphicon-heart{
   color: lightgray;
   background: none;
@@ -155,6 +165,7 @@ header{
   color: red;
 }
 
+/* Buttons */
 .wearthis{
   width: 30%;
   margin: 10px 0px;
@@ -162,6 +173,11 @@ header{
 
 .washthis{
   width: 40%;
+}
+
+.washeverything{
+  max-width: 40%;
+  margin-bottom: 20px;
 }
 
 /* forms */

@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  name: MyString
+  picture: MyString
+  weather: one
+  active: false
+  bottom_type: one
+  favorite: false
+  style_type: one
+  description: MyString
+
+two:
+  user: two
+  name: MyString
+  picture: MyString
+  weather: two
+  active: false
+  bottom_type: two
+  favorite: false
+  style_type: two
+  description: MyString

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171210045402) do
+ActiveRecord::Schema.define(version: 20171211000624) do
 
   create_table "accessory_types", force: :cascade do |t|
     t.string "name"
@@ -22,6 +22,24 @@ ActiveRecord::Schema.define(version: 20171210045402) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "bottoms", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "name"
+    t.string "description"
+    t.integer "weather_type_id"
+    t.integer "bottom_type_id"
+    t.integer "style_type_id"
+    t.string "picture"
+    t.boolean "favorite"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bottom_type_id"], name: "index_bottoms_on_bottom_type_id"
+    t.index ["style_type_id"], name: "index_bottoms_on_style_type_id"
+    t.index ["user_id"], name: "index_bottoms_on_user_id"
+    t.index ["weather_type_id"], name: "index_bottoms_on_weather_type_id"
   end
 
   create_table "footwear_types", force: :cascade do |t|

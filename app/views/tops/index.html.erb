@@ -8,6 +8,7 @@
 
  <div class="row">
     <div class="col-sm-8">
+      <center>
         <% if @top.empty? %>
         <center><h3>You Don't Have Any Tops...</h3>
         <%= link_to 'Add a Top', new_top_path, class: "btn btn-primary" %></center>
@@ -22,11 +23,12 @@
         <div class="caption">
           <h4> 
             <% unless top.favorite? %>
-            <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+            <%= link_to fa_icon("heart", class: "fa fa-heart"), top %>
             <% else %>
-            <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span>
+            <%= link_to fa_icon("heart", class: "fa fa-heart fav"), top %>
+            <!-- <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span> -->
             <% end %>
-            <%= top.name %>
+            <%= top.name %> #<%= top.id %>
           </h4>
           <p><strong>Status:</strong>
             <% if top.active? %>
@@ -51,6 +53,7 @@
     </div>
     <% end %>
     <% end %>
+  </center>
   </div>
   </div>
   </div>

@@ -76,6 +76,11 @@ class TopsController < ApplicationController
     end
   end
 
+  def favorite(id, favorite)
+    Top.find(params[id]).update(favorite => true)
+    redirect_to tops_url
+  end
+
   private
 
     def set_top

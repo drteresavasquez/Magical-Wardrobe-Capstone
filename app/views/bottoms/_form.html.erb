@@ -1,0 +1,54 @@
+<%= form_for(@bottom) do |form| %>
+  <% if bottom.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(bottom.errors.count, "error") %> prohibited this bottom from being saved:</h2>
+
+      <ul>
+      <% bottom.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form.hidden_field :user_id, :value => current_user.id %>
+  <%= form.hidden_field :active, :value => true %>
+
+  <div class="field">
+      <%= form.label :name %>
+      <%= form.text_field :name, class: 'form-control' %>
+    </div>
+
+    <div class="field">
+        <%= form.label :weather_type_id %>
+        <%= form.collection_select :weather_type_id, @weather, :id, :name, :prompt => "Select a Weather Type"%>
+      </div>
+
+  <div class="field">
+    <%= form.label :bottom_type_id %>
+    <%= form.collection_select :bottom_type_id, @type, :id, :name, :prompt => "Select a Top Type" %>
+  </div>
+
+  <div class="field">
+      <%= form.label :style_type_id %>
+      <%= form.collection_select :style_type_id, @style, :id, :name, :prompt => "Select a Style"%>
+    </div>
+
+  <div class="field">
+      <%= form.label :description %>
+      <%= form.text_field :description, class: 'form-control' %>
+    </div>
+
+    <span class="picture">
+        <%= form.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+      </span>
+
+    <div class="field">
+        <%= form.label :favorite %>
+        <%= form.check_box :favorite, class: 'form-control' %>
+      </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

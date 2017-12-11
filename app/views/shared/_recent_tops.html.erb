@@ -1,4 +1,4 @@
-
+<center>
 <% if @top.empty? %>
   <center>
     <h3>You Don't Have Any Tops...</h3>
@@ -11,14 +11,14 @@
         <div class="thumbnail">
           <%= link_to image_tag(top.picture.url), top %>
             <div class="caption">
-              <h4>
+              <h5>
                 <% unless top.favorite? %>
                   <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
                   <% else %>
                     <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span>
                     <% end %>
-                      <%= top.name %>
-              </h4>
+                      <%= top.name %> #<%= top.id %>
+              </h5>
               <p>
                 <strong>Status:</strong>
                 <% if top.active? %>
@@ -35,3 +35,4 @@
       </div>
       <% end %>
         <% end %>
+      </center>

@@ -1,28 +1,28 @@
 
-<% @top.each do |top| %>
+<% @bottom.each do |bottom| %>
 <div class="col-sm-4">
 <div class="thumbnail">
-<% if top.picture? %>
-<%= link_to image_tag(top.picture.url), top %> 
+<% if bottom.picture? %>
+<%= link_to image_tag(bottom.picture.url), bottom %> 
 <% end %>
 <div class="caption">
   <h4> 
-    <% unless top.favorite? %>
+    <% unless bottom.favorite? %>
     <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
     <% else %>
     <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span>
     <% end %>
-    <%= top.name %>
-    #<%= top.id %>
+    <%= bottom.name %>
+    #<%= bottom.id %>
   </h4>
   <p><strong>Status:</strong>
-    <% if top.active? %>
+    <% if bottom.active? %>
     Clean
     <% else %>
     Dirty
     <% end %></p>
    
-    <%= form_for(top) do |form| -%>
+    <%= form_for(bottom) do |form| -%>
       <%= form.hidden_field :active, :value => true %>
       <%= submit_tag 'Wash This!', class: "btn btn-warning" -%>
     <% end %>

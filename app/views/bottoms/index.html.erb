@@ -1,0 +1,59 @@
+</p>
+<div class="row">      
+<div class="row">
+  <div class="hide-on-mobile">
+    <%= render 'shared/sidebar' %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-8">
+    <center>
+      <% if @bottom.empty? %>
+      <center><h3>You Don't Have Any Bottoms...</h3>
+      <%= link_to 'Add a Bottom', new_bottom_path, class: "btn btn-primary" %></center>
+    <% else %>
+    <center><h1>Bottoms</h1></center>
+  <% @bottom.each do |bottom| %>
+  <div class="col-sm-4">
+    <div class="thumbnail">
+      <% if bottom.picture? %>
+      <%= link_to image_tag(bottom.picture.url), bottom %> 
+      <% end %>
+      <div class="caption">
+        <h4> 
+          <% unless bottom.favorite? %>
+          <%= link_to fa_icon("heart", class: "fa fa-heart"), bottom %>
+          <% else %>
+          <%= link_to fa_icon("heart", class: "fa fa-heart fav"), bottom %>
+          <!-- <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span> -->
+          <% end %>
+          <%= bottom.name %> #<%= bottom.id %>
+        </h4>
+        <p><strong>Status:</strong>
+          <% if bottom.active? %>
+          Clean
+          <% else %>
+          Dirty
+          <% end %></p>
+          <%= form_for(bottom) do |form| -%>
+          <% if bottom.active? %>
+          <%= form.hidden_field :active, :value => false %>
+          <%= submit_tag 'Wear This!', class: "btn btn-info" -%>
+            <% else %>
+            <%= form.hidden_field :active, :value => true %>
+            <%= submit_tag 'Wash This!', class: "btn btn-warning" -%>
+          <% end %>
+          <% end %>
+        <p> <center><%= link_to 'Info', bottom, class: "btn btn-info"%>
+          <%= link_to 'Edit', edit_bottom_path(bottom), class: "btn btn-warning" %>
+          <%= link_to 'Delete', bottom, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %></center></p>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  <% end %>
+</center>
+</div>
+</div>
+</div>
