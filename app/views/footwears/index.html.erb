@@ -1,0 +1,44 @@
+</p>
+<div class="row">      
+<div class="row">
+  <div class="hide-on-mobile">
+    <%= render 'shared/sidebar' %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-8">
+    <center>
+      <% if @footwear.empty? %>
+      <center><h3>You Don't Have Any Footwear...</h3>
+      <%= link_to 'Add a Pair', new_footwear_path, class: "btn btn-primary" %></center>
+    <% else %>
+    <center><h1>Footwear</h1></center>
+  <% @footwear.each do |footwear| %>
+  <div class="col-sm-4">
+    <div class="thumbnail">
+      <% if footwear.picture? %>
+      <%= link_to image_tag(footwear.picture.url), footwear %> 
+      <% end %>
+      <div class="caption">
+        <h4> 
+          <% unless footwear.favorite? %>
+          <%= link_to fa_icon("heart", class: "fa fa-heart"), footwear %>
+          <% else %>
+          <%= link_to fa_icon("heart", class: "fa fa-heart fav"), footwear %>
+          <!-- <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span> -->
+          <% end %>
+          <%= footwear.name %> #<%= footwear.id %>
+        </h4>
+        <p> <center><%= link_to 'Info', footwear, class: "btn btn-info"%>
+          <%= link_to 'Edit', edit_footwear_path(footwear), class: "btn btn-warning" %>
+          <%= link_to 'Delete', footwear, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %></center></p>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  <% end %>
+</center>
+</div>
+</div>
+</div>

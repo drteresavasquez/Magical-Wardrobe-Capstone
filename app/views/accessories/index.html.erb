@@ -1,0 +1,45 @@
+</p>
+<div class="row">      
+<div class="row">
+  <div class="hide-on-mobile">
+    <%= render 'shared/sidebar' %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-8">
+    <center>
+      <% if @accessory.empty? %>
+      <center><h3>You Don't Have Any Accessories...</h3>
+      <%= link_to 'Add an Accessory', new_accessory_path, class: "btn btn-primary" %></center>
+    <% else %>
+    <center><h1>Accessories</h1></center>
+  <% @accessory.each do |accessory| %>
+  <div class="col-sm-4">
+    <div class="thumbnail">
+      <% if accessory.picture? %>
+      <%= link_to image_tag(accessory.picture.url), accessory %> 
+      <% end %>
+      <div class="caption">
+        <h4> 
+          <% unless accessory.favorite? %>
+          <%= link_to fa_icon("heart", class: "fa fa-heart"), accessory %>
+          <% else %>
+          <%= link_to fa_icon("heart", class: "fa fa-heart fav"), accessory %>
+          <!-- <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span> -->
+          <% end %>
+          <%= accessory.name %> #<%= accessory.id %>
+        </h4>
+        
+        <p> <center><%= link_to 'Info', accessory, class: "btn btn-info"%>
+          <%= link_to 'Edit', edit_accessory_path(accessory), class: "btn btn-warning" %>
+          <%= link_to 'Delete', accessory, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %></center></p>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  <% end %>
+</center>
+</div>
+</div>
+</div>

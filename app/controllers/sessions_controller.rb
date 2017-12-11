@@ -5,8 +5,8 @@ class SessionsController < ApplicationController
   def new
     @top = Top.where(user_id: current_user.id).order('id DESC').limit(4) if logged_in?
     @bottom = Bottom.where(user_id: current_user.id).order('id DESC').limit(4) if logged_in?
-    #@footwear
-    #@accessory
+    @footwear = Footwear.where(user_id: current_user.id).order('id DESC').limit(4) if logged_in?
+    @accessory = Accessory.where(user_id: current_user.id).order('id DESC').limit(4) if logged_in?
     #@outfit
     #api call = api.openweathermap.org/data/2.5/forecast?zip=#{:zip_code},us&&appid=ea2449ceaa9da5d4322f0604b9c58bd9
   end

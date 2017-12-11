@@ -1,0 +1,32 @@
+
+<center>
+        <% if @accessory.empty? %>
+          <center>
+            <h3>You Don't Have Any Accessories...</h3>
+            <%= link_to 'Add an Accessory', new_accessory_path, class: "btn btn-primary" %>
+          </center>
+          <% else %>
+            <h3>Recently Added Accessories</h3>
+            <% @accessory.each do |accessory| %>
+              <div class="col-sm-3">
+                <div class="thumbnail">
+                  <%= link_to image_tag(accessory.picture.url), accessory %>
+                    <div class="caption">
+                      <h5>
+                        <% unless accessory.favorite? %>
+                          <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                          <% else %>
+                            <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span>
+                            <% end %>
+                              <%= accessory.name %> #<%= accessory.id %>
+                      </h5>
+            
+                      <p>
+                        <%= link_to 'Details', accessory, class: "btn btn-info"%>
+                      </p>
+                    </div>
+                </div>
+              </div>
+              <% end %>
+                <% end %>
+              </center>

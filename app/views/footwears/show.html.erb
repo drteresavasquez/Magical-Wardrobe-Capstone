@@ -1,0 +1,47 @@
+
+<div class="row">      
+    <div class="row">
+      <div class="hide-on-mobile">
+        <%= render 'shared/sidebar' %>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8">
+        <center><h3>
+            <% unless @footwear.favorite? %>
+            <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+            <% else %>
+            <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span>
+            <% end %>
+            <%= @footwear.name %> #<%= @footwear.id %></h3>
+            <%= image_tag @footwear.picture.url if @footwear.picture? %>
+    
+      <p>
+        <p>
+          <strong>Weather Type:</strong>
+          <%= @footwear.weather_type.name %>
+        </p>
+    
+        <p>
+          <strong>Top type:</strong>
+          <%= @footwear.footwear_type.name %>
+        </p>
+    
+        <p>
+          <strong>Style:</strong>
+          <%= @footwear.style_type.name %>
+        </p>
+    
+        <p>
+          <strong>Description:</strong>
+          <%= @footwear.description %>
+        </p>
+    
+          <%= link_to 'See All Footwear', footwears_path, class: "btn btn-primary" %>  
+          <%= link_to 'Edit', edit_footwear_path(@footwear), class: "btn btn-primary" %>
+           <%= link_to 'Delete', @footwear, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %>
+          </center>
+          </div>
+        </div>
+      </div>
+    

@@ -58,7 +58,8 @@ end
       {name: "Slumming"},
       {name: "Casual"},
       {name: "Business Casual"},
-      {name: "Business Professional"}
+      {name: "Business Professional"},
+      {name: "Any"}
     ])
 
     WeatherType.create!([
@@ -66,7 +67,8 @@ end
       {name: "Hot"},
       {name: "Rain"},
       {name: "Snow"},
-      {name: "Cool"}
+      {name: "Cool"},
+      {name: "Any"}
     ])
 
     

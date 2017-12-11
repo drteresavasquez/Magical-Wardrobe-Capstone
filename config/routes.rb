@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :accessories
   root   'sessions#new'
   get    '/help',    to: 'static_pages#help'
   get    '/about',   to: 'static_pages#about'
@@ -13,6 +14,7 @@ Rails.application.routes.draw do
   resources :users
   resources :tops
   resources :bottoms
+  resources :footwears
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
 end
