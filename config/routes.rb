@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'random/outfit'
+
+  get 'random/clothes'
+
   root   'sessions#new'
   get    '/help',    to: 'static_pages#help'
   get    '/about',   to: 'static_pages#about'

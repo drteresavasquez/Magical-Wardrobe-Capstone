@@ -228,6 +228,8 @@ GEM
     guard-minitest (2.4.6)
       guard-compat (~> 1.2)
       minitest (>= 3.0)
+    httparty (0.15.6)
+      multi_xml (>= 0.5.2)
     i18n (0.9.1)
       concurrent-ruby (~> 1.0)
     inflecto (0.0.2)
@@ -263,6 +265,7 @@ GEM
       minitest (>= 5.0)
       ruby-progressbar
     multi_json (1.12.2)
+    multi_xml (0.6.0)
     nenv (0.3.0)
     nio4r (2.1.0)
     nokogiri (1.8.1)
@@ -378,6 +381,7 @@ DEPENDENCIES
   font-awesome-rails
   guard (= 2.14.1)
   guard-minitest (= 2.4.6)
+  httparty
   jbuilder (= 2.7.0)
   jquery-rails (= 4.3.1)
   listen (= 3.0.8)
