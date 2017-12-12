@@ -55,6 +55,11 @@ class BottomsController < ApplicationController
   # PATCH/PUT /bottoms/1.json
   def update
     @bottom = set_bottom
+    if @bottom.active?
+    Outfit.where(user_id: current_user.id, bottom_id: @bottom.id).update_all(:active => false)
+    else
+    Outfit.where(user_id: current_user.id, bottom_id: @bottom.id).update_all(:active => true)
+    end
     respond_to do |format|
       if @bottom.update(bottom_params)
         format.html { 

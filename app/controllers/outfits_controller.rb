@@ -29,13 +29,6 @@ class OutfitsController < ApplicationController
     end
   end
 
-  # def wear_outfit
-  #   @outfit = set_outfit
-  #   Top.where(user_id: current_user.id, id: @outfit.top_id).update_all(:active => false)
-  #   Bottom.where(user_id: current_user.id, id: @outfit.bottom_id).update_all(:active => false)
-  #   redirect_to outfits_path
-  # end
-
   # GET /outfits/new
   def new
     @outfit = Outfit.new
@@ -84,6 +77,13 @@ class OutfitsController < ApplicationController
   # PATCH/PUT /outfits/1.json
   def update
     @outfit = set_outfit
+    if @outfit.active?
+    Top.where(user_id: current_user.id, id: @outfit.top_id).update_all(:active => false)
+      Bottom.where(user_id: current_user.id, id: @outfit.bottom_id).update_all(:active => false)
+    else
+      Top.where(user_id: current_user.id, id: @outfit.top_id).update_all(:active => true)
+      Bottom.where(user_id: current_user.id, id: @outfit.bottom_id).update_all(:active => true)
+    end
     respond_to do |format|
       if @outfit.update(outfit_params)
         format.html { 
