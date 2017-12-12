@@ -1,0 +1,69 @@
+
+<div class="row">      
+    <div class="row">
+      <div class="hide-on-mobile">
+        <%= render 'shared/sidebar' %>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8">
+        <center><h3>
+            <% unless @outfit.favorite? %>
+            <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+            <% else %>
+            <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span>
+            <% end %>
+            <%= @outfit.name %> #<%= @outfit.id %></h3>
+            <%= image_tag @outfit.picture.url if @outfit.picture? %>
+            <%= image_tag @top.picture.url if @top.picture? %>
+            <%= image_tag @bottom.picture.url if @bottom.picture? %>
+            <% unless @footwear == 0 %>
+            <%= image_tag @footwear.picture.url if @footwear.picture? %>
+            <% end %>
+            <% unless @accessory == 0 %>
+            <%= image_tag @accessory.picture.url if @accessory.picture? %>
+            <% end %>
+      
+    
+      <p>
+          <strong>Status:</strong>
+          <% if @outfit.active? %>
+            Clean
+            <% else %>
+            Dirty
+            <% end %>
+        </p>
+    
+        <p>
+          <strong>Weather Type:</strong>
+          <%= @outfit.weather_type.name %>
+        </p>
+    
+        <p>
+          <strong>Style:</strong>
+          <%= @outfit.style_type.name %>
+        </p>
+    
+        <p>
+          <strong>Description:</strong>
+          <%= @outfit.description %>
+        </p>
+   
+        <%= form_for(@outfit) do |form| -%>
+        <% if @outfit.active? %>
+        <%= form.hidden_field :active, :value => false %>
+        <%= submit_tag 'Wear This!', class: "btn btn-info wearthis" -%>
+          <% else %>
+          <%= form.hidden_field :active, :value => true %>
+          <%= submit_tag 'Wash This!', class: "btn btn-warning wearthis" -%>
+        <% end %>
+        <% end %>
+    
+          <%= link_to 'See All Outfits', outfits_path, class: "btn btn-primary" %>  
+          <%= link_to 'Edit', edit_outfit_path(@outfit), class: "btn btn-primary" %>
+           <%= link_to 'Delete', @outfit, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %>
+          </center>
+          </div>
+        </div>
+      </div>
+    

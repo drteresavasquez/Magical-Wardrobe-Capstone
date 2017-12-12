@@ -1,0 +1,59 @@
+</p>
+<div class="row">      
+<div class="row">
+  <div class="hide-on-mobile">
+    <%= render 'shared/sidebar' %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-8">
+    <center>
+      <% if @outfit.empty? %>
+      <center><h3>You Don't Have Any Outfits...</h3>
+      <%= link_to 'Add an Outfit', new_outfit_path, class: "btn btn-primary" %></center>
+    <% else %>
+    <center><h1>Outfits</h1></center>
+  <% @outfit.each do |outfit| %>
+  <div class="col-sm-4">
+    <div class="thumbnail">
+      <% if outfit.picture? %>
+      <%= link_to image_tag(outfit.picture.url), outfit %> 
+      <% end %>
+      <div class="caption">
+        <h4> 
+          <% unless outfit.favorite? %>
+          <%= link_to fa_icon("heart", class: "fa fa-heart"), outfit %>
+          <% else %>
+          <%= link_to fa_icon("heart", class: "fa fa-heart fav"), outfit %>
+          <!-- <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span> -->
+          <% end %>
+          <%= outfit.name %> #<%= outfit.id %>
+        </h4>
+        <p><strong>Status:</strong>
+          <% if outfit.active? %>
+          Clean
+          <% else %>
+          Dirty
+          <% end %></p>
+          <%= form_for(outfit) do |form| -%>
+          <% if outfit.active? %>
+          <%= form.hidden_field :active, :value => false %>
+          <%= submit_tag 'Wear This!', class: "btn btn-info" -%>
+            <% else %>
+            <%= form.hidden_field :active, :value => true %>
+            <%= submit_tag 'Wash This!', class: "btn btn-warning" -%>
+          <% end %>
+          <% end %>
+        <p> <center><%= link_to 'Info', outfit, class: "btn btn-info"%>
+          <%= link_to 'Edit', edit_outfit_path(outfit), class: "btn btn-warning" %>
+          <%= link_to 'Delete', outfit, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %></center></p>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  <% end %>
+</center>
+</div>
+</div>
+</div>

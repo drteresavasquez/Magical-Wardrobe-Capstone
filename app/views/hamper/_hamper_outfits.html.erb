@@ -1,0 +1,32 @@
+
+<% @outfit.each do |outfit| %>
+<div class="col-sm-4">
+<div class="thumbnail">
+<% if outfit.picture? %>
+<%= link_to image_tag(outfit.picture.url), outfit %> 
+<% end %>
+<div class="caption">
+  <h4> 
+    <% unless outfit.favorite? %>
+    <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+    <% else %>
+    <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span>
+    <% end %>
+    <%= outfit.name %>
+    #<%= outfit.id %>
+  </h4>
+  <p><strong>Status:</strong>
+    <% if outfit.active? %>
+    Clean
+    <% else %>
+    Dirty
+    <% end %></p>
+   
+    <%= form_for(outfit) do |form| -%>
+      <%= form.hidden_field :active, :value => true %>
+      <%= submit_tag 'Wash This!', class: "btn btn-warning" -%>
+    <% end %>
+</div>
+</div>
+</div>
+<% end %>

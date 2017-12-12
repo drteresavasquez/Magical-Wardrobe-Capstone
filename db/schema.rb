@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171211175214) do
+ActiveRecord::Schema.define(version: 20171212000557) do
 
   create_table "accessories", force: :cascade do |t|
     t.integer "user_id"
@@ -82,6 +82,30 @@ ActiveRecord::Schema.define(version: 20171211175214) do
     t.index ["style_type_id"], name: "index_footwears_on_style_type_id"
     t.index ["user_id"], name: "index_footwears_on_user_id"
     t.index ["weather_type_id"], name: "index_footwears_on_weather_type_id"
+  end
+
+  create_table "outfits", force: :cascade do |t|
+    t.integer "top_id"
+    t.integer "bottom_id"
+    t.integer "accessory_id"
+    t.integer "footwear_id"
+    t.integer "weather_type_id"
+    t.integer "user_id"
+    t.boolean "active"
+    t.boolean "favorite"
+    t.string "picture"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "style_type_id"
+    t.string "name"
+    t.string "description"
+    t.index ["accessory_id"], name: "index_outfits_on_accessory_id"
+    t.index ["bottom_id"], name: "index_outfits_on_bottom_id"
+    t.index ["footwear_id"], name: "index_outfits_on_footwear_id"
+    t.index ["style_type_id"], name: "index_outfits_on_style_type_id"
+    t.index ["top_id"], name: "index_outfits_on_top_id"
+    t.index ["user_id"], name: "index_outfits_on_user_id"
+    t.index ["weather_type_id"], name: "index_outfits_on_weather_type_id"
   end
 
   create_table "style_types", force: :cascade do |t|

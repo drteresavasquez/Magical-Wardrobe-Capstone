@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  top: one
+  bottom: one
+  accessory: one
+  footwear: one
+  weather_type: one
+  user: one
+  active: false
+  favorite: false
+
+two:
+  top: two
+  bottom: two
+  accessory: two
+  footwear: two
+  weather_type: two
+  user: two
+  active: false
+  favorite: false
