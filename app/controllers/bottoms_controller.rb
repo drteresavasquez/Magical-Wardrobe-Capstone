@@ -28,7 +28,7 @@ class BottomsController < ApplicationController
     if current_user.id == Bottom.find(params[:id]).user_id
       @weather = WeatherType.all
       @style = StyleType.all
-      @type = TopType.all
+      @type = BottomType.all
       @bottom = Bottom.find(params[:id])
     else
       redirect_to bottoms_url
