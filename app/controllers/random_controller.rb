@@ -1,7 +1,10 @@
 class RandomController < ApplicationController
-
+  include SessionsHelper
+  
   def outfit
-    weather = OpenWeather.new("37013")
+    user = User.find(current_user.id)
+    zip = user.zip_code
+    weather = OpenWeather.new(zip)
     response = weather.get_weather
 
     @temp = response['list'][0]['main']['temp']
@@ -21,6 +24,20 @@ class RandomController < ApplicationController
       @selected = nil
     else
       @selected = rand_outfit
+      @top = Top.where(user_id: current_user.id, id: @selected.top_id)
+      @bottom = Bottom.where(user_id: current_user.id, id: @selected.bottom_id)
+
+      unless @selected.footwear_id.nil?
+        @footwear = Footwear.where(user_id: current_user.id, id: @selected.footwear_id)
+        else 
+          @footwear = 0
+      end
+
+        unless @selected.accessory_id.nil?
+          @accessory = Accessory.where(user_id: current_user.id, id: @selected.accessory_id)
+        else
+          @accessory = 0
+        end
     end
 
     @weather = response['list'][1]['weather'][0]['main']

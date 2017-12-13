@@ -1,2 +1,53 @@
-<h1>Random#outfit</h1>
-<p>Find me in app/views/random/outfit.html.erb</p>
+<div class="row">
+    <div class="row">
+        <div class="hide-on-mobile">
+            <%= render 'shared/sidebar' %>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8">
+            <center>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3>
+                            <% unless @selected.favorite? %>
+                                <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                                <% else %>
+                                    <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span>
+                                    <% end %>
+                                        <%= @selected.name %>
+                                            #
+                                            <%= @selected.id %>
+                        </h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+
+                        <%= link_to image_tag(@selected.picture.url), @selected %>
+                    </div>
+                </div>
+
+                <div class="row center">
+                    <div class="col-sm-3">
+
+                        <p>
+                            <strong>Weather Type:</strong>
+                            <%= @selected.weather_type.name %>
+                        </p>
+
+                        <p>
+                            <strong>Style:</strong>
+                            <%= @selected.style_type.name %>
+                        </p>
+                        <p>
+                            <strong>Description:</strong>
+                            <%= @selected.description %>
+                        </p>
+
+                    </div>
+            </center>
+            </div>
+        </div>
+    </div>
+</div>
