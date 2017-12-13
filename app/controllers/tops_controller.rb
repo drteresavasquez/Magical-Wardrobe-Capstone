@@ -21,6 +21,7 @@ class TopsController < ApplicationController
     @weather = WeatherType.all
     @style = StyleType.all
     @type = TopType.all
+    @temp = TemperatureType.all
   end
 
   #if top belongs to current user, allow edit
@@ -29,6 +30,7 @@ class TopsController < ApplicationController
       @weather = WeatherType.all
       @style = StyleType.all
       @type = TopType.all
+      @temp = TemperatureType.all
       @top = Top.find(params[:id])
     else
       redirect_to tops_url
@@ -44,6 +46,7 @@ class TopsController < ApplicationController
       @weather = WeatherType.all
       @style = StyleType.all
       @type = TopType.all
+      @temp = TemperatureType.all
       render 'new'
     end
   end
@@ -103,6 +106,7 @@ class TopsController < ApplicationController
         :description, 
         :favorite, 
         :active,
+        :temperature_type_id,
         :picture)
     end
 end

@@ -13,7 +13,6 @@
         <% else %>
         <center><h1>Items in Hamper</h1>  <%= button_to 'Wash Everything', hamper_wash_all_path, class: "btn btn-success washeverything", method: :post %></center>
 
-        <%= render 'hamper_outfits'%>
         <%= render 'hamper_tops'%>
         <%= render 'hamper_bottoms'%>
         <% end %>

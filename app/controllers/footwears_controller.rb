@@ -23,6 +23,7 @@ class FootwearsController < ApplicationController
     @weather = WeatherType.all
     @style = StyleType.all
     @type = FootwearType.all
+    @temp = TemperatureType.all
   end
 
   # GET /footwears/1/edit
@@ -31,6 +32,7 @@ class FootwearsController < ApplicationController
       @weather = WeatherType.all
       @style = StyleType.all
       @type = FootwearType.all
+      @temp = TemperatureType.all
       @footwear = Footwear.find(params[:id])
     else
       redirect_to footwears_url
@@ -48,6 +50,7 @@ class FootwearsController < ApplicationController
         @weather = WeatherType.all
         @style = StyleType.all
         @type = TopType.all
+        @temp = TemperatureType.all
         render 'new'
       end
   end
@@ -100,6 +103,7 @@ class FootwearsController < ApplicationController
         :footwear_type_id, 
         :favorite, 
         :style_type_id, 
+        :temperature_type_id, 
         :user_id, 
         :description)
     end

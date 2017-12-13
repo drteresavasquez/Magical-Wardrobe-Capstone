@@ -25,6 +25,11 @@
   </div>
 
   <div class="field">
+      <%= form.label :temperature_type_id %>
+      <%= form.collection_select :temperature_type_id, @temp, :id, :name , :prompt => "Select a Temperature Type"%>
+    </div>
+
+  <div class="field">
     <%= form.label :top_type_id %>
     <%= form.collection_select :top_type_id, @type, :id, :name, :prompt => "Select a Top Type"%>
   </div>

@@ -1,8 +1,7 @@
 class Outfit < ApplicationRecord
   belongs_to :top
   belongs_to :bottom
-  # belongs_to :accessory
-  # belongs_to :footwear
+  belongs_to :temperature_type
   belongs_to :weather_type
   belongs_to :style_type
   belongs_to :user

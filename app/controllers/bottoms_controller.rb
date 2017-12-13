@@ -21,6 +21,7 @@ class BottomsController < ApplicationController
     @weather = WeatherType.all
     @style = StyleType.all
     @type = BottomType.all
+    @temp = TemperatureType.all
   end
 
   # GET /bottoms/1/edit
@@ -29,6 +30,7 @@ class BottomsController < ApplicationController
       @weather = WeatherType.all
       @style = StyleType.all
       @type = BottomType.all
+      @temp = TemperatureType.all
       @bottom = Bottom.find(params[:id])
     else
       redirect_to bottoms_url
@@ -46,6 +48,7 @@ class BottomsController < ApplicationController
         @weather = WeatherType.all
         @style = StyleType.all
         @type = BottomType.all
+        @temp = TemperatureType.all
         render 'new'
       end
   end
@@ -100,6 +103,16 @@ class BottomsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bottom_params
-      params.require(:bottom).permit(:user_id, :name, :picture, :weather_type_id, :active, :bottom_type_id, :favorite, :style_type_id, :description)
+      params.require(:bottom).permit(
+        :user_id, 
+        :name, 
+        :picture, 
+        :weather_type_id, 
+        :active, 
+        :bottom_type_id, 
+        :favorite, 
+        :style_type_id, 
+        :temperature_type_id, 
+        :description)
     end
 end

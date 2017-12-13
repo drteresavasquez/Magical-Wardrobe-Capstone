@@ -23,6 +23,11 @@
         <%= form.label :weather_type_id %>
         <%= form.collection_select :weather_type_id, @weather, :id, :name , :prompt => "Select a Weather Type"%>
     </div>
+
+    <div class="field">
+        <%= form.label :temperature_type_id %>
+        <%= form.collection_select :temperature_type_id, @temp, :id, :name , :prompt => "Select a Temperature Type"%>
+      </div>
   
     <div class="field">
         <%= form.label :footwear_type_id %>

@@ -3,6 +3,7 @@ class Bottom < ApplicationRecord
   belongs_to :weather_type
   belongs_to :bottom_type
   belongs_to :style_type
+  belongs_to :temperature_type
   mount_uploader :picture, PictureUploader
   validate  :picture_size
 

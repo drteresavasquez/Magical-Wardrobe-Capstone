@@ -2,6 +2,7 @@ class Accessory < ApplicationRecord
   belongs_to :weather_type
   belongs_to :accessory_type
   belongs_to :style_type
+  belongs_to :temperature_type
   belongs_to :user
   mount_uploader :picture, PictureUploader
   validate  :picture_size

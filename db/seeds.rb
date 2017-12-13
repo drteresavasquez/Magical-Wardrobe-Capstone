@@ -63,11 +63,18 @@ end
     ])
 
     WeatherType.create!([
-      {name: "Cold"},
-      {name: "Hot"},
       {name: "Rain"},
+      {name: "Sunny"},
       {name: "Snow"},
+      {name: "Clear"},
+      {name: "Any"}
+    ])
+
+    TemperatureType.create!([
+      {name: "Cold"},
       {name: "Cool"},
+      {name: "Hot"},
+      {name: "Warm"},
       {name: "Any"}
     ])
 

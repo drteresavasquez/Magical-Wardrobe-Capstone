@@ -34,6 +34,7 @@ class OutfitsController < ApplicationController
     @outfit = Outfit.new
     @weather = WeatherType.all
     @style = StyleType.all
+    @temp = TemperatureType.all
     @top = Top.where(user_id: current_user.id)
     @bottom = Bottom.where(user_id: current_user.id)
     @accessory = Accessory.where(user_id: current_user.id)
@@ -45,6 +46,7 @@ class OutfitsController < ApplicationController
     if current_user.id == Outfit.find(params[:id]).user_id
       @weather = WeatherType.all
       @style = StyleType.all
+      @temp = TemperatureType.all
       @outfit = Outfit.find(params[:id])
       @top = Top.where(user_id: current_user.id)
       @bottom = Bottom.where(user_id: current_user.id)
@@ -69,6 +71,7 @@ class OutfitsController < ApplicationController
       @bottom = Bottom.where(user_id: current_user.id)
       @accessory = Accessory.where(user_id: current_user.id)
       @footwear = Footwear.where(user_id: current_user.id)
+      @temp = TemperatureType.all
       render 'new'
     end
   end
@@ -131,6 +134,7 @@ class OutfitsController < ApplicationController
         :favorite, 
         :picture, 
         :style_type_id,
+        :temperature_type_id,
         :description
         )
     end

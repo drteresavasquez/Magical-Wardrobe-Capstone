@@ -23,6 +23,7 @@ class AccessoriesController < ApplicationController
     @weather = WeatherType.all
     @style = StyleType.all
     @type = AccessoryType.all
+    @temp = TemperatureType.all
   end
 
   # GET /accessories/1/edit
@@ -31,6 +32,7 @@ class AccessoriesController < ApplicationController
       @weather = WeatherType.all
       @style = StyleType.all
       @type = AccessoryType.all
+      @temp = TemperatureType.all
       @accessory = Accessory.find(params[:id])
     else
       redirect_to accessories_url
@@ -92,6 +94,16 @@ class AccessoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def accessory_params
-      params.require(:accessory).permit(:name, :picture, :active, :weather_type_id, :accessory_type_id, :favorite, :style_type_id, :user_id, :description)
+      params.require(:accessory).permit(
+        :name, 
+        :picture, 
+        :active, 
+        :weather_type_id, 
+        :accessory_type_id, 
+        :favorite, 
+        :style_type_id, 
+        :temperature_type_id, 
+        :user_id, 
+        :description)
     end
 end
