@@ -4,45 +4,45 @@ class FootwearsController < ApplicationController
   # GET /footwears
   # GET /footwears.json
   def index
-    if current_user.nil?
-      redirect_to login_path
-    else
+    # if current_user.nil?
+    #   redirect_to login_path
+    # else
     @footwear = Footwear.where(user_id: current_user.id)
-    end
+    # end
   end
 
   # GET /footwears/1
   # GET /footwears/1.json
   def show
-    if current_user.nil?
-      redirect_to login_path
-    else
+    # if current_user.nil?
+    #   redirect_to login_path
+    # else
     if current_user.id == Footwear.find(params[:id]).user_id
       @footwear = Footwear.find(params[:id])
     else
       redirect_to footwears_url
     end
-  end
+  # end
   end
 
   # GET /footwears/new
   def new
-    if current_user.nil?
-      redirect_to login_path
-    else
+    # if current_user.nil?
+    #   redirect_to login_path
+    # else
     @footwear = Footwear.new
     @weather = WeatherType.all
     @style = StyleType.all
     @type = FootwearType.all
     @temp = TemperatureType.all
-    end
+    # end
   end
 
   # GET /footwears/1/edit
   def edit
-    if current_user.nil?
-      redirect_to login_path
-    else
+    # if current_user.nil?
+    #   redirect_to login_path
+    # else
     if current_user.id == Footwear.find(params[:id]).user_id
       @weather = WeatherType.all
       @style = StyleType.all
@@ -52,7 +52,7 @@ class FootwearsController < ApplicationController
     else
       redirect_to footwears_url
     end
-  end
+  # end
   end
 
   # POST /footwears

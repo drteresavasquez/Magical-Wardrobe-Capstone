@@ -3,19 +3,12 @@ class OutfitsController < ApplicationController
   # GET /outfits
   # GET /outfits.json
   def index
-    unless current_user.nil?
     @outfit = Outfit.where(user_id: current_user.id)
-    else
-      redirect_to login_path
-    end
   end
 
   # GET /outfits/1
   # GET /outfits/1.json
   def show
-    if current_user.nil?
-      redirect_to login_path
-    else
       if current_user.id == Outfit.find(params[:id]).user_id
         @outfit = Outfit.find(params[:id])
         @top = Top.find(@outfit.top_id)
@@ -33,14 +26,13 @@ class OutfitsController < ApplicationController
       else
         redirect_to outfits_url
       end
-    end
   end
 
   # GET /outfits/new
   def new
-    if current_user.nil?
-      redirect_to login_path
-    else
+    # if current_user.nil?
+    #   redirect_to login_path
+    # else
       @outfit = Outfit.new
       @weather = WeatherType.all
       @style = StyleType.all
@@ -49,14 +41,14 @@ class OutfitsController < ApplicationController
       @bottom = Bottom.where(user_id: current_user.id)
       @accessory = Accessory.where(user_id: current_user.id)
       @footwear = Footwear.where(user_id: current_user.id)
-    end
+    # end
   end
 
   # GET /outfits/1/edit
   def edit
-    if current_user.nil?
-      redirect_to login_path
-    else
+    # if current_user.nil?
+    #   redirect_to login_path
+    # else
     if current_user.id == Outfit.find(params[:id]).user_id
       @weather = WeatherType.all
       @style = StyleType.all
@@ -69,7 +61,7 @@ class OutfitsController < ApplicationController
     else
       redirect_to outfits_url
     end
-    end
+    # end
   end
 
   # POST /outfits

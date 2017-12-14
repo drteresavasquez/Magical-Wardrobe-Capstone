@@ -2,38 +2,38 @@ class BottomsController < ApplicationController
   include SessionsHelper
  
   def index
-    if current_user.nil?
-      redirect_to login_path
-    else
+    # if current_user.nil?
+    #   redirect_to login_path
+    # else
     @bottom = Bottom.where(user_id: current_user.id)
-    end
+    # end
   end
 
   # GET /bottoms/1
   # GET /bottoms/1.json
   def show
-    if current_user.nil?
-      redirect_to login_path
-    else
+    # if current_user.nil?
+    #   redirect_to login_path
+    # else
     if current_user.id == Bottom.find(params[:id]).user_id
       @bottom = Bottom.find(params[:id])
     else
       redirect_to bottoms_url
     end
-    end
+    # end
   end
 
   # GET /bottoms/new
   def new
-    if current_user.nil?
-      redirect_to login_path
-    else
+    # if current_user.nil?
+    #   redirect_to login_path
+    # else
     @bottom = Bottom.new
     @weather = WeatherType.all
     @style = StyleType.all
     @type = BottomType.all
     @temp = TemperatureType.all
-    end
+    # end
   end
 
   # GET /bottoms/1/edit

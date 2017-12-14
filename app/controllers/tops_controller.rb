@@ -3,44 +3,44 @@ class TopsController < ApplicationController
 
   #limits users to view only their tops
   def index
-    if current_user.nil?
-      redirect_to login_path
-    else
+    # if current_user.nil?
+    #   redirect_to login_path
+    # else
     @top = Top.where(user_id: current_user.id)
-    end
+    # end
   end
 
   #show the specific top that is selected only if it belongs to current user
   def show
-    if current_user.nil?
-      redirect_to login_path
-    else
+    # if current_user.nil?
+    #   redirect_to login_path
+    # else
       if current_user.id == Top.find(params[:id]).user_id
         @top = Top.find(params[:id])
       else
         redirect_to tops_url
       end
-    end
+    # end
   end
 
   #to create a top, all the elements should be present in the form
   def new
-    if current_user.nil?
-      redirect_to login_path
-    else
+    # if current_user.nil?
+    #   redirect_to login_path
+    # else
     @top = Top.new
     @weather = WeatherType.all
     @style = StyleType.all
     @type = TopType.all
     @temp = TemperatureType.all
-    end
+    # end
   end
 
   #if top belongs to current user, allow edit
   def edit
-    if current_user.nil?
-      redirect_to login_path
-    else
+    # if current_user.nil?
+    #   redirect_to login_path
+    # else
     if current_user.id == Top.find(params[:id]).user_id
       @weather = WeatherType.all
       @style = StyleType.all
@@ -50,13 +50,13 @@ class TopsController < ApplicationController
     else
       redirect_to tops_url
     end
-  end
+  # end
   end
 
   def create
-    if current_user.nil?
-      redirect_to login_path
-    else
+    # if current_user.nil?
+    #   redirect_to login_path
+    # else
     @top = Top.new(top_params)
     if @top.save
       flash[:success] = "Top was created!"
@@ -68,7 +68,7 @@ class TopsController < ApplicationController
       @temp = TemperatureType.all
       render 'new'
     end
-  end
+  # end
   end
 
   def update

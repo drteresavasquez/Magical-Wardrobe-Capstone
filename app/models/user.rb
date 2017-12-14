@@ -1,6 +1,6 @@
 class User < ApplicationRecord
     #connects the model and destroys all items belonging to user if user is deleted.
-    has_many :tops, dependent: :destroy
+    
 
     attr_accessor :remember_token, :activation_token, :reset_token
     before_save   :downcase_email
@@ -46,8 +46,7 @@ class User < ApplicationRecord
 
   # Activates an account.
   def activate
-    update_attribute(:activated,    true)
-    update_attribute(:activated_at, Time.zone.now)
+    update_columns(activated: true, activated_at: Time.zone.now)
   end
 
   # Sends activation email.

@@ -4,45 +4,41 @@ class AccessoriesController < ApplicationController
   # GET /accessories
   # GET /accessories.json
   def index
-    if current_user.nil?
-      redirect_to login_path
-    else
     @accessory = Accessory.where(user_id: current_user.id)
-    end
   end
 
   # GET /accessories/1
   # GET /accessories/1.json
   def show
-    if current_user.nil?
-      redirect_to login_path
-    else
+    # if current_user.nil?
+    #   redirect_to login_path
+    # else
     if current_user.id == Accessory.find(params[:id]).user_id
       @accessory = Accessory.find(params[:id])
     else
       redirect_to accessories_url
     end
-    end
+    # end
   end
 
   # GET /accessories/new
   def new
-    if current_user.nil?
-      redirect_to login_path
-    else
+    # if current_user.nil?
+    #   redirect_to login_path
+    # else
     @accessory = Accessory.new
     @weather = WeatherType.all
     @style = StyleType.all
     @type = AccessoryType.all
     @temp = TemperatureType.all
-    end
+    # end
   end
 
   # GET /accessories/1/edit
   def edit
-    if current_user.nil?
-      redirect_to login_path
-    else
+    # if current_user.nil?
+    #   redirect_to login_path
+    # else
     if current_user.id == Accessory.find(params[:id]).user_id
       @weather = WeatherType.all
       @style = StyleType.all
@@ -52,7 +48,7 @@ class AccessoriesController < ApplicationController
     else
       redirect_to accessories_url
     end
-    end
+    # end
   end
 
   # POST /accessories

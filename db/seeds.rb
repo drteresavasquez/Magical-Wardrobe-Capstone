@@ -1,11 +1,11 @@
-User.create!(name:  "Example User",
-email: "example@magicalwardrobeapp.com",
-password:              "123456",
-password_confirmation: "123456",
-admin: true,
-activated: true,
-zip_code: 37013,
-activated_at: Time.zone.now)
+# User.create!(name:  "Example User",
+# email: "example@magicalwardrobeapp.com",
+# password:              "123456",
+# password_confirmation: "123456",
+# admin: true,
+# activated: true,
+# zip_code: 37013,
+# activated_at: Time.zone.now)
 
 99.times do |n|
 name  = Faker::Name.name
