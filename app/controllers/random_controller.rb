@@ -18,6 +18,7 @@ class RandomController < ApplicationController
       @temp_code = 1
     end
 
+    @temp_type = TemperatureType.find(@temp_code).name
     outfit = Outfit.where(user_id: current_user.id, temperature_type_id: @temp_code, active:true)
     rand_outfit = outfit[Random.rand(outfit.count)]
     if outfit.empty?

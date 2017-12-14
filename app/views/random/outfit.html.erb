@@ -9,6 +9,10 @@
             <center>
                 <div class="row">
                     <div class="col-sm-12">
+                        <% unless @selected.nil? %>
+                        <h2> Temperature: <%= @temp_type %> (<%=@temp%>&#8457;)</h2>
+                        <h4>The weather today: <%= @weather %> <br></h4>
+                        <hr>
                         <h3>
                             <% unless @selected.favorite? %>
                                 <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
@@ -19,6 +23,10 @@
                                             #
                                             <%= @selected.id %>
                         </h3>
+                        <% else %>
+                        <h3>You don't have an outfit for this <%= @temp_type %> (<%=@temp%>&#8457;) day.</h3>
+                        <%= link_to 'Create and Outfit', new_outfit_path, class: "btn btn-primary" %>
+                        <% end %>
                     </div>
                 </div>
                 <div class="row">
@@ -29,11 +37,10 @@
                 </div>
 
                 <div class="row center">
-                    <div class="col-sm-3">
-
+                    <div class="col-sm-12">
                         <p>
-                            <strong>Weather Type:</strong>
-                            <%= @selected.weather_type.name %>
+                            <strong>Temperature Type:</strong>
+                            <%= @selected.temperature_type.name %>
                         </p>
 
                         <p>
@@ -44,7 +51,7 @@
                             <strong>Description:</strong>
                             <%= @selected.description %>
                         </p>
-
+                        <%= link_to 'See Outfit Details', @selected, class: "btn btn-primary" %>
                     </div>
             </center>
             </div>
