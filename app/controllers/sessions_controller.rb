@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   #this allows the user to login
-  skip_before_action :require_login
+  # skip_before_action :require_login, :except => [:create]
 
   def new
     @top = Top.where(user_id: current_user.id).order('id DESC').limit(4) if logged_in?

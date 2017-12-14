@@ -25,11 +25,6 @@ gem 'jbuilder',                '2.7.0'
 gem 'font-awesome-rails'
 gem 'httparty'
 
-# group :development, :test do
-  
-#   # gem 'dotenv-rails'
-# end
-
 group :development do
   gem 'sqlite3', '1.3.13'
   gem 'byebug',  '9.0.6', platform: :mri

@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_action :require_login #prevents unauthenticated user from seeing views
+  # before_action :require_login, :except => [:edit] #prevents unauthenticated user from seeing views
   include SessionsHelper
   def edit
     user = User.find_by(email: params[:email])

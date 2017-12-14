@@ -2,6 +2,9 @@ class RandomController < ApplicationController
   include SessionsHelper
   
   def outfit
+    if current_user.nil?
+      redirect_to login_path
+    else
     user = User.find(current_user.id)
     zip = user.zip_code
     weather = OpenWeather.new(zip)
@@ -40,6 +43,7 @@ class RandomController < ApplicationController
         else
           @accessory = 0
         end
+      end
     end
 
     @weather = response['list'][1]['weather'][0]['main']
