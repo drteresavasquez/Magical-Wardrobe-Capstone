@@ -8,7 +8,6 @@ class SessionsController < ApplicationController
     @footwear = Footwear.where(user_id: current_user.id).order('id DESC').limit(4) if logged_in?
     @accessory = Accessory.where(user_id: current_user.id).order('id DESC').limit(4) if logged_in?
     @outfit = Outfit.where(user_id: current_user.id).order('id DESC').limit(4) if logged_in?
-    #api call = api.openweathermap.org/data/2.5/forecast?zip=#{:zip_code},us&&appid=ea2449ceaa9da5d4322f0604b9c58bd9
   end
 
   def create
