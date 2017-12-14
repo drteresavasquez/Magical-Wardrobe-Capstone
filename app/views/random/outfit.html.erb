@@ -23,10 +23,6 @@
                                             #
                                             <%= @selected.id %>
                         </h3>
-                        <% else %>
-                        <h3>You don't have an outfit for this <%= @temp_type %> (<%=@temp%>&#8457;) day.</h3>
-                        <%= link_to 'Create and Outfit', new_outfit_path, class: "btn btn-primary" %>
-                        <% end %>
                     </div>
                 </div>
                 <div class="row">
@@ -53,6 +49,11 @@
                         </p>
                         <%= link_to 'See Outfit Details', @selected, class: "btn btn-primary" %>
                     </div>
+                    </div>
+                    <% else %>
+                    <h3>You don't have any available outfits for this <%= @temp_type %> (<%=@temp%>&#8457;) day.</h3>
+                    <%= link_to 'Create an Outfit', new_outfit_path, class: "btn btn-primary" %>
+                    <% end %>
             </center>
             </div>
         </div>

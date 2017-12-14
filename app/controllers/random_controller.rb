@@ -20,10 +20,11 @@ class RandomController < ApplicationController
 
     @temp_type = TemperatureType.find(@temp_code).name
     outfit = Outfit.where(user_id: current_user.id, temperature_type_id: @temp_code, active:true)
-    rand_outfit = outfit[Random.rand(outfit.count)]
+    
     if outfit.empty?
       @selected = nil
     else
+      rand_outfit = outfit[Random.rand(outfit.count)]
       @selected = rand_outfit
       @top = Top.where(user_id: current_user.id, id: @selected.top_id)
       @bottom = Bottom.where(user_id: current_user.id, id: @selected.bottom_id)

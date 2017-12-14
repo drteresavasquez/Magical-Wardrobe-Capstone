@@ -5,28 +5,50 @@
         <section class="home-buttons">
 
                 <p>
-                        <%= link_to "Add Top", new_top_path, class: "btn btn-primary btn-lg btn-block" %>
+                        <%= link_to new_top_path, class: "btn btn-primary btn-lg btn-block" do %>
+                        <%= image_tag("shirt.png", :alt => "tops") %> Add Top
+                        <% end %>
                     </p>
                     <p>
-                        <%= link_to "Add Bottom", new_bottom_path, class: "btn btn-primary btn-lg btn-block" %>
-                    </p>
-                   
-                    <p>
-                        <%= link_to "Add Accessory", new_accessory_path, class: "btn btn-primary btn-lg btn-block" %>
-                    </p>
-                    <p>
-                        <%= link_to "Add Footwear", new_footwear_path, class: "btn btn-primary btn-lg btn-block" %>
+                            <%= link_to new_bottom_path, class: "btn btn-primary btn-lg btn-block" do %>
+                            <%= image_tag("pants.png", :alt => "bottoms") %> Add Bottom
+                            <% end %>
+    
                     </p>
 
                     <p>
-                            <%= link_to "Create Outfit", new_outfit_path, class: "btn btn-primary btn-lg btn-block" %>
-                            </p>
+                            <%= link_to new_accessory_path, class: "btn btn-primary btn-lg btn-block" do %>
+                            <%= image_tag("sunglasses.png", :alt => "accessories") %> Add Accessory
+                            <% end %>
     
-                    <p>
-                        <%= link_to "Check Hamper", hamper_path, class: "btn btn-primary btn-lg btn-block" %>
                     </p>
+
                     <p>
-                        <%= link_to "Random Outfit", random_outfit_path, class: "btn btn-primary btn-lg btn-block" %>
+                            <%= link_to new_footwear_path, class: "btn btn-primary btn-lg btn-block" do %>
+                            <%= image_tag("shoes.png", :alt => "footwear") %> Add Footwear
+                            <% end %>
+    
+                    </p>
+
+                    <p>
+                            <%= link_to new_outfit_path, class: "btn btn-primary btn-lg btn-block" do %>
+                            <%= image_tag("outfit.png", :alt => "outfit") %> Create Outfit
+                            <% end %>
+    
+                    </p>
+
+                    <p>
+                            <%= link_to hamper_path, class: "btn btn-primary btn-lg btn-block" do %>
+                            <%= image_tag("laundry-basket.png", :alt => "outfit") %> Check Hamper
+                            <% end %>
+    
+                    </p>
+
+                    <p>
+                            <%= link_to random_outfit_path, class: "btn btn-primary btn-lg btn-block" do %>
+                            <%= image_tag("arrows.png", :alt => "random") %> Random Outfit
+                            <% end %>
+    
                     </p>
                    
         

@@ -29,6 +29,13 @@ header{
   }
 }
 
+.btn.btn-primary.btn-lg.btn-block{
+  color: white !important;
+  &:hover{
+    background: $magic-purple !important;
+  }
+}
+
 .navbar.navbar-default.navbar-inverse{
     background-color: $magic-purple;
     
