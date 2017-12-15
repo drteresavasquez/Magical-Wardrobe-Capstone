@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<h1>My Family</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Emails</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @family.each do |family| %>
+      <tr>
+        <td><%= family.name %></td>
+        <td><%= family.email %></td>
+        <td><%= link_to 'Edit', edit_family_path(family) %></td>
+        <td><%= link_to 'Destroy', family, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Add New Family Member', new_family_path %>

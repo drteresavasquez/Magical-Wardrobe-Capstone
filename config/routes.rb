@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
 
   get 'random/outfit'
-
-  
   root   'sessions#new'
   get    '/help',    to: 'static_pages#help'
   get    '/about',   to: 'static_pages#about'
@@ -14,12 +12,14 @@ Rails.application.routes.draw do
   get    '/hamper',  to: 'hamper#index'
   post   'hamper/wash_all', to: 'hamper#wash_all'
   get 'random/clothes', to: 'random#outfit'
+  get '/myfamily', to: 'families#index'
   resources :users
   resources :tops
   resources :bottoms
   resources :footwears
   resources :outfits
   resources :accessories
+  resources :families
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
 end
