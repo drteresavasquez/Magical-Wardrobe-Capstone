@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    redirect_to root_url and return unless @user.activated?
+    # redirect_to root_url and return unless @user.activated?
   end
 
   def new
@@ -18,10 +18,14 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if @user.save
+    if @user.save && @user.family_id == 0
       @user.send_activation_email
-      flash[:info] = "Please check your email to activate your account."
+      flash[:info] = "User Created!"
       redirect_to root_url
+    elsif @user.save && @user.family_id != 0
+      @user.activate
+      flash[:info] = "Family Member Created!"
+      redirect_to myfamily_path
     else
       render 'new'
     end
@@ -44,7 +48,7 @@ class UsersController < ApplicationController
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = "User deleted"
-    redirect_to root_path
+    redirect_to myfamily_path
   end
 
   private
@@ -55,7 +59,9 @@ class UsersController < ApplicationController
           :email, 
           :zip_code, 
           :password,
-          :password_confirmation)
+          :password_confirmation,
+          :family_id,
+          :family_admin)
       end
 
       def family_params

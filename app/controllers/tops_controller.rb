@@ -75,8 +75,6 @@ class TopsController < ApplicationController
     @top = set_top
     if @top.active?
       Outfit.where(user_id: current_user.id, top_id: @top.id).update_all(:active => false)
-      else
-      Outfit.where(user_id: current_user.id, top_id: @top.id).update_all(:active => true)
     end
     respond_to do |format|
       if @top.update(top_params)

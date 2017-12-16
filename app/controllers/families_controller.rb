@@ -5,7 +5,11 @@ class FamiliesController < ApplicationController
   # GET /families
   # GET /families.json
   def index
+    @head = User.find(current_user.id)
+    unless current_user.family_id == 0
+    @family_name = Family.find(current_user.family_id)
     @family = User.where(family_id: current_user.family_id)
+    end
   end
 
   # GET /families/1
@@ -13,9 +17,18 @@ class FamiliesController < ApplicationController
   def show
   end
 
+  def new_member
+    @new_fam = User.new
+  end
+
   # GET /families/new
   def new
+    @head = User.find(current_user.id)
+    if @head.family_id == 0
     @family = Family.new
+    else
+      redirect_to myfamily_path
+    end
   end
 
   # GET /families/1/edit
@@ -26,24 +39,24 @@ class FamiliesController < ApplicationController
   # POST /families.json
   def create
     @family = Family.new(family_params)
-
-    respond_to do |format|
-      if @family.save
-        format.html { redirect_to @family, notice: 'Family was successfully created.' }
-        format.json { render :show, status: :created, location: @family }
-      else
-        format.html { render :new }
-        format.json { render json: @family.errors, status: :unprocessable_entity }
-      end
+    if @family.save
+      User.where(id: current_user.id).update_all(:family_id => @family.id, :family_admin => true)
+      flash[:success] = "Family was created!"
+      redirect_to myfamily_path
+    else
+      render 'new'
     end
   end
 
   # PATCH/PUT /families/1
   # PATCH/PUT /families/1.json
   def update
+    @family = set_family
     respond_to do |format|
       if @family.update(family_params)
-        format.html { redirect_to @family, notice: 'Family was successfully updated.' }
+        format.html { 
+          flash[:success] = 'Family was successfully updated.' 
+          redirect_to myfamily_path}
         format.json { render :show, status: :ok, location: @family }
       else
         format.html { render :edit }
@@ -56,8 +69,11 @@ class FamiliesController < ApplicationController
   # DELETE /families/1.json
   def destroy
     @family.destroy
+    User.where(family_id: current_user.family_id).update_all(:family_id => 0)
     respond_to do |format|
-      format.html { redirect_to families_url, notice: 'Family was successfully destroyed.' }
+      format.html { 
+        flash[:success] = 'Family was successfully deleted.' 
+        redirect_to myfamily_path}
       format.json { head :no_content }
     end
   end
@@ -75,5 +91,16 @@ class FamiliesController < ApplicationController
         :admin, 
         :family_id,
         :family_name)
+    end
+
+    def user_params
+      params.require(:user).permit(
+        :name, 
+        :email, 
+        :zip_code, 
+        :password,
+        :password_confirmation,
+        :family_id,
+        :family_admin)
     end
 end

@@ -1,7 +1,9 @@
-<%= form_for(@user) do |f| %>
-<%= render 'shared/error_messages', object: @user %>
+<%= form_for(@new_fam) do |f| %>
+<%= render 'shared/new_fam_error_messages', object: @new_fam %>
 
-<%= f.hidden_field :family_id, :value => 0 %>
+<%= f.hidden_field :family_id, :value => current_user.family_id %>
+<%= f.hidden_field :activated, :value => true %>
+<%= f.hidden_field :family_admin, :value => false %>
 
 <%= f.label :name %>
 <%= f.text_field :name, class: 'form-control' %>

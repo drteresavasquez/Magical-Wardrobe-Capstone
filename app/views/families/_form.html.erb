@@ -1,4 +1,4 @@
-<%= form_with(model: family, local: true) do |form| %>
+<%= form_for(@family) do |form| %>
   <% if family.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(family.errors.count, "error") %> prohibited this family from being saved:</h2>
@@ -10,20 +10,14 @@
       </ul>
     </div>
   <% end %>
+  
+  <%= form.hidden_field :user_id, :value => current_user.id %>
+  <%= form.hidden_field :family_id, :value => current_user.id %>
+  <%= form.hidden_field :admin, :value => true %>
 
   <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id, id: :family_user_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :admin %>
-    <%= form.check_box :admin, id: :family_admin %>
-  </div>
-
-  <div class="field">
-    <%= form.label :family_id %>
-    <%= form.number_field :family_id, id: :family_family_id %>
+    <%= form.label :family_name %>
+    <%= form.text_field :family_name, class: 'form-control' %>
   </div>
 
   <div class="actions">

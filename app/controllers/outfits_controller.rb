@@ -3,6 +3,24 @@ class OutfitsController < ApplicationController
   # GET /outfits
   # GET /outfits.json
   def index
+    @tops = Top.where(user_id: current_user.id)
+    @bottoms = Bottom.where(user_id: current_user.id)
+
+    @tops.each do |top|
+      @bottoms.each do |bottom|
+      if !top.active?
+        Outfit.where(user_id: current_user.id, top_id: top.id).update_all(:active => false) 
+      end
+        if !bottom.active?
+          Outfit.where(user_id: current_user.id, bottom_id: bottom.id).update_all(:active => false) 
+        end
+
+        if top.active? && bottom.active?
+          Outfit.where(user_id: current_user.id, top_id: top.id, bottom_id: bottom.id).update_all(:active => true) 
+        end
+      end
+    end
+
     @outfit = Outfit.where(user_id: current_user.id)
   end
 
@@ -10,9 +28,19 @@ class OutfitsController < ApplicationController
   # GET /outfits/1.json
   def show
       if current_user.id == Outfit.find(params[:id]).user_id
+      this_outfit = Outfit.find(params[:id])
+      @top = Top.find(this_outfit.top_id)
+      @bottom = Bottom.find(this_outfit.bottom_id)
+        if this_outfit.active? && (!@bottom.active? || !@top.active?)
+          Outfit.where(user_id: current_user.id, top_id: @top.id).update_all(:active => false)
+          Outfit.where(user_id: current_user.id, bottom_id: @bottom.id).update_all(:active => false)
+        elsif !this_outfit.active? && (@bottom.active? || @top.active?)
+          Outfit.where(user_id: current_user.id, top_id: @top.id).update_all(:active => true)
+          Outfit.where(user_id: current_user.id, bottom_id: @bottom.id).update_all(:active => true)
+        end
+
         @outfit = Outfit.find(params[:id])
-        @top = Top.find(@outfit.top_id)
-        @bottom = Bottom.find(@outfit.bottom_id)
+      
         unless @outfit.footwear_id.nil?
         @footwear = Footwear.find(@outfit.footwear_id)
         else 
@@ -30,9 +58,9 @@ class OutfitsController < ApplicationController
 
   # GET /outfits/new
   def new
-    # if current_user.nil?
-    #   redirect_to login_path
-    # else
+    if current_user.nil?
+      redirect_to login_path
+    else
       @outfit = Outfit.new
       @weather = WeatherType.all
       @style = StyleType.all
@@ -41,14 +69,14 @@ class OutfitsController < ApplicationController
       @bottom = Bottom.where(user_id: current_user.id)
       @accessory = Accessory.where(user_id: current_user.id)
       @footwear = Footwear.where(user_id: current_user.id)
-    # end
+    end
   end
 
   # GET /outfits/1/edit
   def edit
-    # if current_user.nil?
-    #   redirect_to login_path
-    # else
+    if current_user.nil?
+      redirect_to login_path
+    else
     if current_user.id == Outfit.find(params[:id]).user_id
       @weather = WeatherType.all
       @style = StyleType.all
@@ -61,7 +89,7 @@ class OutfitsController < ApplicationController
     else
       redirect_to outfits_url
     end
-    # end
+    end
   end
 
   # POST /outfits
@@ -87,6 +115,9 @@ class OutfitsController < ApplicationController
   # PATCH/PUT /outfits/1.json
   def update
     @outfit = set_outfit
+    @top = Top.find(@outfit.top_id)
+    @bottom =  Bottom.find(@outfit.bottom_id)
+
     if @outfit.active?
     Top.where(user_id: current_user.id, id: @outfit.top_id).update_all(:active => false)
       Bottom.where(user_id: current_user.id, id: @outfit.bottom_id).update_all(:active => false)

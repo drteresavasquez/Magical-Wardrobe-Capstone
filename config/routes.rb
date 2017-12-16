@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   post   'hamper/wash_all', to: 'hamper#wash_all'
   get 'random/clothes', to: 'random#outfit'
   get '/myfamily', to: 'families#index'
+  get '/newfamily', to: 'families#new'
+  get '/newfamilymember', to: 'families#new_member'
+  post '/newfamilymember', to: 'families#create_new_member'
+
   resources :users
   resources :tops
   resources :bottoms
