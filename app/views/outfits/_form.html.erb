@@ -14,10 +14,12 @@
   <%= form.hidden_field :user_id, :value => current_user.id %>
   <%= form.hidden_field :active, :value => true %>
 
+  <!-- unless current_user.family_id == 0 && !current_user.family_admin?  -->
   <div class="field">
       <%= form.label :wearer_id %>
-      <%= form.collection_select :wearer_id, @person, :id, :name , :prompt => "Select a Family Member"%>
+      <%= form.collection_select :wearer_id, @person, :id, :name %>
   </div>
+  <!-- end  -->
 
   <div class="field">
       <%= form.label :name %>

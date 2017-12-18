@@ -3,11 +3,27 @@ class SessionsController < ApplicationController
   # skip_before_action :require_login, :except => [:create]
 
   def new
-    @top = Top.where(user_id: current_user.id).order('id DESC').limit(4) if logged_in?
-    @bottom = Bottom.where(user_id: current_user.id).order('id DESC').limit(4) if logged_in?
-    @footwear = Footwear.where(user_id: current_user.id).order('id DESC').limit(4) if logged_in?
-    @accessory = Accessory.where(user_id: current_user.id).order('id DESC').limit(4) if logged_in?
-    @outfit = Outfit.where(user_id: current_user.id).order('id DESC').limit(4) if logged_in?
+    if logged_in? && current_user.family_id = 0
+      @top = Top.where(user_id: current_user.id).order('id DESC').limit(4) if logged_in?
+      @bottom = Bottom.where(user_id: current_user.id).order('id DESC').limit(4) if logged_in?
+      @footwear = Footwear.where(user_id: current_user.id).order('id DESC').limit(4) if logged_in?
+      @accessory = Accessory.where(user_id: current_user.id).order('id DESC').limit(4) if logged_in?
+      @outfit = Outfit.where(user_id: current_user.id).order('id DESC').limit(4) if logged_in?
+    elsif logged_in? && current_user.family_admin?
+      @top = Top.where(family_id: current_user.family_id).order('id DESC').limit(4) if logged_in?
+      @bottom = Bottom.where(family_id: current_user.family_id).order('id DESC').limit(4) if logged_in?
+      @footwear = Footwear.where(family_id: current_user.family_id).order('id DESC').limit(4) if logged_in?
+      @accessory = Accessory.where(family_id: current_user.family_id).order('id DESC').limit(4) if logged_in?
+      @outfit = Outfit.where(family_id: current_user.family_id).order('id DESC').limit(4) if logged_in?
+    elsif logged_in? && !current_user.family_admin?
+      @outfit = Outfit.where(wearer_id: current_user.id).order('id DESC').limit(4)
+      @top = Top.where(wearer_id: current_user.id).order('id DESC').limit(4)
+      @bottom = Bottom.where(wearer_id: current_user.id).order('id DESC').limit(4)
+      @footwear = Footwear.where(wearer_id: current_user.id).order('id DESC').limit(4)
+      @accessory = Accessory.where(wearer_id: current_user.id).order('id DESC').limit(4)
+    end
+
+    
   end
 
   def create

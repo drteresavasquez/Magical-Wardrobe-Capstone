@@ -3,42 +3,58 @@ class OutfitsController < ApplicationController
   # GET /outfits
   # GET /outfits.json
   def index
-    @tops = Top.where(user_id: current_user.id)
-    @bottoms = Bottom.where(user_id: current_user.id)
+    if current_user.family_admin?
+      @tops = Top.where(wearer_id: User.where(family_id: current_user.family_id))
+      @bottoms = Bottom.where(wearer_id: User.where(family_id: current_user.family_id))
+
+      @tops.each do |top|
+        @bottoms.each do |bottom|
+        if !top.active?
+          Outfit.where(wearer_id: User.where(family_id: current_user.family_id), top_id: top.id).update_all(:active => false) 
+        end
+          if !bottom.active?
+            Outfit.where(wearer_id: User.where(family_id: current_user.family_id), bottom_id: bottom.id).update_all(:active => false) 
+          end
+
+          if top.active? && bottom.active?
+            Outfit.where(wearer_id: User.where(family_id: current_user.family_id), top_id: top.id, bottom_id: bottom.id).update_all(:active => true) 
+          end
+        end
+      end
+
+    @outfit = Outfit.where(wearer_id: User.where(family_id: current_user.family_id)) 
+
+    else
+    @tops = Top.where(wearer_id: current_user.id)
+    @bottoms = Bottom.where(wearer_id: current_user.id)
 
     @tops.each do |top|
       @bottoms.each do |bottom|
       if !top.active?
-        Outfit.where(user_id: current_user.id, top_id: top.id).update_all(:active => false) 
+        Outfit.where(wearer_id: current_user.id, top_id: top.id).update_all(:active => false) 
       end
         if !bottom.active?
-          Outfit.where(user_id: current_user.id, bottom_id: bottom.id).update_all(:active => false) 
+          Outfit.where(wearer_id: current_user.id, bottom_id: bottom.id).update_all(:active => false) 
         end
 
         if top.active? && bottom.active?
-          Outfit.where(user_id: current_user.id, top_id: top.id, bottom_id: bottom.id).update_all(:active => true) 
+          Outfit.where(wearer_id: current_user.id, top_id: top.id, bottom_id: bottom.id).update_all(:active => true) 
         end
       end
     end
 
-    @outfit = Outfit.where(user_id: current_user.id)
-    # @outfit.each do |o|
-    #   wearer_outfit = Outfit.where(wearer_id: o.wearer_id)
-    #   wearer_outfit.each do |w|
-    #     @wearer = User.find(o.wearer_id)
-    #   end
-    # end
-   
+    @outfit = Outfit.where(wearer_id: current_user.id) 
+    end
   end
 
   # GET /outfits/1
   # GET /outfits/1.json
   def show
-      if current_user.id == Outfit.find(params[:id]).user_id
-      this_outfit = Outfit.find(params[:id])
-      @top = Top.find(this_outfit.top_id)
-      @bottom = Bottom.find(this_outfit.bottom_id)
-      @wearer = User.find(this_outfit.wearer_id)
+      if current_user.id == Outfit.find(params[:id]).wearer_id || current_user.family_id == User.find(Outfit.find(params[:id]).user_id).family_id 
+        this_outfit = Outfit.find(params[:id])
+        @top = Top.find(this_outfit.top_id)
+        @bottom = Bottom.find(this_outfit.bottom_id)
+        @wearer = User.find(this_outfit.wearer_id)
         if this_outfit.active? && (!@bottom.active? || !@top.active?)
           Outfit.where(user_id: current_user.id, top_id: @top.id).update_all(:active => false)
           Outfit.where(user_id: current_user.id, bottom_id: @bottom.id).update_all(:active => false)
@@ -68,7 +84,7 @@ class OutfitsController < ApplicationController
   def new
     if current_user.nil?
       redirect_to login_path
-    else
+    elsif current_user.family_admin?
       @outfit = Outfit.new
       @weather = WeatherType.all
       @style = StyleType.all
@@ -78,6 +94,16 @@ class OutfitsController < ApplicationController
       @accessory = Accessory.where(user_id: current_user.id)
       @footwear = Footwear.where(user_id: current_user.id)
       @person = User.where(family_id:current_user.family_id)
+    elsif !current_user.family_admin?
+      @outfit = Outfit.new
+      @weather = WeatherType.all
+      @style = StyleType.all
+      @temp = TemperatureType.all
+      @top = Top.where(user_id: current_user.id)
+      @bottom = Bottom.where(user_id: current_user.id)
+      @accessory = Accessory.where(user_id: current_user.id)
+      @footwear = Footwear.where(user_id: current_user.id)
+      @person = User.where(id: current_user.id)
     end
   end
 

@@ -3,7 +3,7 @@
             <%= render 'shared/user_info' %>
         </section>
         <section class="home-buttons">
-
+                <% if current_user.family_admin? %>
                 <p>
                         <%= link_to new_top_path, class: "btn btn-primary btn-lg btn-block" do %>
                         <%= image_tag("shirt.png", :alt => "tops") %> Partum Top
@@ -50,6 +50,20 @@
                             <% end %>
     
                     </p>
-                   
+                   <% else %>
+                   <p>
+                                <%= link_to hamper_path, class: "btn btn-primary btn-lg btn-block" do %>
+                                <%= image_tag("laundry-basket.png", :alt => "outfit") %> Hamper
+                                <% end %>
+        
+                        </p>
+    
+                        <p>
+                                <%= link_to random_outfit_path, class: "btn btn-primary btn-lg btn-block" do %>
+                                <%= image_tag("arrows.png", :alt => "random") %> Accio Outfit!
+                                <% end %>
+        
+                        </p>
+                        <% end %>
         
         </section>
