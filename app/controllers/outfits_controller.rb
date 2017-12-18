@@ -22,6 +22,13 @@ class OutfitsController < ApplicationController
     end
 
     @outfit = Outfit.where(user_id: current_user.id)
+    # @outfit.each do |o|
+    #   wearer_outfit = Outfit.where(wearer_id: o.wearer_id)
+    #   wearer_outfit.each do |w|
+    #     @wearer = User.find(o.wearer_id)
+    #   end
+    # end
+   
   end
 
   # GET /outfits/1
@@ -31,6 +38,7 @@ class OutfitsController < ApplicationController
       this_outfit = Outfit.find(params[:id])
       @top = Top.find(this_outfit.top_id)
       @bottom = Bottom.find(this_outfit.bottom_id)
+      @wearer = User.find(this_outfit.wearer_id)
         if this_outfit.active? && (!@bottom.active? || !@top.active?)
           Outfit.where(user_id: current_user.id, top_id: @top.id).update_all(:active => false)
           Outfit.where(user_id: current_user.id, bottom_id: @bottom.id).update_all(:active => false)
@@ -69,6 +77,7 @@ class OutfitsController < ApplicationController
       @bottom = Bottom.where(user_id: current_user.id)
       @accessory = Accessory.where(user_id: current_user.id)
       @footwear = Footwear.where(user_id: current_user.id)
+      @person = User.where(family_id:current_user.family_id)
     end
   end
 
@@ -86,6 +95,7 @@ class OutfitsController < ApplicationController
       @bottom = Bottom.where(user_id: current_user.id)
       @accessory = Accessory.where(user_id: current_user.id)
       @footwear = Footwear.where(user_id: current_user.id)
+      @person = User.where(family_id:current_user.family_id)
     else
       redirect_to outfits_url
     end
@@ -107,6 +117,7 @@ class OutfitsController < ApplicationController
       @accessory = Accessory.where(user_id: current_user.id)
       @footwear = Footwear.where(user_id: current_user.id)
       @temp = TemperatureType.all
+      @person = User.where(family_id:current_user.family_id)
       render 'new'
     end
   end
@@ -173,7 +184,8 @@ class OutfitsController < ApplicationController
         :picture, 
         :style_type_id,
         :temperature_type_id,
-        :description
+        :description,
+        :wearer_id
         )
     end
 end

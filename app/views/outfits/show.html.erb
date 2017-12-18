@@ -15,8 +15,8 @@
                 <% else %>
                   <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span>
                   <% end %>
-                    <%= @outfit.name %> 
-                    #<%= @outfit.id %>
+                  <%= @wearer.name %>'s <%= @outfit.name %> 
+                    #<%= @outfit.id %> 
             </h3>
           </div>
         </div>
@@ -74,6 +74,8 @@
 
 
                       <div class="col-sm-12">
+
+                        <p>Owner: <%= @wearer.name %></p>
                         <p>
                           <strong>Status:</strong>
                           <% if @outfit.active? %>

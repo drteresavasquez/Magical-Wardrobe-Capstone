@@ -36,6 +36,7 @@
           <% else %>
           Dirty
           <% end %></p>
+          <p><strong>Owner:</strong> <%=User.find(outfit.wearer_id).name %></p>
           <%= form_for(outfit) do |form| -%>
           <% if outfit.active? %>
           <%= form.hidden_field :active, :value => false %>

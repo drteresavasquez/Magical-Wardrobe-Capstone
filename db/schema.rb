@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171216191306) do
+ActiveRecord::Schema.define(version: 20171216230658) do
 
   create_table "accessories", force: :cascade do |t|
     t.integer "user_id"
@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 20171216191306) do
     t.string "name"
     t.string "description"
     t.integer "temperature_type_id"
+    t.integer "wearer_id"
     t.index ["accessory_id"], name: "index_outfits_on_accessory_id"
     t.index ["bottom_id"], name: "index_outfits_on_bottom_id"
     t.index ["footwear_id"], name: "index_outfits_on_footwear_id"
@@ -181,6 +182,7 @@ ActiveRecord::Schema.define(version: 20171216191306) do
     t.string "password_digest"
     t.integer "family_id"
     t.boolean "family_admin"
+    t.integer "wearer_id"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

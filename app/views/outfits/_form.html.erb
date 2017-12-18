@@ -15,6 +15,11 @@
   <%= form.hidden_field :active, :value => true %>
 
   <div class="field">
+      <%= form.label :wearer_id %>
+      <%= form.collection_select :wearer_id, @person, :id, :name , :prompt => "Select a Family Member"%>
+  </div>
+
+  <div class="field">
       <%= form.label :name %>
       <%= form.text_field :name, class: 'form-control' %>
     </div>
