@@ -3,27 +3,31 @@ class OutfitsController < ApplicationController
   # GET /outfits
   # GET /outfits.json
   def index
+    wearer = User.where(family_id: current_user.family_id)
+
+    # if the current user is the admin, show all outfits for the family
     if current_user.family_admin?
-      @tops = Top.where(wearer_id: User.where(family_id: current_user.family_id))
-      @bottoms = Bottom.where(wearer_id: User.where(family_id: current_user.family_id))
+      @tops = Top.where(wearer_id: wearer)
+      @bottoms = Bottom.where(wearer_id: wearer)
 
       @tops.each do |top|
         @bottoms.each do |bottom|
         if !top.active?
-          Outfit.where(wearer_id: User.where(family_id: current_user.family_id), top_id: top.id).update_all(:active => false) 
+          Outfit.where(wearer_id: wearer, top_id: top.id).update_all(:active => false) 
         end
           if !bottom.active?
-            Outfit.where(wearer_id: User.where(family_id: current_user.family_id), bottom_id: bottom.id).update_all(:active => false) 
+            Outfit.where(wearer_id: wearer, bottom_id: bottom.id).update_all(:active => false) 
           end
 
           if top.active? && bottom.active?
-            Outfit.where(wearer_id: User.where(family_id: current_user.family_id), top_id: top.id, bottom_id: bottom.id).update_all(:active => true) 
+            Outfit.where(wearer_id: wearer, top_id: top.id, bottom_id: bottom.id).update_all(:active => true) 
           end
         end
       end
 
-    @outfit = Outfit.where(wearer_id: User.where(family_id: current_user.family_id)) 
+    @outfit = Outfit.where(wearer_id: wearer) 
 
+    #otherwise, only show the user their stuff
     else
     @tops = Top.where(wearer_id: current_user.id)
     @bottoms = Bottom.where(wearer_id: current_user.id)
@@ -50,6 +54,7 @@ class OutfitsController < ApplicationController
   # GET /outfits/1
   # GET /outfits/1.json
   def show
+    #if the current user is the wearer or the user is a member of the family, show the outfit details
       if current_user.id == Outfit.find(params[:id]).wearer_id || current_user.family_id == User.find(Outfit.find(params[:id]).user_id).family_id 
         this_outfit = Outfit.find(params[:id])
         @top = Top.find(this_outfit.top_id)
@@ -75,6 +80,7 @@ class OutfitsController < ApplicationController
         else
           @accessory = 0
         end
+      #otherwise, redirect the the outfits home page
       else
         redirect_to outfits_url
       end
@@ -82,27 +88,27 @@ class OutfitsController < ApplicationController
 
   # GET /outfits/new
   def new
+    wearer = User.where(family_id: current_user.family_id)
+    @outfit = Outfit.new
+    @weather = WeatherType.all
+    @style = StyleType.all
+    @temp = TemperatureType.all
+
     if current_user.nil?
       redirect_to login_path
+    #if the family member is the admin of the house, make scope these variables to the view and make all people available to assign outfits
     elsif current_user.family_admin?
-      @outfit = Outfit.new
-      @weather = WeatherType.all
-      @style = StyleType.all
-      @temp = TemperatureType.all
-      @top = Top.where(user_id: current_user.id)
-      @bottom = Bottom.where(user_id: current_user.id)
-      @accessory = Accessory.where(user_id: current_user.id)
-      @footwear = Footwear.where(user_id: current_user.id)
+      @top = Top.where(wearer_id: wearer)
+      @bottom = Bottom.where(wearer_id: wearer)
+      @accessory = Accessory.where(wearer_id: wearer)
+      @footwear = Footwear.where(wearer_id: wearer)
       @person = User.where(family_id:current_user.family_id)
+      #else, if they are not, scope these instead
     elsif !current_user.family_admin?
-      @outfit = Outfit.new
-      @weather = WeatherType.all
-      @style = StyleType.all
-      @temp = TemperatureType.all
-      @top = Top.where(user_id: current_user.id)
-      @bottom = Bottom.where(user_id: current_user.id)
-      @accessory = Accessory.where(user_id: current_user.id)
-      @footwear = Footwear.where(user_id: current_user.id)
+      @top = Top.where(wearer_id: current_user.id)
+      @bottom = Bottom.where(wearer_id: current_user.id)
+      @accessory = Accessory.where(wearer_id: current_user.id)
+      @footwear = Footwear.where(wearer_id: current_user.id)
       @person = User.where(id: current_user.id)
     end
   end
@@ -162,6 +168,7 @@ class OutfitsController < ApplicationController
       Top.where(user_id: current_user.id, id: @outfit.top_id).update_all(:active => true)
       Bottom.where(user_id: current_user.id, id: @outfit.bottom_id).update_all(:active => true)
     end
+    
     respond_to do |format|
       if @outfit.update(outfit_params)
         format.html { 
