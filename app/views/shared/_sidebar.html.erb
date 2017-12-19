@@ -3,11 +3,11 @@
             <%= render 'shared/user_info' %>
         </section>
         <section class="home-buttons">
-                <% if current_user.family_admin? || current_user.family_id.to_i == 0 %>
+                <% if current_user.family_admin? || User.find(current_user.id).family_id == 0  %>
                 <p>
-                        <%= link_to new_top_path, class: "btn btn-primary btn-lg btn-block" do %>
-                        <%= image_tag("shirt.png", :alt => "tops") %> Partum Top
-                        <% end %>
+                <%= link_to new_top_path, class: "btn btn-primary btn-lg btn-block" do %>
+                <%= image_tag("shirt.png", :alt => "tops") %> Partum Top
+                <% end %>
                     </p>
                     <p>
                             <%= link_to new_bottom_path, class: "btn btn-primary btn-lg btn-block" do %>

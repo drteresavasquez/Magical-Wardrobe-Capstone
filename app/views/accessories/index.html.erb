@@ -29,6 +29,7 @@
           <!-- <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span> -->
           <% end %>
           <%= accessory.name %> #<%= accessory.id %>
+          <p><strong>Wearer:</strong> <%=User.find(accessory.wearer_id).name %></p>
         </h4>
         
         <p> <center><%= link_to 'Info', accessory, class: "btn btn-info"%>

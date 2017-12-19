@@ -5,12 +5,14 @@
       <%= render 'shared/sidebar' %>
     </div>
 
-    <div class="col-sm-9 hide-on-mobile">
-      <% if current_user.family_admin? %>
-        <div class="row hide-on-mobile">
+    <% if current_user.family_admin? %>
+      <div class="col-sm-9">
+        <div class="row">
           <%= render 'family_admin' %>
         </div>
+        </div>
         <%else%>
+        <div class="col-sm-9 hide-on-mobile">
         <div class="row hide-on-mobile">
           <div class="col-sm-12"><%= render 'shared/recent_outfits' %></div>
             <hr>
@@ -22,8 +24,8 @@
             <hr>
             <div class="col-sm-12"><%= render 'shared/recent_accessories' %></div>
           </div>
+        </div>
         <% end %>
-    </div>
   </div>
 
 

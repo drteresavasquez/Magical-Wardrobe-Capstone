@@ -1,59 +1,67 @@
 class AccessoriesController < ApplicationController
   include SessionsHelper  
 
-  # GET /accessories
-  # GET /accessories.json
   def index
-    @accessory = Accessory.where(user_id: current_user.id)
-  end
+    wearer = User.where(family_id: current_user.family_id) if logged_in?
 
-  # GET /accessories/1
-  # GET /accessories/1.json
-  def show
-    # if current_user.nil?
-    #   redirect_to login_path
-    # else
-    if current_user.id == Accessory.find(params[:id]).user_id
-      @accessory = Accessory.find(params[:id])
+    if current_user.nil?
+      redirect_to login_path
     else
-      redirect_to accessories_url
+      if current_user.family_admin?
+        @accessory = Accessory.where(wearer_id: wearer)
+      else
+        @accessory = Accessory.where(wearer_id: current_user.id)
+      end
     end
-    # end
   end
 
-  # GET /accessories/new
+  def show
+    if current_user.nil?
+      redirect_to login_path
+    else
+      if current_user.id == Accessory.find(params[:id]).user_id  || current_user.family_admin? && current_user.family_id == User.find(Accessory.find(params[:id]).user_id).family_id 
+        @accessory = Accessory.find(params[:id])
+      else
+        redirect_to accessories_url
+      end
+    end
+  end
+
   def new
-    # if current_user.nil?
-    #   redirect_to login_path
-    # else
     @accessory = Accessory.new
     @weather = WeatherType.all
     @style = StyleType.all
     @type = AccessoryType.all
     @temp = TemperatureType.all
-    # end
+    if current_user.nil?
+      redirect_to login_path
+    elsif current_user.family_admin?
+      @person = User.where(family_id:current_user.family_id)
+    elsif !current_user.family_admin?
+    end
   end
 
-  # GET /accessories/1/edit
   def edit
-    # if current_user.nil?
-    #   redirect_to login_path
-    # else
-    if current_user.id == Accessory.find(params[:id]).user_id
+    if current_user.nil?
+      redirect_to login_path
+    else
+    if current_user.id == Accessory.find(params[:id]).user_id || current_user.family_admin? && current_user.family_id == User.find(Accessory.find(params[:id]).user_id).family_id
       @weather = WeatherType.all
       @style = StyleType.all
       @type = AccessoryType.all
       @temp = TemperatureType.all
       @accessory = Accessory.find(params[:id])
+      @person = User.where(family_id:current_user.family_id)
     else
       redirect_to accessories_url
     end
-    # end
+    end
   end
 
-  # POST /accessories
-  # POST /accessories.json
   def create
+    if current_user.nil?
+      redirect_to login_path
+    else
     @accessory = Accessory.new(accessory_params)
     if @accessory.save
       flash[:success] = "Accessory was created!"
@@ -62,12 +70,13 @@ class AccessoriesController < ApplicationController
       @weather = WeatherType.all
       @style = StyleType.all
       @type = AccessoryType.all
+      @temp = TemperatureType.all
+      @person = User.where(family_id:current_user.family_id)
       render 'new'
+    end
     end
   end
 
-  # PATCH/PUT /accessories/1
-  # PATCH/PUT /accessories/1.json
   def update
     @accessory = set_accessory
     respond_to do |format|
@@ -84,8 +93,6 @@ class AccessoriesController < ApplicationController
     end
   end
 
-  # DELETE /accessories/1
-  # DELETE /accessories/1.json
   def destroy
     @accessory = Accessory.find(params[:id])
     @accessory.destroy
@@ -104,7 +111,6 @@ class AccessoriesController < ApplicationController
       @accessory = Accessory.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def accessory_params
       params.require(:accessory).permit(
         :name, 
@@ -116,6 +122,7 @@ class AccessoriesController < ApplicationController
         :style_type_id, 
         :temperature_type_id, 
         :user_id, 
-        :description)
+        :description,
+        :wearer_id)
     end
 end

@@ -3,72 +3,81 @@ class TopsController < ApplicationController
 
   #limits users to view only their tops
   def index
-    # if current_user.nil?
-    #   redirect_to login_path
-    # else
-    @top = Top.where(user_id: current_user.id)
-    # end
+    wearer = User.where(family_id: current_user.family_id) if logged_in?
+
+    if current_user.nil?
+      redirect_to login_path
+    else
+      if current_user.family_admin?
+      @top = Top.where(wearer_id: wearer)
+      else
+      @top = Top.where(wearer_id: current_user.id)
+      end
+    end
   end
 
   #show the specific top that is selected only if it belongs to current user
   def show
-    # if current_user.nil?
-    #   redirect_to login_path
-    # else
-      if current_user.id == Top.find(params[:id]).user_id
+    if current_user.nil?
+      redirect_to login_path
+    else
+      if current_user.id == Top.find(params[:id]).user_id || current_user.family_admin? && current_user.family_id == User.find(Top.find(params[:id]).user_id).family_id 
         @top = Top.find(params[:id])
       else
         redirect_to tops_url
       end
-    # end
+    end
   end
 
   #to create a top, all the elements should be present in the form
   def new
-    # if current_user.nil?
-    #   redirect_to login_path
-    # else
     @top = Top.new
     @weather = WeatherType.all
     @style = StyleType.all
     @type = TopType.all
     @temp = TemperatureType.all
-    # end
+    if current_user.nil?
+      redirect_to login_path
+    elsif current_user.family_admin?
+      @person = User.where(family_id:current_user.family_id)
+    elsif !current_user.family_admin?
+    end
   end
 
   #if top belongs to current user, allow edit
   def edit
-    # if current_user.nil?
-    #   redirect_to login_path
-    # else
-    if current_user.id == Top.find(params[:id]).user_id
-      @weather = WeatherType.all
-      @style = StyleType.all
-      @type = TopType.all
-      @temp = TemperatureType.all
-      @top = Top.find(params[:id])
+    if current_user.nil?
+      redirect_to login_path
     else
-      redirect_to tops_url
+      if current_user.id == Top.find(params[:id]).user_id || current_user.family_admin? && current_user.family_id == User.find(Top.find(params[:id]).user_id).family_id
+        @weather = WeatherType.all
+        @style = StyleType.all
+        @type = TopType.all
+        @temp = TemperatureType.all
+        @top = Top.find(params[:id])
+        @person = User.where(family_id:current_user.family_id)
+      else
+        redirect_to tops_url
+      end
     end
-  # end
   end
 
   def create
-    # if current_user.nil?
-    #   redirect_to login_path
-    # else
-    @top = Top.new(top_params)
-    if @top.save
-      flash[:success] = "Top was created!"
-      redirect_to @top
+    if current_user.nil?
+      redirect_to login_path
     else
-      @weather = WeatherType.all
-      @style = StyleType.all
-      @type = TopType.all
-      @temp = TemperatureType.all
-      render 'new'
+      @top = Top.new(top_params)
+      if @top.save
+        flash[:success] = "Top was created!"
+        redirect_to @top
+      else
+        @weather = WeatherType.all
+        @style = StyleType.all
+        @type = TopType.all
+        @temp = TemperatureType.all
+        render 'new'
+      end
     end
-  # end
   end
 
   def update
@@ -102,11 +111,6 @@ class TopsController < ApplicationController
     end
   end
 
-  def favorite(id, favorite)
-    Top.find(params[id]).update(favorite => true)
-    redirect_to tops_url
-  end
-
   private
 
     def set_top
@@ -125,6 +129,7 @@ class TopsController < ApplicationController
         :favorite, 
         :active,
         :temperature_type_id,
-        :picture)
+        :picture,
+        :wearer_id)
     end
 end

@@ -134,11 +134,11 @@ class OutfitsController < ApplicationController
         @accessory = Accessory.where(user_id: current_user.id)
         @footwear = Footwear.where(user_id: current_user.id)
 
-        # if the current user isn't a part of a family or not a family_admin, they can only create items for themselves
-        if current_user.family_id == 0 || !current_user.family_admin?
+        # if the current user isn't a part of a family or not a family_admin, they can only edit items for themselves
+        if User.find(current_user.id).family_id == 0 || !current_user.family_admin?
           @person = User.find(current_user.id)
 
-        #otherwise, a family_admin can create an outfit for anyone in the family
+        #otherwise, a family_admin can edit an outfit for anyone in the family
         else
         @person = User.where(family_id:current_user.family_id)
         end

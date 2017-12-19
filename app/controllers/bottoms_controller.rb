@@ -2,57 +2,72 @@ class BottomsController < ApplicationController
   include SessionsHelper
  
   def index
-    # if current_user.nil?
-    #   redirect_to login_path
-    # else
-    @bottom = Bottom.where(user_id: current_user.id)
-    # end
-  end
+    wearer = User.where(family_id: current_user.family_id) if logged_in?
 
-  # GET /bottoms/1
-  # GET /bottoms/1.json
-  def show
-    # if current_user.nil?
-    #   redirect_to login_path
-    # else
-    if current_user.id == Bottom.find(params[:id]).user_id
-      @bottom = Bottom.find(params[:id])
+    if current_user.nil?
+      redirect_to login_path
     else
-      redirect_to bottoms_url
+      if current_user.family_admin?
+        @bottom = Bottom.where(wearer_id: wearer)
+      else
+        @bottom = Bottom.where(wearer_id: current_user.id)
+      end
     end
-    # end
   end
 
-  # GET /bottoms/new
+  def show
+
+    if current_user.nil?
+      redirect_to login_path
+    else
+      if current_user.id == Bottom.find(params[:id]).user_id || current_user.family_admin? && current_user.family_id == User.find(Bottom.find(params[:id]).user_id).family_id 
+        @bottom = Bottom.find(params[:id])
+      else
+        redirect_to bottoms_url
+      end
+    end
+
+  end
+
   def new
-    # if current_user.nil?
-    #   redirect_to login_path
-    # else
     @bottom = Bottom.new
     @weather = WeatherType.all
     @style = StyleType.all
     @type = BottomType.all
     @temp = TemperatureType.all
-    # end
+    if current_user.nil?
+      redirect_to login_path
+    elsif current_user.family_admin?
+      @person = User.where(family_id:current_user.family_id)
+    elsif !current_user.family_admin?
+    end
   end
 
   # GET /bottoms/1/edit
   def edit
-    if current_user.id == Bottom.find(params[:id]).user_id
-      @weather = WeatherType.all
-      @style = StyleType.all
-      @type = BottomType.all
-      @temp = TemperatureType.all
-      @bottom = Bottom.find(params[:id])
+    if current_user.nil?
+      redirect_to login_path
     else
-      redirect_to bottoms_url
+      if current_user.id == Bottom.find(params[:id]).user_id  || current_user.family_admin? && current_user.family_id == User.find(Bottom.find(params[:id]).user_id).family_id
+        @weather = WeatherType.all
+        @style = StyleType.all
+        @type = BottomType.all
+        @temp = TemperatureType.all
+        @bottom = Bottom.find(params[:id])
+        @person = User.where(family_id:current_user.family_id)
+      else
+        redirect_to bottoms_url
+      end
     end
   end
 
   # POST /bottoms
   # POST /bottoms.json
   def create
-    @bottom = Bottom.new(bottom_params)
+    if current_user.nil?
+      redirect_to login_path
+    else
+      @bottom = Bottom.new(bottom_params)
       if @bottom.save
         flash[:success] = "Bottom was created!"
         redirect_to @bottom
@@ -63,11 +78,9 @@ class BottomsController < ApplicationController
         @temp = TemperatureType.all
         render 'new'
       end
+    end
   end
 
-
-  # PATCH/PUT /bottoms/1
-  # PATCH/PUT /bottoms/1.json
   def update
     @bottom = set_bottom
     if @bottom.active?
@@ -100,11 +113,6 @@ class BottomsController < ApplicationController
     end
   end
 
-  def favorite(id, favorite)
-    Bottom.find(params[id]).update(favorite => true)
-    redirect_to bottoms_url
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_bottom
@@ -123,6 +131,7 @@ class BottomsController < ApplicationController
         :favorite, 
         :style_type_id, 
         :temperature_type_id, 
-        :description)
+        :description,
+        :wearer_id)
     end
 end

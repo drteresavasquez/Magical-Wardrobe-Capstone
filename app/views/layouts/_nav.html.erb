@@ -24,7 +24,7 @@
         </a>
         <ul class="dropdown-menu">
           <li><%= link_to "Settings", edit_user_path(current_user) %></li>
-          <% if (current_user.family_id == 0 && !current_user.family_admin?) || (current_user.family_id == "0" && !current_user.family_admin?) %>
+          <% unless current_user.family_admin? || User.find(current_user.id).family_id != 0 %>
           <li class="divider"></li>
           <li><%= link_to "Create Family", newfamily_path %></li>
           <%end%>
