@@ -6,20 +6,23 @@
     </div>
 
     <div class="col-sm-9 hide-on-mobile">
-      <div class="row hide-on-mobile">
-        <div class="col-sm-12">
-        
-          <%= render 'shared/recent_outfits' %></div>
-          <hr>
-          <%= render 'shared/recent_tops' %></div>
-          <hr>
-          <div class="col-sm-12"><%= render 'shared/recent_bottoms' %></div>
-          <hr>
-          <div class="col-sm-12"><%= render 'shared/recent_footwear' %></div>
-          <hr>
-          <div class="col-sm-12"><%= render 'shared/recent_accessories' %></div>
- 
-      </div>
+      <% if current_user.family_admin? %>
+        <div class="row hide-on-mobile">
+          <%= render 'family_admin' %>
+        </div>
+        <%else%>
+        <div class="row hide-on-mobile">
+          <div class="col-sm-12"><%= render 'shared/recent_outfits' %></div>
+            <hr>
+            <div class="col-sm-12"><%= render 'shared/recent_tops' %></div>
+            <hr>
+            <div class="col-sm-12"><%= render 'shared/recent_bottoms' %></div>
+            <hr>
+            <div class="col-sm-12"><%= render 'shared/recent_footwear' %></div>
+            <hr>
+            <div class="col-sm-12"><%= render 'shared/recent_accessories' %></div>
+          </div>
+        <% end %>
     </div>
   </div>
 

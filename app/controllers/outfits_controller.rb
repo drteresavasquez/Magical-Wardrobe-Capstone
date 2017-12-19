@@ -4,12 +4,12 @@ class OutfitsController < ApplicationController
   # GET /outfits.json
   def index
     wearer = User.where(family_id: current_user.family_id)
-
     # if the current user is the admin, show all outfits for the family
     if current_user.family_admin?
       @tops = Top.where(wearer_id: wearer)
       @bottoms = Bottom.where(wearer_id: wearer)
 
+      # when making the call to view all outfits, check the status of the tops and bottoms to see if the outfit is available to wear
       @tops.each do |top|
         @bottoms.each do |bottom|
         if !top.active?
@@ -19,12 +19,13 @@ class OutfitsController < ApplicationController
             Outfit.where(wearer_id: wearer, bottom_id: bottom.id).update_all(:active => false) 
           end
 
+          #if both items are available make the outfit available
           if top.active? && bottom.active?
             Outfit.where(wearer_id: wearer, top_id: top.id, bottom_id: bottom.id).update_all(:active => true) 
           end
         end
       end
-
+    #scoped to view to show all wearers in the family if the current user is a family admin
     @outfit = Outfit.where(wearer_id: wearer) 
 
     #otherwise, only show the user their stuff
@@ -32,6 +33,7 @@ class OutfitsController < ApplicationController
     @tops = Top.where(wearer_id: current_user.id)
     @bottoms = Bottom.where(wearer_id: current_user.id)
 
+    # when making the call to view all outfits, check the status of the tops and bottoms to see if the outfit is available to wear
     @tops.each do |top|
       @bottoms.each do |bottom|
       if !top.active?
@@ -47,15 +49,14 @@ class OutfitsController < ApplicationController
       end
     end
 
+    #scoped to view to show current user's outfits if the current user is not a family admin
     @outfit = Outfit.where(wearer_id: current_user.id) 
     end
   end
 
-  # GET /outfits/1
-  # GET /outfits/1.json
   def show
-    #if the current user is the wearer or the user is a member of the family, show the outfit details
-      if current_user.id == Outfit.find(params[:id]).wearer_id || current_user.family_id == User.find(Outfit.find(params[:id]).user_id).family_id 
+    #if the current user is the wearer or the user is the admin of the family, show the outfit details
+      if current_user.id == Outfit.find(params[:id]).wearer_id || current_user.family_admin? && current_user.family_id == User.find(Outfit.find(params[:id]).user_id).family_id 
         this_outfit = Outfit.find(params[:id])
         @top = Top.find(this_outfit.top_id)
         @bottom = Bottom.find(this_outfit.bottom_id)
@@ -80,6 +81,7 @@ class OutfitsController < ApplicationController
         else
           @accessory = 0
         end
+      
       #otherwise, redirect the the outfits home page
       else
         redirect_to outfits_url
@@ -89,6 +91,7 @@ class OutfitsController < ApplicationController
   # GET /outfits/new
   def new
     wearer = User.where(family_id: current_user.family_id)
+    # elements available to all loggeed in users
     @outfit = Outfit.new
     @weather = WeatherType.all
     @style = StyleType.all
@@ -96,6 +99,7 @@ class OutfitsController < ApplicationController
 
     if current_user.nil?
       redirect_to login_path
+
     #if the family member is the admin of the house, make scope these variables to the view and make all people available to assign outfits
     elsif current_user.family_admin?
       @top = Top.where(wearer_id: wearer)
@@ -103,13 +107,14 @@ class OutfitsController < ApplicationController
       @accessory = Accessory.where(wearer_id: wearer)
       @footwear = Footwear.where(wearer_id: wearer)
       @person = User.where(family_id:current_user.family_id)
-      #else, if they are not, scope these instead
+
+    #else, if they are not, scope these instead
     elsif !current_user.family_admin?
       @top = Top.where(wearer_id: current_user.id)
       @bottom = Bottom.where(wearer_id: current_user.id)
       @accessory = Accessory.where(wearer_id: current_user.id)
       @footwear = Footwear.where(wearer_id: current_user.id)
-      @person = User.where(id: current_user.id)
+      @person = User.find(current_user.id)
     end
   end
 
@@ -118,16 +123,27 @@ class OutfitsController < ApplicationController
     if current_user.nil?
       redirect_to login_path
     else
-    if current_user.id == Outfit.find(params[:id]).user_id
-      @weather = WeatherType.all
-      @style = StyleType.all
-      @temp = TemperatureType.all
-      @outfit = Outfit.find(params[:id])
-      @top = Top.where(user_id: current_user.id)
-      @bottom = Bottom.where(user_id: current_user.id)
-      @accessory = Accessory.where(user_id: current_user.id)
-      @footwear = Footwear.where(user_id: current_user.id)
-      @person = User.where(family_id:current_user.family_id)
+      # if the current user is the owner of the item OR the current user is the family admin with the same family_id as the owner can update
+      if current_user.id == Outfit.find(params[:id]).user_id || current_user.family_admin? && current_user.family_id == User.find(Outfit.find(params[:id]).user_id).family_id
+        @weather = WeatherType.all
+        @style = StyleType.all
+        @temp = TemperatureType.all
+        @outfit = Outfit.find(params[:id])
+        @top = Top.where(user_id: current_user.id)
+        @bottom = Bottom.where(user_id: current_user.id)
+        @accessory = Accessory.where(user_id: current_user.id)
+        @footwear = Footwear.where(user_id: current_user.id)
+
+        # if the current user isn't a part of a family or not a family_admin, they can only create items for themselves
+        if current_user.family_id == 0 || !current_user.family_admin?
+          @person = User.find(current_user.id)
+
+        #otherwise, a family_admin can create an outfit for anyone in the family
+        else
+        @person = User.where(family_id:current_user.family_id)
+        end
+
+    #if the user doesn't own it or they are not the family admin, they are redirected to all outfits
     else
       redirect_to outfits_url
     end
@@ -149,7 +165,11 @@ class OutfitsController < ApplicationController
       @accessory = Accessory.where(user_id: current_user.id)
       @footwear = Footwear.where(user_id: current_user.id)
       @temp = TemperatureType.all
-      @person = User.where(family_id:current_user.family_id)
+        if current_user.family_id == 0
+          @person = User.find(current_user.id)
+        else
+        @person = User.where(family_id:current_user.family_id)
+        end
       render 'new'
     end
   end
@@ -168,7 +188,7 @@ class OutfitsController < ApplicationController
       Top.where(user_id: current_user.id, id: @outfit.top_id).update_all(:active => true)
       Bottom.where(user_id: current_user.id, id: @outfit.bottom_id).update_all(:active => true)
     end
-    
+
     respond_to do |format|
       if @outfit.update(outfit_params)
         format.html { 
@@ -182,27 +202,28 @@ class OutfitsController < ApplicationController
       end
     end
   end
+
   # DELETE /outfits/1
   # DELETE /outfits/1.json
   def destroy
-    @outfit = Outfit.find(params[:id])
-    @outfit.destroy
-    respond_to do |format|
-      format.html { 
-        flash[:success] = 'Outfit was successfully deleted.' 
-        redirect_to outfits_url 
-        }
-      format.json { head :no_content }
+    if current_user.family_id == 0 || current_user.family_admin?
+      @outfit = Outfit.find(params[:id])
+      @outfit.destroy
+      respond_to do |format|
+        format.html { 
+          flash[:success] = 'Outfit was successfully deleted.' 
+          redirect_to outfits_url 
+          }
+        format.json { head :no_content }
+      end
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_outfit
       @outfit = Outfit.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def outfit_params
       params.require(:outfit).permit(
         :top_id, 

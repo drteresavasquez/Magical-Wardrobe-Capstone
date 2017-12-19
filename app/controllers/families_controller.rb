@@ -27,7 +27,7 @@ class FamiliesController < ApplicationController
     if @head.family_id == 0
     @family = Family.new
     else
-      redirect_to myfamily_path
+      redirect_to root_path
     end
   end
 
@@ -42,7 +42,7 @@ class FamiliesController < ApplicationController
     if @family.save
       User.where(id: current_user.id).update_all(:family_id => @family.id, :family_admin => true)
       flash[:success] = "Family was created!"
-      redirect_to myfamily_path
+      redirect_to root_path
     else
       render 'new'
     end
@@ -56,7 +56,7 @@ class FamiliesController < ApplicationController
       if @family.update(family_params)
         format.html { 
           flash[:success] = 'Family was successfully updated.' 
-          redirect_to myfamily_path}
+          redirect_to root_path}
         format.json { render :show, status: :ok, location: @family }
       else
         format.html { render :edit }
@@ -69,11 +69,11 @@ class FamiliesController < ApplicationController
   # DELETE /families/1.json
   def destroy
     @family.destroy
-    User.where(family_id: current_user.family_id).update_all(:family_id => 0)
+    User.where(family_id: current_user.family_id).update_all(:family_id => 0, :family_admin => false)
     respond_to do |format|
       format.html { 
         flash[:success] = 'Family was successfully deleted.' 
-        redirect_to myfamily_path}
+        redirect_to root_path}
       format.json { head :no_content }
     end
   end

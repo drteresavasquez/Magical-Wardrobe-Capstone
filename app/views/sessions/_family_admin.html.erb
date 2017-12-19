@@ -1,0 +1,39 @@
+<div class="row">
+        <div class="col-sm-12">
+          
+              <% if @head.family_id == 0 %>
+                <center>
+                    <p><%= link_to 'Add Family', new_family_path, class: "btn btn-info"%></p>
+                </center>
+              <%else%>
+                <center>
+                  <p><%= link_to 'Add A Family Member', newfamilymember_path, class: "btn btn-info"%></p>
+                </center>
+      
+                <center><h1><%= @family_name.family_name %> Family</h1></center>
+                <p> <center><%= link_to 'Edit', edit_family_path(@family_name), class: "btn btn-warning"%>
+                <%= link_to 'Delete', @family_name, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %></center></p>
+                <hr> 
+                <div class="row">
+                    <% @family.each do |family| %>
+                      <div class="col-sm-4"> 
+                          <div class="thumbnail">
+                          <%= link_to gravatar_for(family, size: 250), family %>
+                          <div class="caption">
+                              <h4><%= family.name %></h4>
+                              <p>
+                                <% unless current_user?(family) %>
+                                  <%= link_to 'Delete', family, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %></center>
+                                  <% else %>
+                                  <%= link_to 'Edit', edit_user_path(family), class: "btn btn-warning" %>
+                                  <% end %>
+                              </p>
+                            </div>
+                            </div>
+                          </div>
+                          <% end %> 
+                      </div>
+                      
+                <%end%>
+              </div>
+        </div>

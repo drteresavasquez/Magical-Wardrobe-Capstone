@@ -3,6 +3,9 @@ class SessionsController < ApplicationController
   # skip_before_action :require_login, :except => [:create]
 
   def new
+    @head = User.find(current_user.id) if logged_in?
+    @family_name = Family.find(current_user.family_id) if logged_in? && current_user.family_id != 0
+    @family = User.where(family_id: current_user.family_id) if logged_in? && current_user.family_id != 0
     if logged_in? && current_user.family_id = 0
       @top = Top.where(user_id: current_user.id).order('id DESC').limit(4) if logged_in?
       @bottom = Bottom.where(user_id: current_user.id).order('id DESC').limit(4) if logged_in?
