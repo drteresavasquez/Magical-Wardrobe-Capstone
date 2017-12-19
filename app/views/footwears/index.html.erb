@@ -26,9 +26,9 @@
           <%= link_to fa_icon("heart", class: "fa fa-heart"), footwear %>
           <% else %>
           <%= link_to fa_icon("heart", class: "fa fa-heart fav"), footwear %>
-          <!-- <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span> -->
           <% end %>
           <%= footwear.name %> #<%= footwear.id %>
+          <p><strong>Wearer:</strong> <%=User.find(footwear.wearer_id).name %></p>
         </h4>
         <p> <center><%= link_to 'Info', footwear, class: "btn btn-info"%>
           <%= link_to 'Edit', edit_footwear_path(footwear), class: "btn btn-warning" %>

@@ -4,60 +4,70 @@ class FootwearsController < ApplicationController
   # GET /footwears
   # GET /footwears.json
   def index
-    # if current_user.nil?
-    #   redirect_to login_path
-    # else
-    @footwear = Footwear.where(user_id: current_user.id)
-    # end
+    wearer = User.where(family_id: current_user.family_id) if logged_in?
+
+    if current_user.nil?
+      redirect_to login_path
+    else
+      if current_user.family_admin?
+      @footwear = Footwear.where(wearer_id: wearer)
+      else
+        @footwear = Footwear.where(wearer_id: current_user.id)
+      end
+    end
   end
 
   # GET /footwears/1
   # GET /footwears/1.json
   def show
-    # if current_user.nil?
-    #   redirect_to login_path
-    # else
-    if current_user.id == Footwear.find(params[:id]).user_id
-      @footwear = Footwear.find(params[:id])
+    if current_user.nil?
+      redirect_to login_path
     else
-      redirect_to footwears_url
+      if current_user.id == Footwear.find(params[:id]).user_id || current_user.family_admin? && current_user.family_id == User.find(Footwear.find(params[:id]).user_id).family_id 
+        @footwear = Footwear.find(params[:id])
+      else
+        redirect_to footwears_url
+      end
     end
-  # end
   end
 
   # GET /footwears/new
   def new
-    # if current_user.nil?
-    #   redirect_to login_path
-    # else
     @footwear = Footwear.new
     @weather = WeatherType.all
     @style = StyleType.all
     @type = FootwearType.all
     @temp = TemperatureType.all
-    # end
+    if current_user.nil?
+      redirect_to login_path
+    elsif current_user.family_admin?
+      @person = User.where(family_id:current_user.family_id)
+    elsif !current_user.family_admin?
+    end
   end
 
   # GET /footwears/1/edit
   def edit
-    # if current_user.nil?
-    #   redirect_to login_path
-    # else
-    if current_user.id == Footwear.find(params[:id]).user_id
-      @weather = WeatherType.all
-      @style = StyleType.all
-      @type = FootwearType.all
-      @temp = TemperatureType.all
-      @footwear = Footwear.find(params[:id])
+    if current_user.nil?
+      redirect_to login_path
     else
-      redirect_to footwears_url
+      if current_user.id == Footwear.find(params[:id]).user_id || current_user.family_admin? && current_user.family_id == User.find(Footwear.find(params[:id]).user_id).family_id
+        @weather = WeatherType.all
+        @style = StyleType.all
+        @type = FootwearType.all
+        @temp = TemperatureType.all
+        @footwear = Footwear.find(params[:id])
+        @person = User.where(family_id:current_user.family_id)
+      else
+        redirect_to footwears_url
+      end
     end
-  # end
   end
 
-  # POST /footwears
-  # POST /footwears.json
   def create
+    if current_user.nil?
+      redirect_to login_path
+    else
     @footwear = Footwear.new(footwear_params)
       if @footwear.save
           flash[:success] = "Footwear was created!"
@@ -67,12 +77,12 @@ class FootwearsController < ApplicationController
         @style = StyleType.all
         @type = TopType.all
         @temp = TemperatureType.all
+        @person = User.where(family_id:current_user.family_id)
         render 'new'
       end
+    end
   end
 
-  # PATCH/PUT /footwears/1
-  # PATCH/PUT /footwears/1.json
   def update
     @footwear= set_footwear
     respond_to do |format|
@@ -89,8 +99,6 @@ class FootwearsController < ApplicationController
     end
   end
 
-  # DELETE /footwears/1
-  # DELETE /footwears/1.json
   def destroy
     @footwear = Footwear.find(params[:id])
     @footwear.destroy
@@ -109,7 +117,6 @@ class FootwearsController < ApplicationController
       @footwear = Footwear.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def footwear_params
       params.require(:footwear).permit(
         :name, 

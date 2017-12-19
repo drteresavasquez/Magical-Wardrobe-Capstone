@@ -19,7 +19,7 @@ class AccessoriesController < ApplicationController
     if current_user.nil?
       redirect_to login_path
     else
-      if current_user.id == Accessory.find(params[:id]).user_id  || current_user.family_admin? && current_user.family_id == User.find(Accessory.find(params[:id]).user_id).family_id 
+      if current_user.id == Accessory.find(params[:id]).user_id || current_user.family_admin? && current_user.family_id == User.find(Accessory.find(params[:id]).user_id).family_id 
         @accessory = Accessory.find(params[:id])
       else
         redirect_to accessories_url
@@ -117,7 +117,7 @@ class AccessoriesController < ApplicationController
         :picture, 
         :active, 
         :weather_type_id, 
-        :accessory_type_id, 
+        :accessory_type_id,
         :favorite, 
         :style_type_id, 
         :temperature_type_id, 
