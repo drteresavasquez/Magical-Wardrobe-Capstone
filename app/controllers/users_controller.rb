@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     if @user.save && @user.family_id == 0
       @user.send_activation_email
       flash[:info] = "User Created!"
-      redirect_to root_url
+      redirect_to root_path
     elsif @user.save && @user.family_id != 0
       @user.activate
       flash[:info] = "Family Member Created!"
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       flash[:success] = "Profile updated"
-      redirect_to @user
+      redirect_to root_path
     else
       render 'edit'
     end
@@ -75,7 +75,7 @@ class UsersController < ApplicationController
       unless logged_in?
         store_location
         flash[:danger] = "Please log in."
-        redirect_to root_url
+        redirect_to root_path
       end
     end
 

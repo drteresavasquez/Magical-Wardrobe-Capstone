@@ -1,7 +1,9 @@
 <%= form_for(@user) do |f| %>
 <%= render 'shared/error_messages', object: @user %>
 
+<% if User.find(current_user.id).family_id == 0%>
 <%= f.hidden_field :family_id, :value => 0 %>
+<%end%>
 
 <%= f.label :name %>
 <%= f.text_field :name, class: 'form-control' %>
