@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     @head = User.find(current_user.id) if logged_in?
     @family_name = Family.find(current_user.family_id) if logged_in? && current_user.family_id != 0
     @family = User.where(family_id: current_user.family_id) if logged_in? && current_user.family_id != 0
-    if logged_in? && current_user.family_id = 0
+    if logged_in? && current_user.family_id == 0
       @top = Top.where(user_id: current_user.id).order('id DESC').limit(4) if logged_in?
       @bottom = Bottom.where(user_id: current_user.id).order('id DESC').limit(4) if logged_in?
       @footwear = Footwear.where(user_id: current_user.id).order('id DESC').limit(4) if logged_in?
@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
       @footwear = Footwear.where(family_id: current_user.family_id).order('id DESC').limit(4) if logged_in?
       @accessory = Accessory.where(family_id: current_user.family_id).order('id DESC').limit(4) if logged_in?
       @outfit = Outfit.where(family_id: current_user.family_id).order('id DESC').limit(4) if logged_in?
-    elsif logged_in? && !current_user.family_admin?
+    elsif logged_in? && User.find(current_user.id).family_admin == false
       @outfit = Outfit.where(wearer_id: current_user.id).order('id DESC').limit(4)
       @top = Top.where(wearer_id: current_user.id).order('id DESC').limit(4)
       @bottom = Bottom.where(wearer_id: current_user.id).order('id DESC').limit(4)

@@ -21,25 +21,27 @@ class RandomController < ApplicationController
       @temp_code = 1
     end
 
+    wearer = User.where(family_id: current_user.family_id)
+    
     @temp_type = TemperatureType.find(@temp_code).name
-    outfit = Outfit.where(user_id: current_user.id, temperature_type_id: @temp_code, active:true)
+    outfit = Outfit.where(wearer_id: current_user.id, temperature_type_id: @temp_code, active:true)
     
     if outfit.empty?
       @selected = nil
     else
       rand_outfit = outfit[Random.rand(outfit.count)]
       @selected = rand_outfit
-      @top = Top.where(user_id: current_user.id, id: @selected.top_id)
-      @bottom = Bottom.where(user_id: current_user.id, id: @selected.bottom_id)
+      @top = Top.where(wearer_id: current_user.id, id: @selected.top_id)
+      @bottom = Bottom.where(wearer_id: current_user.id, id: @selected.bottom_id)
 
       unless @selected.footwear_id.nil?
-        @footwear = Footwear.where(user_id: current_user.id, id: @selected.footwear_id)
+        @footwear = Footwear.where(wearer_id: current_user.id, id: @selected.footwear_id)
         else 
           @footwear = 0
       end
 
         unless @selected.accessory_id.nil?
-          @accessory = Accessory.where(user_id: current_user.id, id: @selected.accessory_id)
+          @accessory = Accessory.where(wearer_id: current_user.id, id: @selected.accessory_id)
         else
           @accessory = 0
         end
