@@ -14,10 +14,10 @@
   <%= form.hidden_field :user_id, :value => current_user.id %>
   <%= form.hidden_field :active, :value => true %>
 
-  <% if current_user.family_id == 0 || !current_user.family_admin? %>
+  <% if User.find(current_user.id).family_id == 0 || !current_user.family_admin? %>
     <%= form.hidden_field :wearer_id, :value => current_user.id %>
   <% else %>
-  <div class="field">
+  <div class="field wearer">
       <%= form.label :wearer_id %>
       <%= form.collection_select :wearer_id, @person, :id, :name, :prompt => "Select a Family Member" %>
   </div>
@@ -45,7 +45,8 @@
       
       <div class="field">
           <%= form.label :top_id %>
-        <%= form.collection_select :top_id, @top, :id, :name, :prompt => "Select a Top"%>
+        <%= form.collection_select :top_id, @top, :id, :name, :prompt => "Select a Top" %>
+        <!--  Top.where(:wearer_id => :wearer_id), :top_id, :name, include_blank: true -->
       </div>
 
       <div class="field">

@@ -1,7 +1,13 @@
 <li class="dropdown">
+    <% if User.find(current_user.id).family_admin == false || User.find(current_user.id).family_id == 0 %>
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
       My Wardrobe <b class="caret"></b>
     </a>
+    <% else %>
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      Family Wardrobe <b class="caret"></b>
+      </a>
+    <% end %>
     <ul class="dropdown-menu">
       <li><%= link_to "Tops", tops_path %></li>
       <li class="divider"></li>

@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     elsif @user.save && @user.family_id != 0
       @user.activate
       flash[:info] = "Family Member Created!"
-      redirect_to myfamily_path
+      redirect_to root_path
     else
       render 'new'
     end
@@ -48,7 +48,7 @@ class UsersController < ApplicationController
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = "User deleted"
-    redirect_to myfamily_path
+    redirect_to root_path
   end
 
   private

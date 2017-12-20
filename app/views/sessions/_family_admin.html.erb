@@ -18,7 +18,7 @@
                     <% @family.each do |family| %>
                       <div class="col-sm-4"> 
                           <div class="thumbnail">
-                          <%= link_to gravatar_for(family, size: '100%'), family %>
+                          <%= gravatar_for(family, size: '100%') %>
                           <div class="caption">
                               <h4><%= family.name %></h4>
                               <p>
