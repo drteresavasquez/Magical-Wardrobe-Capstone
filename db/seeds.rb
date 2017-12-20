@@ -4,6 +4,7 @@ password:              "123456",
 password_confirmation: "123456",
 admin: true,
 activated: true,
+family_id: 0,
 zip_code: 37013,
 activated_at: Time.zone.now)
 
@@ -17,6 +18,7 @@ User.create!(
   email:                 email,
   password:              password,
   password_confirmation: password,
+  family_id:                  0,
   activated: true,
   zip_code:              zip_code,
   activated_at: Time.zone.now)
