@@ -24,6 +24,7 @@ gem 'turbolinks',              '5.0.1'
 gem 'jbuilder',                '2.7.0'
 gem 'font-awesome-rails'
 gem 'httparty'
+gem 'fog', '~> 1.42'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'
