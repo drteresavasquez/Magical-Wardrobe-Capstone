@@ -1,3 +1,5 @@
+require './lib/open_weather'
+
 class RandomController < ApplicationController
   include SessionsHelper
   
