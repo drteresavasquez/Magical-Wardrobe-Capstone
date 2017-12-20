@@ -1,28 +1,28 @@
-User.create!(name:  "Example User",
-email: "example@magicalwardrobeapp.com",
-password:              "123456",
-password_confirmation: "123456",
-admin: true,
-activated: true,
-family_id: 0,
-zip_code: 37013,
-activated_at: Time.zone.now)
+# User.create!(name:  "Example User",
+# email: "example@magicalwardrobeapp.com",
+# password:              "123456",
+# password_confirmation: "123456",
+# admin: true,
+# activated: true,
+# family_id: 0,
+# zip_code: 37013,
+# activated_at: Time.zone.now)
 
-99.times do |n|
-name  = Faker::Name.name
-email = "example-#{n+1}@magicalwardrobeapp.com"
-password = "password"
-zip_code = Faker::Address.zip_code
-User.create!(
-  name:                  name,
-  email:                 email,
-  password:              password,
-  password_confirmation: password,
-  family_id:                  0,
-  activated: true,
-  zip_code:              zip_code,
-  activated_at: Time.zone.now)
-end
+# 99.times do |n|
+# name  = Faker::Name.name
+# email = "example-#{n+1}@magicalwardrobeapp.com"
+# password = "password"
+# zip_code = Faker::Address.zip_code
+# User.create!(
+#   name:                  name,
+#   email:                 email,
+#   password:              password,
+#   password_confirmation: password,
+#   family_id:                  0,
+#   activated: true,
+#   zip_code:              zip_code,
+#   activated_at: Time.zone.now)
+# end
 
     TopType.create!([
       {name: "Sweater", description: "An article that is worn over a shirt"},
