@@ -114,7 +114,7 @@ class OutfitsController < ApplicationController
       @bottom = Bottom.where(wearer_id: current_user.id).order(:name)
       @accessory = Accessory.where(wearer_id: current_user.id).order(:name)
       @footwear = Footwear.where(wearer_id: current_user.id).order(:name)
-      @person = User.find(current_user.id).order(:name)
+      @person = User.find(current_user.id)
     end
   end
 
