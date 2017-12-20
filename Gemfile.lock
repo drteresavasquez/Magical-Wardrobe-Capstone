@@ -51,7 +51,7 @@ GEM
       will_paginate
     builder (3.2.3)
     byebug (9.0.6)
-    carrierwave (1.1.0)
+    carrierwave (1.2.1)
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
       mime-types (>= 1.16)
@@ -240,7 +240,7 @@ DEPENDENCIES
   bootstrap-sass (= 3.3.7)
   bootstrap-will_paginate (= 1.0.0)
   byebug (= 9.0.6)
-  carrierwave (= 1.1.0)
+  carrierwave (= 1.2.1)
   coffee-rails (= 4.2.2)
   faker (= 1.7.3)
   fog-aws (= 2.0.0)
