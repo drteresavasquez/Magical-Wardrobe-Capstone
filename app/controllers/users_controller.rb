@@ -18,9 +18,10 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if @user.save && @user.family_id == 0
+    if @user.save && @user.family_id.nil?
+      @user.update(:family_id => 0)
       @user.send_activation_email
-      flash[:info] = "User Created!"
+      flash[:info] = "User Created! Please login."
       redirect_to root_path
     elsif @user.save && @user.family_id != 0
       @user.activate
