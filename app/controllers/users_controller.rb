@@ -4,7 +4,8 @@ class UsersController < ApplicationController
   before_action :admin_user,     only: [:index, :destroy]
 
   def index
-    @users = User.where(activated: true).paginate(page: params[:page])
+    redirect_to root_path
+    # @users = User.where(activated: true).paginate(page: params[:page])
   end
 
   def show
@@ -83,11 +84,11 @@ class UsersController < ApplicationController
     # Confirms the correct user.
     def correct_user
       @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user)
+      redirect_to(root_path) unless current_user?(@user)
     end
 
     # Confirms an admin user.
     def admin_user
-      redirect_to(root_url) unless current_user.admin?
+      redirect_to(root_path) unless current_user.admin?
     end
 end
