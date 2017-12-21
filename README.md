@@ -1,5 +1,5 @@
-# Alexa Magical Wardrobe
-
+# Magical Wardrobe App
+Check out the thought process behind the app: [Magical Wardrobe Jouney](http://www.drteresavasquez.com/nss-journey-week-22-back-end-capstone-magical-wardrobe/)
 
 ## Getting started
 
@@ -18,5 +18,17 @@ $ rails db:migrate
 Run the app in a local server:
 
 ```
-$ rails server
+$ rails s
 ```
+
+Navigate to your web browser and visit localhost:3000
+
+## Tech Stack
+- Rails 5
+- Ruby 2.4.2
+- Sinatra
+- Ngrok
+- Ruby JSON
+- SQLite
+- Bootstrap
+- Heroku

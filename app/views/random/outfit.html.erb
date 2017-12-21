@@ -9,6 +9,7 @@
             <center>
                 <div class="row">
                     <div class="col-sm-12">
+                    <div class="col-sm-12">
                         <% unless @selected.nil? %>
                         <h2> Temperature: <%= @temp_type %> (<%=@temp%>&#8457;)</h2>
                         <h4>The weather today: <%= @weather %> <br></h4>
@@ -55,6 +56,7 @@
                     <%= link_to 'Create an Outfit', new_outfit_path, class: "btn btn-primary" %>
                     <% end %>
             </center>
+            </div>
             </div>
         </div>
     </div>
