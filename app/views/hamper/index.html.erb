@@ -8,6 +8,7 @@
 
 <div class="row">
   <div class="col-sm-8">
+    <div class="col-sm-8">
         <% if @top.empty? && @bottom.empty? && @outfit.empty?%>
         <center><h3>You Don't Have Dirty Clothes!</h3>
         <% else %>
@@ -16,6 +17,8 @@
         <%= render 'hamper_tops'%>
         <%= render 'hamper_bottoms'%>
         <% end %>
+        </center>
+      </div>
 </div>
 </div>
 </div>
