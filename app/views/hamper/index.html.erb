@@ -8,17 +8,17 @@
 
 <div class="row">
   <div class="col-sm-8">
-    <div class="col-sm-8">
+
         <% if @top.empty? && @bottom.empty? && @outfit.empty?%>
-        <center><h3>You Don't Have Dirty Clothes!</h3>
+        <center><h3>Everything is Clean...</h3>
         <% else %>
         <center><h1>Items in Hamper</h1>  <%= button_to 'Wash Everything', hamper_wash_all_path, class: "btn btn-success washeverything", method: :post %></center>
 
         <%= render 'hamper_tops'%>
         <%= render 'hamper_bottoms'%>
+      </center>
         <% end %>
-        </center>
-      </div>
+  
 </div>
 </div>
 </div>
