@@ -12,7 +12,7 @@ class FootwearsController < ApplicationController
       if current_user.family_admin?
       @footwear = Footwear.where(wearer_id: wearer)
       else
-        @footwear = Footwear.where(wearer_id: current_user.id)
+      @footwear = Footwear.where(wearer_id: current_user.id)
       end
     end
   end
@@ -23,7 +23,7 @@ class FootwearsController < ApplicationController
     if current_user.nil?
       redirect_to login_path
     else
-      if current_user.id == Footwear.find(params[:id]).user_id || current_user.family_admin? && current_user.family_id == User.find(Footwear.find(params[:id]).user_id).family_id 
+      if current_user.id == Footwear.find(params[:id]).wearer_id || current_user.family_admin? && current_user.family_id == User.find(Footwear.find(params[:id]).user_id).family_id 
         @footwear = Footwear.find(params[:id])
       else
         redirect_to footwears_url
@@ -128,6 +128,7 @@ class FootwearsController < ApplicationController
         :style_type_id, 
         :temperature_type_id, 
         :user_id, 
-        :description)
+        :description,
+        :wearer_id)
     end
 end
