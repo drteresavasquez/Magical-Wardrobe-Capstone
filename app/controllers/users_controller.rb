@@ -10,7 +10,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    redirect_to root_path
+    # @user = User.find(params[:id])
     # redirect_to root_url and return unless @user.activated?
   end
 
@@ -22,7 +23,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save && @user.family_id.nil?
       @user.update(:family_id => 0)
-      @user.send_activation_email
+      @user.activate
+      # @user.send_activation_email
       flash[:info] = "User Created! Please login."
       redirect_to root_path
     elsif @user.save && @user.family_id != 0
