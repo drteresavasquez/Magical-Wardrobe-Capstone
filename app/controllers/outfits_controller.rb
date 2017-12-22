@@ -181,13 +181,13 @@ class OutfitsController < ApplicationController
     @top = Top.find(@outfit.top_id)
     @bottom =  Bottom.find(@outfit.bottom_id)
 
-    if @outfit.active?
-    Top.where(user_id: current_user.id, id: @outfit.top_id).update_all(:active => false)
-      Bottom.where(user_id: current_user.id, id: @outfit.bottom_id).update_all(:active => false)
-    else
-      Top.where(user_id: current_user.id, id: @outfit.top_id).update_all(:active => true)
-      Bottom.where(user_id: current_user.id, id: @outfit.bottom_id).update_all(:active => true)
-    end
+      if @outfit.active?
+        Top.where(wearer_id: @top.wearer_id, id: @outfit.top_id).update_all(:active => false)
+        Bottom.where(wearer_id: @bottom.wearer_id, id: @outfit.bottom_id).update_all(:active => false)
+      else
+        Top.where(wearer_id: @top.wearer_id, id: @outfit.top_id).update_all(:active => true)
+        Bottom.where(wearer_id: @bottom.wearer_id, id: @outfit.bottom_id).update_all(:active => true)
+      end
 
     respond_to do |format|
       if @outfit.update(outfit_params)
