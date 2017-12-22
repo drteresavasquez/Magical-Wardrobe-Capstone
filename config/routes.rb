@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   get 'random/outfit'
   root   'sessions#new'
+  get    '/users',    to: 'sessions#new'
   get    '/help',    to: 'static_pages#help'
   get    '/about',   to: 'static_pages#about'
   get    '/contact', to: 'static_pages#contact'
