@@ -316,7 +316,7 @@ input {
  
 }
 
-@media (min-width: 481px) and (max-width: 767px) {
+@media (min-width: 481px) and (max-width: 1000px) {
   .hide-on-mobile{
     display: none;
   }
@@ -328,29 +328,3 @@ input {
   }
  
 }
-
-// @media (min-width:961px) {
-//   .hide-on-mobile{
-//     display: none;
-//   }
-//   .footer{
-//     display: none;
-//   }
-//   .recently-tops{
-//     display: none;
-//   }
- 
-// }
-
-// @media (min-width: 1150px) {
-//   .hide-on-mobile{
-//     display: none;
-//   }
-//   .footer{
-//     display: none;
-//   }
-//   .recently-tops{
-//     display: none;
-//   }
- 
-// }

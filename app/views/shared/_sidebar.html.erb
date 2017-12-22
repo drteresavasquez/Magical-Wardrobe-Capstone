@@ -1,9 +1,9 @@
+<% if current_user.family_admin? || User.find(current_user.id).family_id == 0  %>
 <div class="sidebar-home col-sm-3">
         <section class="user_info">
             <%= render 'shared/user_info' %>
         </section>
         <section class="home-buttons">
-                <% if current_user.family_admin? || User.find(current_user.id).family_id == 0  %>
                 <p>
                 <%= link_to new_top_path, class: "btn btn-primary btn-lg btn-block" do %>
                 <%= image_tag("shirt.png", :alt => "tops") %> Partum Top
@@ -50,7 +50,15 @@
                             <% end %>
     
                     </p>
+                            
+                    </section>
+                    </div>
                    <% else %>
+                   <div class="sidebar-home col-sm-12">
+                                <section class="user_info">
+                                    <%= render 'shared/user_info' %>
+                                </section>
+                                <section class="home-buttons">
                    <p>
                                 <%= link_to hamper_path, class: "btn btn-primary btn-lg btn-block" do %>
                                 <%= image_tag("laundry-basket.png", :alt => "outfit") %> Hamper
@@ -64,6 +72,7 @@
                                 <% end %>
         
                         </p>
+                </section>
+        </div>
                         <% end %>
         
-        </section>

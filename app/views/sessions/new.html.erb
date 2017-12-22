@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-sm-12">
       <%= render 'shared/sidebar' %>
-    </div>
+   
 
     <% if current_user.family_admin? %>
       <div class="col-sm-9">
@@ -11,7 +11,7 @@
           <%= render 'family_admin' %>
         </div>
         </div>
-        <%else%>
+        <%elsif User.find(current_user.id).family_id == 0 %>
         <div class="col-sm-9 hide-on-mobile">
         <div class="row hide-on-mobile">
           <div class="col-sm-12"><%= render 'shared/recent_outfits' %></div>
@@ -26,6 +26,7 @@
           </div>
         </div>
         <% end %>
+    </div>
   </div>
 
 
