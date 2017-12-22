@@ -3,7 +3,6 @@
 
 <%= f.hidden_field :family_id, :value => current_user.family_id %>
 <%= f.hidden_field :activated, :value => true %>
-<%= f.hidden_field :family_admin, :value => false %>
 
 <%= f.label :name %>
 <%= f.text_field :name, class: 'form-control' %>
@@ -19,6 +18,11 @@
 
 <%= f.label :password_confirmation %>
 <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+<div class="field">
+    <%= f.label :family_admin %>
+    <%= f.check_box :family_admin, class: 'form-control' %>
+</div>
 
 <%= f.submit yield(:button_text), class: "btn btn-primary" %>
 <% end %>
