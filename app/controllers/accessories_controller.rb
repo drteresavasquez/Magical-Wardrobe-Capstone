@@ -94,14 +94,35 @@ class AccessoriesController < ApplicationController
   end
 
   def destroy
+    admin_user = User.find(current_user.id)
+    if (admin_user.family_admin? && admin_user.family_id == User.find(Accessory.find(params[:id]).wearer_id).family_id) || User.find(current_user.id).family_id == 0
     @accessory = Accessory.find(params[:id])
-    @accessory.destroy
-    respond_to do |format|
-      format.html { 
-        flash[:success] = 'Accessory was successfully destroyed.' 
-        redirect_to accessories_url
-      }
-      format.json { head :no_content }
+    outfits = Outfit.where(accessory_id: @accessory.id)
+        if outfits.any?
+          outfits.each do |outfit|
+            Outfit.where(accessory_id: @accessory.id).update_all(:accessory_id => nil)
+          end
+          @accessory.destroy
+          respond_to do |format|
+            format.html { 
+              flash[:success] = 'Accessory was successfully destroyed.' 
+              redirect_to accessories_url
+            }
+            format.json { head :no_content }
+          end
+        else
+          @accessory.destroy
+          respond_to do |format|
+            format.html { 
+              flash[:success] = 'Accessory was successfully destroyed.' 
+              redirect_to accessories_url
+            }
+            format.json { head :no_content }
+          end
+        end
+    else
+      flash[:error] = 'You do not have permission to delete.'
+      redirect_to accessories_url
     end
   end
 

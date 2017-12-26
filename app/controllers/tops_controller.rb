@@ -100,14 +100,35 @@ class TopsController < ApplicationController
   end
 
   def destroy
-    @top = Top.find(params[:id])
-    @top.destroy
-    respond_to do |format|
-      format.html { 
-        flash[:success] = 'Top was successfully deleted.' 
-        redirect_to tops_url 
-        }
-      format.json { head :no_content }
+    admin_user = User.find(current_user.id)
+    if (admin_user.family_admin? && admin_user.family_id == User.find(Top.find(params[:id]).wearer_id).family_id) || User.find(current_user.id).family_id == 0
+      @top = Top.find(params[:id])
+      outfits = Outfit.where(top_id: @top.id)
+      if outfits.any?
+        outfits.each do |outfit|
+          outfit.destroy
+        end
+        @top.destroy
+        respond_to do |format|
+          format.html { 
+            flash[:success] = 'Top was successfully deleted.' 
+            redirect_to tops_url 
+            }
+          format.json { head :no_content }
+        end
+      else
+        @top.destroy
+        respond_to do |format|
+          format.html { 
+            flash[:success] = 'Top was successfully deleted.' 
+            redirect_to tops_url 
+            }
+          format.json { head :no_content }
+        end
+      end
+    else
+      flash[:error] = 'You do not have permission to delete.'
+      redirect_to tops_url
     end
   end
 

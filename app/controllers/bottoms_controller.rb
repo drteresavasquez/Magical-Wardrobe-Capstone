@@ -105,6 +105,11 @@ class BottomsController < ApplicationController
     admin_user = User.find(current_user.id)
     if (admin_user.family_admin? && admin_user.family_id == User.find(Bottom.find(params[:id]).wearer_id).family_id) || User.find(current_user.id).family_id == 0
       @bottom = Bottom.find(params[:id])
+      outfits = Outfit.where(bottom_id: @bottom.id)
+      if outfits.any?
+        outfits.each do |outfit|
+          outfit.destroy
+        end
       @bottom.destroy
       respond_to do |format|
         format.html { 
@@ -112,7 +117,17 @@ class BottomsController < ApplicationController
           redirect_to bottoms_url
         }
         format.json { head :no_content }
-    end
+        end
+      else
+        @bottom.destroy
+      respond_to do |format|
+        format.html { 
+          flash[:success] = 'Bottom was successfully deleted.' 
+          redirect_to bottoms_url
+        }
+        format.json { head :no_content }
+        end
+      end
     else
       flash[:error] = 'You do not have permission to delete.'
       redirect_to bottoms_url

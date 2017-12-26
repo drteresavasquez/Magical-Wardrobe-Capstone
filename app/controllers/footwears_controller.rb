@@ -100,14 +100,35 @@ class FootwearsController < ApplicationController
   end
 
   def destroy
+    admin_user = User.find(current_user.id)
+    if (admin_user.family_admin? && admin_user.family_id == User.find(Footwear.find(params[:id]).wearer_id).family_id) || User.find(current_user.id).family_id == 0
     @footwear = Footwear.find(params[:id])
-    @footwear.destroy
-    respond_to do |format|
-      format.html { 
-        flash[:success] = 'Footwear was successfully deleted.' 
+    outfits = Outfit.where(footwear_id: @footwear.id)
+      if outfits.any?
+        outfits.each do |outfit|
+          Outfit.where(footwear_id: @footwear.id).update_all(:footwear_id => nil)
+        end
+        @footwear.destroy
+        respond_to do |format|
+          format.html { 
+            flash[:success] = 'Footwear was successfully deleted.' 
+            redirect_to footwears_url
+            }
+          format.json { head :no_content }
+        end
+      else
+        @footwear.destroy
+          respond_to do |format|
+            format.html { 
+              flash[:success] = 'Footwear was successfully deleted.' 
+              redirect_to footwears_url
+              }
+            format.json { head :no_content }
+          end
+      end
+    else
+        flash[:error] = 'You do not have permission to delete.'
         redirect_to footwears_url
-        }
-      format.json { head :no_content }
     end
   end
 
