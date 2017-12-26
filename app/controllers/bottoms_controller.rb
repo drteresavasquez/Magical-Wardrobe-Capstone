@@ -102,14 +102,20 @@ class BottomsController < ApplicationController
   # DELETE /bottoms/1
   # DELETE /bottoms/1.json
   def destroy
-    @bottom = Bottom.find(params[:id])
-    @bottom.destroy
-    respond_to do |format|
-      format.html { 
-        flash[:success] = 'Bottom was successfully deleted.' 
-        redirect_to bottoms_url
-       }
-      format.json { head :no_content }
+    admin_user = User.find(current_user.id)
+    if (admin_user.family_admin? && admin_user.family_id == User.find(Bottom.find(params[:id]).wearer_id).family_id) || User.find(current_user.id).family_id == 0
+      @bottom = Bottom.find(params[:id])
+      @bottom.destroy
+      respond_to do |format|
+        format.html { 
+          flash[:success] = 'Bottom was successfully deleted.' 
+          redirect_to bottoms_url
+        }
+        format.json { head :no_content }
+    end
+    else
+      flash[:error] = 'You do not have permission to delete.'
+      redirect_to bottoms_url
     end
   end
 

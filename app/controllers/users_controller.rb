@@ -5,7 +5,6 @@ class UsersController < ApplicationController
 
   def index
     redirect_to root_path
-    
     # @users = User.where(activated: true).paginate(page: params[:page])
   end
 
