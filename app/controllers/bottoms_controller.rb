@@ -8,7 +8,7 @@ class BottomsController < ApplicationController
       redirect_to login_path
     else
       if current_user.family_admin?
-        @bottom = Bottom.where(wearer_id: wearer).order(:wearer_id)
+        @bottom = Bottom.where(wearer_id: wearer).order(:wearer_id).order(:item_id)
       else
         @bottom = Bottom.where(wearer_id: current_user.id)
       end
@@ -73,13 +73,14 @@ class BottomsController < ApplicationController
           count = Bottom.where(:wearer_id => @bottom.wearer_id).count
           highest = Bottom.where(:wearer_id => @bottom.wearer_id).maximum(:item_id)
           item_array = Bottom.where(:wearer_id => @bottom.wearer_id).pluck(:item_id)
+        unless highest.nil?
           if highest >= count
             array = (1..highest)
             array.each do |num|
                 if item_array.include?(num)
                   p "taken"
                 else
-                  @accessory.update(item_id: num)
+                  @bottom.update(item_id: num)
                   break
                 end
               end
@@ -87,7 +88,10 @@ class BottomsController < ApplicationController
           # create a range up to the item_id and iterate through item_ids until I find one that doesn't exist, then assign accessory that ID.
           @bottom.update(item_id: count)
           end
-          
+        else
+          @bottom.update(item_id: count)
+        end
+
         flash[:success] = "Bottom was created!"
         redirect_to @bottom
       else

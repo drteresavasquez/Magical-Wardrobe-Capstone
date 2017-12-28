@@ -155,6 +155,28 @@ class OutfitsController < ApplicationController
   def create
     @outfit = Outfit.new(outfit_params)
     if @outfit.save
+        # give the item an incremental id so that the line item id isn't used. The user can have incremental ids in order so that item ids can be reused.
+      count = Outfit.where(:wearer_id => @outfit.wearer_id).count
+      highest = Outfit.where(:wearer_id => @outfit.wearer_id).maximum(:item_id)
+      item_array = Outfit.where(:wearer_id => @outfit.wearer_id).pluck(:item_id)
+      unless highest.nil?
+        if highest >= count
+          array = (1..highest)
+          array.each do |num|
+              if item_array.include?(num)
+                p "taken"
+              else
+                @outfit.update(item_id: num)
+                break
+              end
+            end
+          else
+        # create a range up to the item_id and iterate through item_ids until I find one that doesn't exist, then assign accessory that ID.
+        @outfit.update(item_id: count)
+        end
+      else
+        @outfit.update(item_id: count)
+      end
       flash[:success] = 'Outfit was successfully created.'
       redirect_to @outfit
     else

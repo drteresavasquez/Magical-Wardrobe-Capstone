@@ -9,9 +9,9 @@ class TopsController < ApplicationController
       redirect_to login_path
     else
       if current_user.family_admin?
-      @top = Top.where(wearer_id: wearer)
+      @top = Top.where(wearer_id: wearer).order(:wearer_id).order(:item_id)
       else
-      @top = Top.where(wearer_id: current_user.id)
+      @top = Top.where(wearer_id: current_user.id).order(:item_id)
       end
     end
   end
@@ -68,6 +68,29 @@ class TopsController < ApplicationController
     else
       @top = Top.new(top_params)
       if @top.save
+
+      # give the item an incremental id so that the line item id isn't used. The user can have incremental ids in order so that item ids can be reused.
+      count = Top.where(:wearer_id => @top.wearer_id).count
+      highest = Top.where(:wearer_id => @top.wearer_id).maximum(:item_id)
+      item_array = Top.where(:wearer_id => @top.wearer_id).pluck(:item_id)
+      unless highest.nil?
+        if highest >= count
+          array = (1..highest)
+          array.each do |num|
+              if item_array.include?(num)
+                p "taken"
+              else
+                @top.update(item_id: num)
+                break
+              end
+            end
+          else
+        # create a range up to the item_id and iterate through item_ids until I find one that doesn't exist, then assign accessory that ID.
+        @top.update(item_id: count)
+        end
+      else
+        @top.update(item_id: count)
+      end
         flash[:success] = "Top was created!"
         redirect_to @top
       else

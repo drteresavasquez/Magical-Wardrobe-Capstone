@@ -10,9 +10,9 @@ class FootwearsController < ApplicationController
       redirect_to login_path
     else
       if current_user.family_admin?
-      @footwear = Footwear.where(wearer_id: wearer)
+      @footwear = Footwear.where(wearer_id: wearer).order(:wearer_id).order(:item_id)
       else
-      @footwear = Footwear.where(wearer_id: current_user.id)
+      @footwear = Footwear.where(wearer_id: current_user.id).order(:item_id)
       end
     end
   end
@@ -70,8 +70,31 @@ class FootwearsController < ApplicationController
     else
     @footwear = Footwear.new(footwear_params)
       if @footwear.save
-          flash[:success] = "Footwear was created!"
-          redirect_to @footwear
+        # give the item an incremental id so that the line item id isn't used. The user can have incremental ids in order so that item ids can be reused.
+      count = Footwear.where(:wearer_id => @footwear.wearer_id).count
+      highest = Footwear.where(:wearer_id => @footwear.wearer_id).maximum(:item_id)
+      item_array = Footwear.where(:wearer_id => @footwear.wearer_id).pluck(:item_id)
+      unless highest.nil?
+        if highest >= count
+          array = (1..highest)
+          array.each do |num|
+              if item_array.include?(num)
+                p "taken"
+              else
+                @footwear.update(item_id: num)
+                break
+              end
+            end
+          else
+        # create a range up to the item_id and iterate through item_ids until I find one that doesn't exist, then assign accessory that ID.
+        @footwear.update(item_id: count)
+        end
+      else
+        @footwear.update(item_id: count)
+      end
+
+      flash[:success] = "Footwear was created!"
+      redirect_to @footwear
       else
         @weather = WeatherType.all
         @style = StyleType.all

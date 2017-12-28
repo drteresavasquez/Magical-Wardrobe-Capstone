@@ -27,7 +27,7 @@
           <% else %>
           <%= link_to fa_icon("heart", class: "fa fa-heart fav"), footwear %>
           <% end %>
-          <%= footwear.name %> #<%= footwear.id %>
+          <%= footwear.name %> #<%= footwear.item_id %>
           <p><strong>Wearer:</strong> <%=User.find(footwear.wearer_id).name %></p>
         </h4>
         <p> <center><%= link_to 'Info', footwear, class: "btn btn-info"%>

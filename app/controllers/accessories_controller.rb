@@ -8,7 +8,7 @@ class AccessoriesController < ApplicationController
       redirect_to login_path
     else
       if current_user.family_admin?
-        @accessory = Accessory.where(wearer_id: wearer).order(:wearer_id)
+        @accessory = Accessory.where(wearer_id: wearer).order(:wearer_id).order(:item_id)
       else
         @accessory = Accessory.where(wearer_id: current_user.id)
       end
@@ -68,19 +68,23 @@ class AccessoriesController < ApplicationController
       count = Accessory.where(:wearer_id => @accessory.wearer_id).count
       highest = Accessory.where(:wearer_id => @accessory.wearer_id).maximum(:item_id)
       item_array = Accessory.where(:wearer_id => @accessory.wearer_id).pluck(:item_id)
-      if highest >= count
-        array = (1..highest)
-        array.each do |num|
-            if item_array.include?(num)
-              p "taken"
-            else
-              @accessory.update(item_id: num)
-              break
+      unless highest.nil?
+        if highest >= count
+          array = (1..highest)
+          array.each do |num|
+              if item_array.include?(num)
+                p "taken"
+              else
+                @accessory.update(item_id: num)
+                break
+              end
             end
-          end
+        else
+        # create a range up to the item_id and iterate through item_ids until I find one that doesn't exist, then assign accessory that ID.
+        @accessory.update(item_id: count)
+        end
       else
-      # create a range up to the item_id and iterate through item_ids until I find one that doesn't exist, then assign accessory that ID.
-      @accessory.update(item_id: count)
+        @accessory.update(item_id: count)
       end
 
       #once the item id is assigned, success!

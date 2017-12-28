@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171228172436) do
+ActiveRecord::Schema.define(version: 20171228193307) do
 
   create_table "accessories", force: :cascade do |t|
     t.integer "user_id"
@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 20171228172436) do
     t.datetime "updated_at", null: false
     t.integer "temperature_type_id"
     t.integer "wearer_id"
+    t.integer "item_id"
     t.index ["footwear_type_id"], name: "index_footwears_on_footwear_type_id"
     t.index ["style_type_id"], name: "index_footwears_on_style_type_id"
     t.index ["temperature_type_id"], name: "index_footwears_on_temperature_type_id"
@@ -122,6 +123,7 @@ ActiveRecord::Schema.define(version: 20171228172436) do
     t.string "description"
     t.integer "temperature_type_id"
     t.integer "wearer_id"
+    t.integer "item_id"
     t.index ["accessory_id"], name: "index_outfits_on_accessory_id"
     t.index ["bottom_id"], name: "index_outfits_on_bottom_id"
     t.index ["footwear_id"], name: "index_outfits_on_footwear_id"
@@ -165,6 +167,7 @@ ActiveRecord::Schema.define(version: 20171228172436) do
     t.string "picture"
     t.integer "temperature_type_id"
     t.integer "wearer_id"
+    t.integer "item_id"
     t.index ["style_type_id"], name: "index_tops_on_style_type_id"
     t.index ["temperature_type_id"], name: "index_tops_on_temperature_type_id"
     t.index ["top_type_id"], name: "index_tops_on_top_type_id"
