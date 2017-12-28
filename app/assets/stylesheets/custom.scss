@@ -152,6 +152,10 @@ header{
   margin-bottom: 40px;
 }
 
+.col-sm-3.outfit img{
+  width: 100%;
+}
+
 /* favorites */
 
 .fa.fa-heart{
@@ -313,6 +317,9 @@ input {
   .recently-tops{
     display: none;
   }
+  .col-sm-3.outfit img{
+    width: 50%;
+  }
  
 }
 
@@ -325,6 +332,9 @@ input {
   }
   .recently-tops{
     display: none;
+  }
+  .col-sm-3.outfit img{
+    width: 50%;
   }
  
 }

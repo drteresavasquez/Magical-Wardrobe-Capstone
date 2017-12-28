@@ -13,7 +13,7 @@
             <% else %>
             <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span>
             <% end %>
-            <%= @accessory.name %> #<%= @accessory.id %></h3>
+            <%= @accessory.name %> #<%= @accessory.item_id %></h3>
             <%= image_tag @accessory.picture.url if @accessory.picture? %>    
         <p>
           <strong>Weather Type:</strong>

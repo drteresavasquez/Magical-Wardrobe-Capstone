@@ -28,7 +28,7 @@
           <%= link_to fa_icon("heart", class: "fa fa-heart fav"), accessory %>
           <!-- <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span> -->
           <% end %>
-          <%= accessory.name %> #<%= accessory.id %>
+          <%= accessory.name %> #<%= accessory.item_id %>
           <p><strong>Wearer:</strong> <%=User.find(accessory.wearer_id).name %></p>
         </h4>
         

@@ -8,7 +8,7 @@ class AccessoriesController < ApplicationController
       redirect_to login_path
     else
       if current_user.family_admin?
-        @accessory = Accessory.where(wearer_id: wearer)
+        @accessory = Accessory.where(wearer_id: wearer).order(:wearer_id)
       else
         @accessory = Accessory.where(wearer_id: current_user.id)
       end
@@ -46,11 +46,11 @@ class AccessoriesController < ApplicationController
       redirect_to login_path
     else
     if current_user.id == Accessory.find(params[:id]).user_id || current_user.family_admin? && current_user.family_id == User.find(Accessory.find(params[:id]).user_id).family_id
+      @accessory = Accessory.find(params[:id]) 
       @weather = WeatherType.all
       @style = StyleType.all
       @type = AccessoryType.all
       @temp = TemperatureType.all
-      @accessory = Accessory.find(params[:id])
       @person = User.where(family_id:current_user.family_id)
     else
       redirect_to accessories_url
@@ -64,6 +64,11 @@ class AccessoriesController < ApplicationController
     else
     @accessory = Accessory.new(accessory_params)
     if @accessory.save
+      # give the item an incermental id so that the line item id isn't used. The user can have incremental ids in order so that item ids can be reused.
+      count = Accessory.where(:wearer_id => @accessory.wearer_id).count
+      @accessory.update(item_id: count)
+
+      #once the item id is assigned, success!
       flash[:success] = "Accessory was created!"
       redirect_to @accessory
     else
