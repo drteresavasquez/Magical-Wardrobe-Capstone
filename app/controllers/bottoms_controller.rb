@@ -69,6 +69,25 @@ class BottomsController < ApplicationController
     else
       @bottom = Bottom.new(bottom_params)
       if @bottom.save
+        # give the item an incremental id so that the line item id isn't used. The user can have incremental ids in order so that item ids can be reused.
+          count = Bottom.where(:wearer_id => @bottom.wearer_id).count
+          highest = Bottom.where(:wearer_id => @bottom.wearer_id).maximum(:item_id)
+          item_array = Bottom.where(:wearer_id => @bottom.wearer_id).pluck(:item_id)
+          if highest >= count
+            array = (1..highest)
+            array.each do |num|
+                if item_array.include?(num)
+                  p "taken"
+                else
+                  @accessory.update(item_id: num)
+                  break
+                end
+              end
+          else
+          # create a range up to the item_id and iterate through item_ids until I find one that doesn't exist, then assign accessory that ID.
+          @bottom.update(item_id: count)
+          end
+          
         flash[:success] = "Bottom was created!"
         redirect_to @bottom
       else

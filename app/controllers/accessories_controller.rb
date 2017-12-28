@@ -21,12 +21,6 @@ class AccessoriesController < ApplicationController
     else
       if current_user.id == Accessory.find(params[:id]).user_id || current_user.family_admin? && current_user.family_id == User.find(Accessory.find(params[:id]).user_id).family_id 
         @accessory = Accessory.find(params[:id])
-        count = Accessory.where(:wearer_id => @accessory.wearer_id).count
-      highest = Accessory.where(:wearer_id => @accessory.wearer_id).maximum(:item_id)
-      item_array = Accessory.where(:wearer_id => @accessory.wearer_id).pluck(:item_id)
-      p count
-      p highest
-      p item_array
       else
         redirect_to accessories_url
       end
