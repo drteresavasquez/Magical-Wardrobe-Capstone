@@ -16,7 +16,7 @@
                   <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span>
                   <% end %>
                   <%= @wearer.name %>'s <%= @outfit.name %> 
-                    #<%= @outfit.id %> 
+                    #<%= @outfit.item_id %> 
             </h3>
           </div>
         </div>
@@ -31,7 +31,7 @@
             <!-- thinking about allowing users to add more than one item -->
             <!-- @top.each do |top| -->
             <h4>Top #
-              <%= @top.id %>
+              <%= @top.item_id %>
                 <br>
                 <%= link_to image_tag(@top.picture.url), @top %>
             </h4>
@@ -40,7 +40,7 @@
 
           <div class="col-sm-3 outfit">
             <h4>Bottom #
-              <%= @bottom.id %>
+              <%= @bottom.item_id %>
                 <br>
                 <%= link_to image_tag(@bottom.picture.url), @bottom %>
             </h4>
@@ -49,7 +49,7 @@
           <% unless @footwear == 0 %>
             <div class="col-sm-3 outfit">
               <h4>Footwear #
-                <%= @footwear.id %>
+                <%= @footwear.item_id %>
                   <br>
                   <% if @footwear.picture? %>
                   <%= link_to image_tag(@footwear.picture.url), @footwear%>

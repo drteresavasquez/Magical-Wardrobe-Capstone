@@ -21,6 +21,12 @@ class AccessoriesController < ApplicationController
     else
       if current_user.id == Accessory.find(params[:id]).user_id || current_user.family_admin? && current_user.family_id == User.find(Accessory.find(params[:id]).user_id).family_id 
         @accessory = Accessory.find(params[:id])
+        count = Accessory.where(:wearer_id => @accessory.wearer_id).count
+      highest = Accessory.where(:wearer_id => @accessory.wearer_id).maximum(:item_id)
+      item_array = Accessory.where(:wearer_id => @accessory.wearer_id).pluck(:item_id)
+      p count
+      p highest
+      p item_array
       else
         redirect_to accessories_url
       end
@@ -64,9 +70,24 @@ class AccessoriesController < ApplicationController
     else
     @accessory = Accessory.new(accessory_params)
     if @accessory.save
-      # give the item an incermental id so that the line item id isn't used. The user can have incremental ids in order so that item ids can be reused.
+      # give the item an incremental id so that the line item id isn't used. The user can have incremental ids in order so that item ids can be reused.
       count = Accessory.where(:wearer_id => @accessory.wearer_id).count
+      highest = Accessory.where(:wearer_id => @accessory.wearer_id).maximum(:item_id)
+      item_array = Accessory.where(:wearer_id => @accessory.wearer_id).pluck(:item_id)
+      if highest >= count
+        array = (1..highest)
+        array.each do |num|
+            if item_array.include?(num)
+              p "taken"
+            else
+              @accessory.update(item_id: num)
+              break
+            end
+          end
+      else
+      # create a range up to the item_id and iterate through item_ids until I find one that doesn't exist, then assign accessory that ID.
       @accessory.update(item_id: count)
+      end
 
       #once the item id is assigned, success!
       flash[:success] = "Accessory was created!"

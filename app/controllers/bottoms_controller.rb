@@ -8,7 +8,7 @@ class BottomsController < ApplicationController
       redirect_to login_path
     else
       if current_user.family_admin?
-        @bottom = Bottom.where(wearer_id: wearer)
+        @bottom = Bottom.where(wearer_id: wearer).order(:wearer_id)
       else
         @bottom = Bottom.where(wearer_id: current_user.id)
       end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171228165521) do
+ActiveRecord::Schema.define(version: 20171228172436) do
 
   create_table "accessories", force: :cascade do |t|
     t.integer "user_id"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20171228165521) do
     t.datetime "updated_at", null: false
     t.integer "temperature_type_id"
     t.integer "wearer_id"
+    t.integer "item_id"
     t.index ["bottom_type_id"], name: "index_bottoms_on_bottom_type_id"
     t.index ["style_type_id"], name: "index_bottoms_on_style_type_id"
     t.index ["temperature_type_id"], name: "index_bottoms_on_temperature_type_id"
