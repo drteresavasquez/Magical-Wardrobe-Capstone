@@ -24,35 +24,35 @@
 #   activated_at: Time.zone.now)
 # end
 
-    # TopType.create!([
-    #   {name: "Sweater"},
-    #   {name: "Hoodie"},
-    #   {name: "T-shirt"},
-    #   {name: "Blouse"},
-    #   {name: "Dress Shirt"},
-    #   {name: "Tank Top"}
-    # ])
+    TopType.create!([
+      {name: "Sweater"},
+      {name: "Hoodie"},
+      {name: "T-shirt"},
+      {name: "Blouse"},
+      {name: "Dress Shirt"},
+      {name: "Tank Top"}
+    ])
 
-    # BottomType.create!([
-    #   {name: "Jeans"},
-    #   {name: "Slacks"},
-    #   {name: "Khakis"},
-    #   {name: "Shorts"},
-    #   {name: "Skirts"}
-    # ])
+    BottomType.create!([
+      {name: "Jeans"},
+      {name: "Slacks"},
+      {name: "Khakis"},
+      {name: "Shorts"},
+      {name: "Skirts"}
+    ])
 
-    # FootwearType.create!([
-    #   {name: "Sandals"},
-    #   {name: "Boots"},
-    #   {name: "Sneakers"},
-    #   {name: "Dress Shoes"}
-    # ])
+    FootwearType.create!([
+      {name: "Sandals"},
+      {name: "Boots"},
+      {name: "Sneakers"},
+      {name: "Dress Shoes"}
+    ])
 
-    # AccessoryType.create!([
-    #   {name: "Umbrella"},
-    #   {name: "Belts"},
-    #   {name: "Jewelry"}
-    # ])
+    AccessoryType.create!([
+      {name: "Umbrella"},
+      {name: "Belts"},
+      {name: "Jewelry"}
+    ])
 
     OutterwearType.create!([
       {name: "Coat"},
@@ -63,29 +63,29 @@
       {name: "Over Shirt"}
     ])
 
-    # StyleType.create!([
-    #   {name: "Slumming"},
-    #   {name: "Casual"},
-    #   {name: "Business Casual"},
-    #   {name: "Business Professional"},
-    #   {name: "Any"}
-    # ])
+    StyleType.create!([
+      {name: "Slumming"},
+      {name: "Casual"},
+      {name: "Business Casual"},
+      {name: "Business Professional"},
+      {name: "Any"}
+    ])
 
-    # WeatherType.create!([
-    #   {name: "Rain"},
-    #   {name: "Sunny"},
-    #   {name: "Snow"},
-    #   {name: "Clear"},
-    #   {name: "Any"}
-    # ])
+    WeatherType.create!([
+      {name: "Rain"},
+      {name: "Sunny"},
+      {name: "Snow"},
+      {name: "Clear"},
+      {name: "Any"}
+    ])
 
-    # TemperatureType.create!([
-    #   {name: "Cold"},
-    #   {name: "Cool"},
-    #   {name: "Hot"},
-    #   {name: "Warm"},
-    #   {name: "Any"}
-    # ])
+    TemperatureType.create!([
+      {name: "Cold"},
+      {name: "Cool"},
+      {name: "Hot"},
+      {name: "Warm"},
+      {name: "Any"}
+    ])
 
    
 
