@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Outterwears</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Name</th>
+      <th>Temperature type</th>
+      <th>Weather type</th>
+      <th>Outterwear type</th>
+      <th>Style type</th>
+      <th>Description</th>
+      <th>Favorite</th>
+      <th>Picture</th>
+      <th>Active</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @outterwears.each do |outterwear| %>
+      <tr>
+        <td><%= outterwear.user %></td>
+        <td><%= outterwear.name %></td>
+        <td><%= outterwear.temperature_type %></td>
+        <td><%= outterwear.weather_type %></td>
+        <td><%= outterwear.outterwear_type %></td>
+        <td><%= outterwear.style_type %></td>
+        <td><%= outterwear.description %></td>
+        <td><%= outterwear.favorite %></td>
+        <td><%= outterwear.picture %></td>
+        <td><%= outterwear.active %></td>
+        <td><%= link_to 'Show', outterwear %></td>
+        <td><%= link_to 'Edit', edit_outterwear_path(outterwear) %></td>
+        <td><%= link_to 'Destroy', outterwear, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Outterwear', new_outterwear_path %>

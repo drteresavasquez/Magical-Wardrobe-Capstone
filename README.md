@@ -31,4 +31,4 @@ Navigate to your web browser and visit localhost:3000
 - Ruby JSON
 - SQLite
 - Bootstrap
-- Heroku
+- Deployed on Heroku

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   get 'random/outfit'
   root   'sessions#new'
   get    '/users',    to: 'sessions#new'
@@ -18,6 +19,7 @@ Rails.application.routes.draw do
   get '/newfamilymember', to: 'families#new_member'
   post '/newfamilymember', to: 'families#create_new_member'
 
+  resources :outterwears
   resources :users
   resources :tops
   resources :bottoms
