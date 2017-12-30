@@ -25,17 +25,30 @@
             <%= image_tag @outfit.picture.url if @outfit.picture? %>
           </div>
         </div>
+        <div class="row">
+            <% unless @outterwear == 0 %>
+            <div class="col-sm-12 outfit">
+              <h4>Outerwear #
+                <%= @outterwear.item_id %>
+                  <br>
+                  <% if @outterwear.picture? %>
+                  <%= link_to image_tag(@outterwear.picture.url), @outterwear%>
+                  <%end%>
+              </h4>
+            </div>
+            <% else %>
+              <div class="display_none">
+              </div>
+              <% end %>
+        </div>
 
         <div class="row center">
           <div class="col-sm-3 outfit">
-            <!-- thinking about allowing users to add more than one item -->
-            <!-- @top.each do |top| -->
             <h4>Top #
               <%= @top.item_id %>
                 <br>
                 <%= link_to image_tag(@top.picture.url), @top %>
             </h4>
-            <!-- end -->
           </div>
 
           <div class="col-sm-3 outfit">
@@ -75,7 +88,6 @@
                     <div class="display_none">
                     </div>
                     <% end %>
-
 
                       <div class="col-sm-12">
 

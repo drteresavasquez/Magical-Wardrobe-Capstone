@@ -65,6 +65,11 @@
           </div>
 
         <div class="field">
+            <%= form.label :outterwear_id %>
+            <%= form.collection_select :outterwear_id, @outterwear, :id, :name, :include_blank => "Nothing selected"%>
+          </div>
+
+        <div class="field">
             <%= form.label :description %>
             <%= form.text_field :description, class: 'form-control' %>
           </div>
@@ -78,7 +83,7 @@
             <%= form.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
           </span>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="actions center">
+    <%= form.submit yield(:button_text), class: "btn btn-primary btn-lg form-btn" %>
   </div>
 <% end %>

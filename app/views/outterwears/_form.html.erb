@@ -1,7 +1,7 @@
-<%= form_with(model: outterwear, local: true) do |form| %>
+<%= form_for(@outterwear) do |form| %>
   <% if outterwear.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(outterwear.errors.count, "error") %> prohibited this outterwear from being saved:</h2>
+      <h2><%= pluralize(outterwear.errors.count, "error") %> prohibited this outerwear from being saved:</h2>
 
       <ul>
       <% outterwear.errors.full_messages.each do |message| %>
@@ -11,57 +11,67 @@
     </div>
   <% end %>
 
+  <%= form.hidden_field :user_id, :value => current_user.id %>
+  <%= form.hidden_field :active, :value => true %>
+
+  <% if User.find(current_user.id).family_id == 0 || !current_user.family_admin? %>
+    <%= form.hidden_field :wearer_id, :value => current_user.id %>
+  <% else %>
   <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id, id: :outterwear_user_id %>
+      <%= form.label :wearer_id %>
+      <%= form.collection_select :wearer_id, @person, :id, :name, :prompt => "Select a Family Member" %>
   </div>
+  <% end %>
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name, id: :outterwear_name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :temperature_type_id %>
-    <%= form.text_field :temperature_type_id, id: :outterwear_temperature_type_id %>
+    <%= form.text_field :name, class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= form.label :weather_type_id %>
-    <%= form.text_field :weather_type_id, id: :outterwear_weather_type_id %>
+    <%= form.collection_select :weather_type_id, @weather, :id, :name , :prompt => "Select a Weather Type"%>
   </div>
 
   <div class="field">
+      <%= form.label :temperature_type_id %>
+      <%= form.collection_select :temperature_type_id, @temp, :id, :name , :prompt => "Select a Temperature Type"%>
+    </div>
+
+  <div class="field">
     <%= form.label :outterwear_type_id %>
-    <%= form.text_field :outterwear_type_id, id: :outterwear_outterwear_type_id %>
+    <%= form.collection_select :outterwear_type_id, @type, :id, :name, :prompt => "Select an Outerwear Type"%>
   </div>
 
   <div class="field">
     <%= form.label :style_type_id %>
-    <%= form.text_field :style_type_id, id: :outterwear_style_type_id %>
+    <%= form.collection_select :style_type_id, @style, :id, :name, :prompt => "Select a Style"%>
   </div>
 
   <div class="field">
     <%= form.label :description %>
-    <%= form.text_field :description, id: :outterwear_description %>
+    <%= form.text_field :description, class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= form.label :favorite %>
-    <%= form.check_box :favorite, id: :outterwear_favorite %>
+    <%= form.check_box :favorite, class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= form.label :picture %>
-    <%= form.text_field :picture, id: :outterwear_picture %>
-  </div>
+  <span class="picture">
+      <%= form.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+    </span>
 
-  <div class="field">
-    <%= form.label :active %>
-    <%= form.check_box :active, id: :outterwear_active %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+    <div class="actions center">
+      <%= form.submit yield(:button_text), class: "btn btn-primary btn-lg form-btn" %>
+    </div>
+  <% end %>
+  
+  <script type="text/javascript">
+    $('#micropost_picture').bind('change', function() {
+      var size_in_megabytes = this.files[0].size/1024/1024;
+      if (size_in_megabytes > 5) {
+        alert('Maximum file size is 5MB. Please choose a smaller file.');
+      }
+    });
+  </script>

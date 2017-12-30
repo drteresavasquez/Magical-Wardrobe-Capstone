@@ -1,6 +1,7 @@
-<h1>Editing Outterwear</h1>
+<% provide(:button_text, 'Update Outerwear') %>
+<h1>Editing Outerwear</h1>
 
 <%= render 'form', outterwear: @outterwear %>
 
-<%= link_to 'Show', @outterwear %> |
-<%= link_to 'Back', outterwears_path %>
+<div class="col-sm-12 center">
+        <%= link_to 'Back', outterwears_path, class: "btn btn-info btn-lg form-btn" %></div>

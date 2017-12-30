@@ -63,7 +63,7 @@
             <%= form.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
           </span>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="actions center">
+    <%= form.submit yield(:button_text), class: "btn btn-primary btn-lg form-btn" %>
   </div>
 <% end %>

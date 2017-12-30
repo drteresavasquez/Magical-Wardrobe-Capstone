@@ -115,6 +115,28 @@ class TopsController < ApplicationController
           redirect_to @top
         }
         format.json { render :show, status: :ok, location: @top }
+            # updates item ID if a new user is selected for the item
+              count = Top.where(:wearer_id => @top.wearer_id).count
+              highest = Top.where(:wearer_id => @top.wearer_id).maximum(:item_id)
+              item_array = Top.where(:wearer_id => @top.wearer_id).pluck(:item_id)
+              unless highest.nil?
+                if highest >= count
+                  array = (1..highest)
+                  array.each do |num|
+                      if item_array.include?(num)
+                        p "taken"
+                      else
+                        @top.update(item_id: num)
+                        break
+                      end
+                    end
+                  else
+                # create a range up to the item_id and iterate through item_ids until I find one that doesn't exist, then assign accessory that ID.
+                @top.update(item_id: count)
+                end
+              else
+                @top.update(item_id: count)
+              end   
       else
         format.html { render :edit }
         format.json { render json: @top.errors, status: :unprocessable_entity }

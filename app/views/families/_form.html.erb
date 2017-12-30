@@ -20,7 +20,7 @@
     <%= form.text_field :family_name, class: 'form-control' %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="actions center">
+    <%= form.submit yield(:button_text), class: "btn btn-primary btn-lg form-btn" %>
   </div>
 <% end %>

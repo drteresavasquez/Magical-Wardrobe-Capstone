@@ -1,5 +1,7 @@
+<% provide(:button_text, 'Add Accessory') %>
 <h1>New Accessory</h1>
 
 <%= render 'form', accessory: @accessory %>
 
-<%= link_to 'Back', accessories_path %>
+<div class="col-sm-12 center">
+<%= link_to 'Back', accessories_path, class: "btn btn-info btn-lg form-btn" %></div>

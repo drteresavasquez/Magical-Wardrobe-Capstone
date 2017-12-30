@@ -1,54 +1,67 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>User:</strong>
-  <%= @outterwear.user %>
-</p>
+<div class="row">      
 
-<p>
-  <strong>Name:</strong>
-  <%= @outterwear.name %>
-</p>
+  <div class="hide-on-mobile">
+    <%= render 'shared/sidebar' %>
+  </div>
 
-<p>
-  <strong>Temperature type:</strong>
-  <%= @outterwear.temperature_type %>
-</p>
+<div class="row">
+    <div class="col-sm-8">
+    <center><h3>
+        <% unless @outterwear.favorite? %>
+        <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+        <% else %>
+        <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span>
+        <% end %>
+        <%= @outterwear.name %> #<%= @outterwear.item_id %></h3>
+        <%= image_tag @outterwear.picture.url if @outterwear.picture? %>
 
-<p>
-  <strong>Weather type:</strong>
-  <%= @outterwear.weather_type %>
-</p>
+  <p>
+      <strong>Status:</strong>
+      <% if @outterwear.active? %>
+        Clean
+        <% else %>
+        Dirty
+        <% end %>
+    </p>
 
-<p>
-  <strong>Outterwear type:</strong>
-  <%= @outterwear.outterwear_type %>
-</p>
+    <p>
+      <strong>Weather Type:</strong>
+      <%= @outterwear.weather_type.name %>
+    </p>
+    <p>
+      <strong>Temperature Type:</strong>
+      <%= @outterwear.temperature_type.name %>
+    </p>
 
-<p>
-  <strong>Style type:</strong>
-  <%= @outterwear.style_type %>
-</p>
+    <p>
+      <strong>Top type:</strong>
+      <%= @outterwear.outterwear_type.name %>
+    </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @outterwear.description %>
-</p>
+    <p>
+      <strong>Style:</strong>
+      <%= @outterwear.style_type.name %>
+    </p>
 
-<p>
-  <strong>Favorite:</strong>
-  <%= @outterwear.favorite %>
-</p>
+    <p>
+      <strong>Description:</strong>
+      <%= @outterwear.description %>
+    </p>
+    <%= form_for(@outterwear) do |form| -%>
+      <% if @outterwear.active? %>
+      <%= form.hidden_field :active, :value => false %>
+      <%= submit_tag 'Wear This!', class: "btn btn-info wearthis" -%>
+        <% else %>
+        <%= form.hidden_field :active, :value => true %>
+        <%= submit_tag 'Wash This!', class: "btn btn-warning wearthis" -%>
+      <% end %>
+      <% end %>
 
-<p>
-  <strong>Picture:</strong>
-  <%= @outterwear.picture %>
-</p>
-
-<p>
-  <strong>Active:</strong>
-  <%= @outterwear.active %>
-</p>
-
-<%= link_to 'Edit', edit_outterwear_path(@outterwear) %> |
-<%= link_to 'Back', outterwears_path %>
+      <%= link_to 'See All Outerwear', outterwears_path, class: "btn btn-primary" %>  
+      <%= link_to 'Edit', edit_outterwear_path(@outterwear), class: "btn btn-primary" %>
+       <%= link_to 'Delete', @outterwear, method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %>
+      </center>
+      </div>
+    </div>
+  </div>

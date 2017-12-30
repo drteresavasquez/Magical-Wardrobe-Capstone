@@ -108,11 +108,11 @@ header{
 
 .sidebar-home {
   section.user_info {
-    margin-top: 20px;
+    margin-top: 0px;
   }
   section {
-    padding: 10px 0;
-    margin-top: 20px;
+    // padding: 10px 0;
+    margin-top: 10px;
     &:first-child {
       border: 0;
       padding-top: 0;
@@ -200,6 +200,11 @@ header{
 
 /* forms */
 
+.form-btn{
+  margin-top:10px;
+  width: 40%;
+}
+
 input, textarea, select, .uneditable-input {
   border: 1px solid #bbb;
   width: 100%;
@@ -254,8 +259,8 @@ input {
 
 /* family index */
 
-.caption{
-  padding-left: 10px;
+.textstuff{
+  margin-left: 10px !important;
 }
 
 /* Login Page */
@@ -320,6 +325,10 @@ input {
   .col-sm-3.outfit img{
     width: 50%;
   }
+  .form-btn{
+    margin-top:10px;
+    width: 100%;
+  }
  
 }
 
@@ -335,6 +344,10 @@ input {
   }
   .col-sm-3.outfit img{
     width: 50%;
+  }
+  .form-btn{
+    margin-top:10px;
+    width: 100%;
   }
  
 }

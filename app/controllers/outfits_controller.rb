@@ -76,10 +76,16 @@ class OutfitsController < ApplicationController
         else 
           @footwear = 0
         end
+
         unless @outfit.accessory_id.nil?
         @accessory = Accessory.find(@outfit.accessory_id)
         else
           @accessory = 0
+        end
+        unless @outfit.outterwear_id.nil?
+        @outterwear = Outterwear.find(@outfit.outterwear_id)
+        else
+          @outterwear = 0
         end
       
       #otherwise, redirect the the outfits home page
@@ -106,6 +112,7 @@ class OutfitsController < ApplicationController
       @bottom = Bottom.where(wearer_id: wearer).order(:name)
       @accessory = Accessory.where(wearer_id: wearer).order(:name)
       @footwear = Footwear.where(wearer_id: wearer).order(:name)
+      @outterwear = Outterwear.where(wearer_id: wearer).order(:name)
       @person = User.where(family_id:current_user.family_id).order(:name)
 
     #else, if they are not, scope these instead
@@ -114,6 +121,7 @@ class OutfitsController < ApplicationController
       @bottom = Bottom.where(wearer_id: current_user.id).order(:name)
       @accessory = Accessory.where(wearer_id: current_user.id).order(:name)
       @footwear = Footwear.where(wearer_id: current_user.id).order(:name)
+      @outterwear = Outterwear.where(wearer_id: current_user.id).order(:name)
       @person = User.find(current_user.id)
     end
   end
@@ -133,6 +141,7 @@ class OutfitsController < ApplicationController
         @bottom = Bottom.where(user_id: current_user.id).order(:name)
         @accessory = Accessory.where(user_id: current_user.id).order(:name)
         @footwear = Footwear.where(user_id: current_user.id).order(:name)
+        @outterwear = Outterwear.where(user_id: current_user.id).order(:name)
 
         # if the current user isn't a part of a family or not a family_admin, they can only edit items for themselves
         if User.find(current_user.id).family_id == 0 || !current_user.family_admin?
@@ -186,6 +195,7 @@ class OutfitsController < ApplicationController
       @bottom = Bottom.where(user_id: current_user.id).order(:name)
       @accessory = Accessory.where(user_id: current_user.id).order(:name)
       @footwear = Footwear.where(user_id: current_user.id).order(:name)
+      @outterwear = Outterwear.where(user_id: current_user.id).order(:name)
       @temp = TemperatureType.all
         if current_user.family_id == 0
           @person = User.find(current_user.id).order(:name)
@@ -218,6 +228,29 @@ class OutfitsController < ApplicationController
           redirect_to @outfit
         }
         format.json { render :show, status: :ok, location: @outfit }
+
+        # give the item an incremental id so that the line item id isn't used. The user can have incremental ids in order so that item ids can be reused.
+      count = Outfit.where(:wearer_id => @outfit.wearer_id).count
+      highest = Outfit.where(:wearer_id => @outfit.wearer_id).maximum(:item_id)
+      item_array = Outfit.where(:wearer_id => @outfit.wearer_id).pluck(:item_id)
+      unless highest.nil?
+        if highest >= count
+          array = (1..highest)
+          array.each do |num|
+              if item_array.include?(num)
+                p "taken"
+              else
+                @outfit.update(item_id: num)
+                break
+              end
+            end
+          else
+        # create a range up to the item_id and iterate through item_ids until I find one that doesn't exist, then assign accessory that ID.
+        @outfit.update(item_id: count)
+        end
+      else
+        @outfit.update(item_id: count)
+      end
       else
         format.html { render :edit }
         format.json { render json: @outfit.errors, status: :unprocessable_entity }
@@ -261,7 +294,8 @@ class OutfitsController < ApplicationController
         :style_type_id,
         :temperature_type_id,
         :description,
-        :wearer_id
+        :wearer_id,
+        :outterwear_id
         )
     end
 end

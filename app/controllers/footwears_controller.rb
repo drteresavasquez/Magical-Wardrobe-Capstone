@@ -115,6 +115,28 @@ class FootwearsController < ApplicationController
         redirect_to @footwear
         }
         format.json { render :show, status: :ok, location: @footwear }
+        # give the item an incremental id so that the line item id isn't used. The user can have incremental ids in order so that item ids can be reused.
+      count = Footwear.where(:wearer_id => @footwear.wearer_id).count
+      highest = Footwear.where(:wearer_id => @footwear.wearer_id).maximum(:item_id)
+      item_array = Footwear.where(:wearer_id => @footwear.wearer_id).pluck(:item_id)
+      unless highest.nil?
+        if highest >= count
+          array = (1..highest)
+          array.each do |num|
+              if item_array.include?(num)
+                p "taken"
+              else
+                @footwear.update(item_id: num)
+                break
+              end
+            end
+          else
+        # create a range up to the item_id and iterate through item_ids until I find one that doesn't exist, then assign accessory that ID.
+        @footwear.update(item_id: count)
+        end
+      else
+        @footwear.update(item_id: count)
+      end
       else
         format.html { render :edit }
         format.json { render json: @footwear.errors, status: :unprocessable_entity }

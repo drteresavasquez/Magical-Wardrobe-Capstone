@@ -1,5 +1,7 @@
+<% provide(:button_text, 'Add Outfit') %>
 <h1>New Outfit</h1>
 
 <%= render 'form', outfit: @outfit %>
 
-<%= link_to 'Back', outfits_path %>
+<div class="col-sm-12 center">
+        <%= link_to 'Back', outfits_path, class: "btn btn-info btn-lg form-btn" %></div>
