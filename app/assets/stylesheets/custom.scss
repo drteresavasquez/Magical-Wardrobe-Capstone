@@ -31,6 +31,16 @@ header{
 
 .btn.btn-primary.btn-lg.btn-block{
   color: white !important;
+  background: #2D5973 !important;
+  &:hover{
+    background: $magic-purple !important;
+  }
+}
+
+
+.btn.btn-success.btn-lg.btn-block,
+.btn.btn-warning.btn-lg.btn-block{
+  color: white !important;
   &:hover{
     background: $magic-purple !important;
   }
