@@ -108,8 +108,7 @@
                 </div>
                 <% else %>
                     <h3>You don't have any available outfits for this
-                        <%= @temp_type %> (
-                            <%=@temp%>&#8457;) day.</h3>
+                        <%= @temp_type %> (<%=@temp%>&#8457;) day.</h3>
                     <% if User.find(current_user.id).family_admin? || User.find(current_user.id).family_id == 0 %>
                         <%= link_to 'Create an Outfit', new_outfit_path, class: "btn btn-primary" %>
                             <% end %>
