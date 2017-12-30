@@ -1,0 +1,2 @@
+class OutterwearType < ApplicationRecord
+end

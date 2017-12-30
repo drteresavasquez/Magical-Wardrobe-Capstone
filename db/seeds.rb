@@ -24,61 +24,70 @@
 #   activated_at: Time.zone.now)
 # end
 
-    TopType.create!([
-      {name: "Sweater", description: "An article that is worn over a shirt"},
-      {name: "Hoodie", description: "Any top with a hood"},
-      {name: "T-shirt", description: "With sleeve, either half or full"},
-      {name: "Blouse", description: "A shirt that is worn with dressy attire"},
-      {name: "Dress Shirt", description: "A button-down or collared shirt"},
-      {name: "Tank Top", description: "Sleeveless, maybe just strap over shoulder"}
+    # TopType.create!([
+    #   {name: "Sweater"},
+    #   {name: "Hoodie"},
+    #   {name: "T-shirt"},
+    #   {name: "Blouse"},
+    #   {name: "Dress Shirt"},
+    #   {name: "Tank Top"}
+    # ])
+
+    # BottomType.create!([
+    #   {name: "Jeans"},
+    #   {name: "Slacks"},
+    #   {name: "Khakis"},
+    #   {name: "Shorts"},
+    #   {name: "Skirts"}
+    # ])
+
+    # FootwearType.create!([
+    #   {name: "Sandals"},
+    #   {name: "Boots"},
+    #   {name: "Sneakers"},
+    #   {name: "Dress Shoes"}
+    # ])
+
+    # AccessoryType.create!([
+    #   {name: "Umbrella"},
+    #   {name: "Belts"},
+    #   {name: "Jewelry"}
+    # ])
+
+    OutterwearType.create!([
+      {name: "Coat"},
+      {name: "Jacket"},
+      {name: "Button Sweater"},
+      {name: "Raincoat"},
+      {name: "Poncho"},
+      {name: "Over Shirt"}
     ])
 
-    BottomType.create!([
-      {name: "Jeans"},
-      {name: "Slacks"},
-      {name: "Khakis"},
-      {name: "Shorts"},
-      {name: "Skirts"}
-    ])
+    # StyleType.create!([
+    #   {name: "Slumming"},
+    #   {name: "Casual"},
+    #   {name: "Business Casual"},
+    #   {name: "Business Professional"},
+    #   {name: "Any"}
+    # ])
 
-    FootwearType.create!([
-      {name: "Sandals"},
-      {name: "Boots"},
-      {name: "Sneakers"},
-      {name: "Dress Shoes"}
-    ])
+    # WeatherType.create!([
+    #   {name: "Rain"},
+    #   {name: "Sunny"},
+    #   {name: "Snow"},
+    #   {name: "Clear"},
+    #   {name: "Any"}
+    # ])
 
-    AccessoryType.create!([
-      {name: "Umbrella"},
-      {name: "Belts"},
-      {name: "Jewelry"},
-      {name: "Coats"},
-      {name: "Jackets"}
-    ])
+    # TemperatureType.create!([
+    #   {name: "Cold"},
+    #   {name: "Cool"},
+    #   {name: "Hot"},
+    #   {name: "Warm"},
+    #   {name: "Any"}
+    # ])
 
-    StyleType.create!([
-      {name: "Slumming"},
-      {name: "Casual"},
-      {name: "Business Casual"},
-      {name: "Business Professional"},
-      {name: "Any"}
-    ])
-
-    WeatherType.create!([
-      {name: "Rain"},
-      {name: "Sunny"},
-      {name: "Snow"},
-      {name: "Clear"},
-      {name: "Any"}
-    ])
-
-    TemperatureType.create!([
-      {name: "Cold"},
-      {name: "Cool"},
-      {name: "Hot"},
-      {name: "Warm"},
-      {name: "Any"}
-    ])
+   
 
     
 
