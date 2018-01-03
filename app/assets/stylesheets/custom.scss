@@ -218,14 +218,16 @@ header{
 select{
   height: 40px;
   background-color: none;
-  border: 1px solid $magic-purple;
+  font-size: 1.2em;
+  border: 1px solid #bbb;
   width: 100%;
   margin-bottom: 15px;
   @include box_sizing;
 }
 
+
 input, textarea, .uneditable-input {
-  border: 1px solid #bbb;
+  // border: 1px solid #bbb;
   width: 100%;
   margin-bottom: 15px;
   @include box_sizing;
@@ -249,6 +251,7 @@ input {
     color: $state-danger-text;
   }
 }
+
 
 .checkbox {
   margin-top: -10px;

@@ -108,12 +108,12 @@ class OutfitsController < ApplicationController
 
     #if the family member is the admin of the house, make scope these variables to the view and make all people available to assign outfits
     elsif current_user.family_admin?
-      @top = Top.where(wearer_id: wearer).order(:name)
-      @bottom = Bottom.where(wearer_id: wearer).order(:name)
-      @accessory = Accessory.where(wearer_id: wearer).order(:name)
-      @footwear = Footwear.where(wearer_id: wearer).order(:name)
-      @outterwear = Outterwear.where(wearer_id: wearer).order(:name)
-      @person = User.where(family_id:current_user.family_id).order(:name)
+      @top = Top.where(wearer_id: wearer).order(:wearer_id)
+      @bottom = Bottom.where(wearer_id: wearer).order(:wearer_id)
+      @accessory = Accessory.where(wearer_id: wearer).order(:wearer_id)
+      @footwear = Footwear.where(wearer_id: wearer).order(:wearer_id)
+      @outterwear = Outterwear.where(wearer_id: wearer).order(:wearer_id)
+      @person = User.where(family_id:current_user.family_id).order(:wearer_id)
 
     #else, if they are not, scope these instead
     elsif !current_user.family_admin?
@@ -137,11 +137,11 @@ class OutfitsController < ApplicationController
         @style = StyleType.all
         @temp = TemperatureType.all
         @outfit = Outfit.find(params[:id])
-        @top = Top.where(user_id: current_user.id).order(:name)
-        @bottom = Bottom.where(user_id: current_user.id).order(:name)
-        @accessory = Accessory.where(user_id: current_user.id).order(:name)
-        @footwear = Footwear.where(user_id: current_user.id).order(:name)
-        @outterwear = Outterwear.where(user_id: current_user.id).order(:name)
+        @top = Top.where(user_id: current_user.id).order(:wearer_id)
+        @bottom = Bottom.where(user_id: current_user.id).order(:wearer_id)
+        @accessory = Accessory.where(user_id: current_user.id).order(:wearer_id)
+        @footwear = Footwear.where(user_id: current_user.id).order(:wearer_id)
+        @outterwear = Outterwear.where(user_id: current_user.id).order(:wearer_id)
 
         # if the current user isn't a part of a family or not a family_admin, they can only edit items for themselves
         if User.find(current_user.id).family_id == 0 || !current_user.family_admin?

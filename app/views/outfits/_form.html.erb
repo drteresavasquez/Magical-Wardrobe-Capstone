@@ -45,28 +45,27 @@
       
       <div class="field">
           <%= form.label :top_id %>
-        <%= form.collection_select :top_id, @top, :id, :name, :prompt => "Select a Top" %>
-        <!--  Top.where(:wearer_id => :wearer_id), :top_id, :name, include_blank: true -->
+        <%= form.select :top_id, options_for_select(@top.all.map{|c| ["#{User.find(c.wearer_id).name}: #{c.name} (#{TopType.find(c.top_type_id).name})"]}, form.object.id), {:prompt => "Select a Top"}, {} %>
       </div>
 
       <div class="field">
           <%= form.label :bottom_id %>
-          <%= form.collection_select :bottom_id, @bottom, :id, :name, :prompt => "Select a Bottom"%>
+          <%= form.select :bottom_id, options_for_select(@bottom.all.map{|c| ["#{User.find(c.wearer_id).name}: #{c.name} (#{BottomType.find(c.bottom_type_id).name})"]}, form.object.id), {:prompt => "Select a Bottom"}, {} %>
         </div>
 
       <div class="field">
           <%= form.label :accessory_id %>
-          <%= form.collection_select :accessory_id, @accessory, :id, :name, :include_blank => "Nothing selected"%>
+          <%= form.select :accessory_id, options_for_select(@accessory.all.map{|c| ["#{User.find(c.wearer_id).name}: #{c.name} (#{AccessoryType.find(c.accessory_type_id).name})"]}, form.object.id), {:include_blank => "Nothing selected"}, {} %>
         </div>
 
         <div class="field">
             <%= form.label :footwear_id %>
-            <%= form.collection_select :footwear_id, @footwear, :id, :name, :include_blank => "Nothing selected"%>
+            <%= form.select :footwear_id, options_for_select(@footwear.all.map{|c| ["#{User.find(c.wearer_id).name}: #{c.name} (#{FootwearType.find(c.footwear_type_id).name})"]}, form.object.id), {:include_blank => "Nothing selected"}, {} %>
           </div>
 
-        <div class="field">
+          <div class="field">
             <%= form.label "Outerwear" %>
-            <%= form.collection_select :outterwear_id, @outterwear, :id, :name, :include_blank => "Nothing selected"%>
+            <%= form.select :outterwear_id, options_for_select(@outterwear.all.map{|c| ["#{User.find(c.wearer_id).name}: #{c.name} (#{OutterwearType.find(c.outterwear_type_id).name})"]}, form.object.id), {:include_blank => "Nothing selected"}, {} %>
           </div>
 
         <div class="field">
