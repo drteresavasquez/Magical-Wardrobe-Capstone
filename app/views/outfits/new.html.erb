@@ -1,7 +1,28 @@
+<% if params[:term] && User.find(current_user.id).family_admin?%>
 <% provide(:button_text, 'Add Outfit') %>
-<h1>New Outfit</h1>
+<h2>New Outfit for <%=@person_name%></h2>
 
 <%= render 'form', outfit: @outfit %>
 
-<div class="col-sm-12 center">
+<div class="center">
         <%= link_to 'Back', outfits_path, class: "btn btn-info btn-lg form-btn" %></div>
+<%elsif User.find(current_user.id).family_admin?%>
+<h2>Select A Family Member</h2>
+        <%= form_tag(new_outfit_path, method: :get, class: "form-inline my-2 my-lg-0") do %>
+      
+        <%= select_tag :term, options_from_collection_for_select(@person, "id", "name", :prompt => "Choose a Person")%>
+
+        <div class="center">
+        <%= submit_tag 'GO', name: nil, class: "btn btn-info btn-lg form-btn" %>
+        </div>
+        <% end %>
+<%elsif User.find(current_user.id).family_id == 0%>
+<% provide(:button_text, 'Add Outfit') %>
+<h2>New Outfit for <%=@person_name%></h2>
+
+<%= render 'form', outfit: @outfit %>
+
+<div class="center">
+        <%= link_to 'Back', outfits_path, class: "btn btn-info btn-lg form-btn" %></div>
+<%end%>
+

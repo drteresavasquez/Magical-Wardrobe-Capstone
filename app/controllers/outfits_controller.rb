@@ -108,13 +108,26 @@ class OutfitsController < ApplicationController
 
     #if the family member is the admin of the house, make scope these variables to the view and make all people available to assign outfits
     elsif current_user.family_admin?
-      @top = Top.where(wearer_id: wearer).order(:wearer_id)
-      @bottom = Bottom.where(wearer_id: wearer).order(:wearer_id)
-      @accessory = Accessory.where(wearer_id: wearer).order(:wearer_id)
-      @footwear = Footwear.where(wearer_id: wearer).order(:wearer_id)
-      @outterwear = Outterwear.where(wearer_id: wearer).order(:wearer_id)
-      @person = User.where(family_id:current_user.family_id).order(:wearer_id)
-
+      @person = if params[:term]
+        User.find("#{params[:term]}")
+        else
+        @person = User.where(family_id:current_user.family_id).order(:wearer_id)
+        end
+      
+      if params[:term]
+      @top = Top.where(wearer_id: @person.id).order(:name)
+      @bottom = Bottom.where(wearer_id: @person.id).order(:name)
+      @accessory = Accessory.where(wearer_id: @person.id).order(:name)
+      @footwear = Footwear.where(wearer_id: @person.id).order(:name)
+      @outterwear = Outterwear.where(wearer_id: @person.id).order(:name)
+      @person_name = @person.name
+      end
+      # @top = Top.where(wearer_id: wearer).order(:name)
+      # @bottom = Bottom.where(wearer_id: wearer).order(:name)
+      # @accessory = Accessory.where(wearer_id: wearer).order(:name)
+      # @footwear = Footwear.where(wearer_id: wearer).order(:name)
+      # @outterwear = Outterwear.where(wearer_id: wearer).order(:name)
+      
     #else, if they are not, scope these instead
     elsif !current_user.family_admin?
       @top = Top.where(wearer_id: current_user.id).order(:name)
@@ -123,6 +136,7 @@ class OutfitsController < ApplicationController
       @footwear = Footwear.where(wearer_id: current_user.id).order(:name)
       @outterwear = Outterwear.where(wearer_id: current_user.id).order(:name)
       @person = User.find(current_user.id)
+      @person_name = @person.name
     end
   end
 
