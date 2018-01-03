@@ -215,7 +215,16 @@ header{
   width: 40%;
 }
 
-input, textarea, select, .uneditable-input {
+select{
+  height: 40px;
+  background-color: none;
+  border: 1px solid $magic-purple;
+  width: 100%;
+  margin-bottom: 15px;
+  @include box_sizing;
+}
+
+input, textarea, .uneditable-input {
   border: 1px solid #bbb;
   width: 100%;
   margin-bottom: 15px;
