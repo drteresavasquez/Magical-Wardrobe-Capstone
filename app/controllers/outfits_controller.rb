@@ -96,7 +96,6 @@ class OutfitsController < ApplicationController
 
   # GET /outfits/new
   def new
-    wearer = User.where(family_id: current_user.family_id)
     # elements available to all loggeed in users
     @outfit = Outfit.new
     @weather = WeatherType.all
@@ -108,27 +107,25 @@ class OutfitsController < ApplicationController
 
     #if the family member is the admin of the house, make scope these variables to the view and make all people available to assign outfits
     elsif current_user.family_admin?
-      @person = if params[:term]
-        User.find("#{params[:term]}")
-        else
-        @person = User.where(family_id:current_user.family_id).order(:wearer_id)
+        #if the person id is in the params, proceed to creating the outfit
+        @person = if params[:term]
+          User.find("#{params[:term]}")
+          else
+          #otherwise make the user select from a list of family members
+          @person = User.where(family_id:current_user.family_id).order(:wearer_id)
+          end
+        
+        #if there are params, scope the items to the new outfits form
+        if params[:term]
+        @top = Top.where(wearer_id: @person.id).order(:name)
+        @bottom = Bottom.where(wearer_id: @person.id).order(:name)
+        @accessory = Accessory.where(wearer_id: @person.id).order(:name)
+        @footwear = Footwear.where(wearer_id: @person.id).order(:name)
+        @outterwear = Outterwear.where(wearer_id: @person.id).order(:name)
+        @person_name = @person.name
         end
       
-      if params[:term]
-      @top = Top.where(wearer_id: @person.id).order(:name)
-      @bottom = Bottom.where(wearer_id: @person.id).order(:name)
-      @accessory = Accessory.where(wearer_id: @person.id).order(:name)
-      @footwear = Footwear.where(wearer_id: @person.id).order(:name)
-      @outterwear = Outterwear.where(wearer_id: @person.id).order(:name)
-      @person_name = @person.name
-      end
-      # @top = Top.where(wearer_id: wearer).order(:name)
-      # @bottom = Bottom.where(wearer_id: wearer).order(:name)
-      # @accessory = Accessory.where(wearer_id: wearer).order(:name)
-      # @footwear = Footwear.where(wearer_id: wearer).order(:name)
-      # @outterwear = Outterwear.where(wearer_id: wearer).order(:name)
-      
-    #else, if they are not, scope these instead
+    #else, if they are not a family admin, scope these instead
     elsif !current_user.family_admin?
       @top = Top.where(wearer_id: current_user.id).order(:name)
       @bottom = Bottom.where(wearer_id: current_user.id).order(:name)
@@ -151,11 +148,11 @@ class OutfitsController < ApplicationController
         @style = StyleType.all
         @temp = TemperatureType.all
         @outfit = Outfit.find(params[:id])
-        @top = Top.where(user_id: current_user.id).order(:wearer_id)
-        @bottom = Bottom.where(user_id: current_user.id).order(:wearer_id)
-        @accessory = Accessory.where(user_id: current_user.id).order(:wearer_id)
-        @footwear = Footwear.where(user_id: current_user.id).order(:wearer_id)
-        @outterwear = Outterwear.where(user_id: current_user.id).order(:wearer_id)
+        @top = Top.where(wearer_id: @outfit.wearer_id).order(:name)
+        @bottom = Bottom.where(wearer_id: @outfit.wearer_id).order(:name)
+        @accessory = Accessory.where(wearer_id: @outfit.wearer_id).order(:name)
+        @footwear = Footwear.where(wearer_id: @outfit.wearer_id).order(:name)
+        @outterwear = Outterwear.where(wearer_id: @outfit.wearer_id).order(:name)
 
         # if the current user isn't a part of a family or not a family_admin, they can only edit items for themselves
         if User.find(current_user.id).family_id == 0 || !current_user.family_admin?
@@ -163,7 +160,7 @@ class OutfitsController < ApplicationController
 
         #otherwise, a family_admin can edit an outfit for anyone in the family
         else
-        @person = User.where(family_id:current_user.family_id)
+        @person = User.find(@outfit.wearer_id)
         end
 
     #if the user doesn't own it or they are not the family admin, they are redirected to all outfits
