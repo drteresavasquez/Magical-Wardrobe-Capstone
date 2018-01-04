@@ -41,10 +41,10 @@
             <%= form_for(top) do |form| -%>
             <% if top.active? %>
             <%= form.hidden_field :active, :value => false %>
-            <%= submit_tag 'Wear This!', class: "btn btn-info" -%>
+            <%= submit_tag 'Wear This!', class: "btn btn-info wearit" -%>
               <% else %>
               <%= form.hidden_field :active, :value => true %>
-              <%= submit_tag 'Wash This!', class: "btn btn-warning" -%>
+              <%= submit_tag 'Wash This!', class: "btn btn-warning wearit" -%>
             <% end %>
             <% end %>
           <p> <center><%= link_to 'Info', top, class: "btn btn-info"%>
