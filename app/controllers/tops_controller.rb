@@ -4,14 +4,24 @@ class TopsController < ApplicationController
   #limits users to view only their tops
   def index
     wearer = User.where(family_id: current_user.family_id) if logged_in?
+    @path = tops_path
+    @search_name = "Tops"
 
     if current_user.nil?
       redirect_to login_path
     else
       if current_user.family_admin?
-      @top = Top.where(wearer_id: wearer).order(:wearer_id).order(:item_id)
+      @top = if params[:term]
+        Top.where('name LIKE ? OR id LIKE ?', "%#{params[:term]}%", "%#{User.where(:name => params[:term]).ids}%")
+        else
+        Top.where(wearer_id: wearer).order(:wearer_id).order(:item_id)
+         end
       else
-      @top = Top.where(wearer_id: current_user.id).order(:item_id)
+      @top = if params[:term]
+        Top.where('name LIKE ?', "%#{params[:term]}%")
+        else
+        Top.where(wearer_id: current_user.id).order(:item_id)
+        end
       end
     end
   end

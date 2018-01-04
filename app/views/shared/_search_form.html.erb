@@ -1,0 +1,6 @@
+ <!-- search form begin -->
+ <%= form_tag(@path, method: :get, class: "form-inline my-2 my-lg-0") do %>
+ <%= text_field_tag :term, params[:term], class: "form-control mr-sm-2", placeholder: "Search #{@search_name}" %>
+ <%= submit_tag 'GO', name: nil, class: "btn btn-info search" %>
+ <% end %>
+<!-- search form end -->
