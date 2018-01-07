@@ -1,7 +1,6 @@
 class OutfitsController < ApplicationController
   include SessionsHelper  
-  # GET /outfits
-  # GET /outfits.json
+
   def index
     wearer = User.where(family_id: current_user.family_id)
     # if the current user is the admin, show all outfits for the family
@@ -27,6 +26,8 @@ class OutfitsController < ApplicationController
       end
     
       #scoped to view to show all wearers in the family if the current user is a family admin
+
+      #for filter, if used, change @outfit to the params else show everything
       @person = User.where(family_id:current_user.family_id).order(:wearer_id)
       @outfit = if params[:term] && params[:term] != ""
         person = User.find("#{params[:term]}")
@@ -101,7 +102,6 @@ class OutfitsController < ApplicationController
       end
   end
 
-  # GET /outfits/new
   def new
     # elements available to all loggeed in users
     @outfit = Outfit.new
@@ -144,7 +144,6 @@ class OutfitsController < ApplicationController
     end
   end
 
-  # GET /outfits/1/edit
   def edit
     if current_user.nil?
       redirect_to login_path
@@ -177,8 +176,6 @@ class OutfitsController < ApplicationController
     end
   end
 
-  # POST /outfits
-  # POST /outfits.json
   def create
     @outfit = Outfit.new(outfit_params)
     if @outfit.save
@@ -224,8 +221,6 @@ class OutfitsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /outfits/1
-  # PATCH/PUT /outfits/1.json
   def update
     @outfit = set_outfit
     @top = Top.find(@outfit.top_id)
@@ -276,8 +271,6 @@ class OutfitsController < ApplicationController
     end
   end
 
-  # DELETE /outfits/1
-  # DELETE /outfits/1.json
   def destroy
     if current_user.family_id == 0 || current_user.family_admin?
       @outfit = Outfit.find(params[:id])
