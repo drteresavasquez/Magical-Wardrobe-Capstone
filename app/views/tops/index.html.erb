@@ -10,11 +10,18 @@
     <div class="col-sm-8">
       <center>
         <% if @top.empty? %>
-        <center><h3>You Don't Have Any Tops...</h3>
+        <center><h1>No Tops...</h1>
         <%= link_to 'Add a Top', new_top_path, class: "btn btn-primary" %></center>
+        <hr>
+        <%if User.find(current_user.id).family_admin? %>
+          <%= render 'shared/search_form'%>
+        <%end%>
       <% else %>
       <center><h1>Tops</h1></center>
+      <hr>
+      <%if User.find(current_user.id).family_admin? %>
       <%= render 'shared/search_form'%>
+      <%end%>
     <% @top.each do |top| %>
     <div class="col-sm-4">
       <div class="thumbnail">

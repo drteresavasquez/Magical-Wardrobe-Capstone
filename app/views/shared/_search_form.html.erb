@@ -1,7 +1,7 @@
  <!-- search form begin -->
  <%= form_tag(@path, method: :get, class: "form-inline my-2 my-lg-0") do %>
  <div class="col-sm-12">
- <%= text_field_tag :term, params[:term], class: "form-control search", placeholder: "Search #{@search_name}" %>
+ <%= select_tag :term, options_from_collection_for_select(@person, "id", "name"), :prompt => 'View All', class: "form-control search"%>
  <%= submit_tag 'GO', name: nil, class: "btn btn-success search" %>
 </div>
  <% end %>

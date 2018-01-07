@@ -11,19 +11,15 @@ class TopsController < ApplicationController
       redirect_to login_path
     else
       if current_user.family_admin?
-      @top = if params[:term]
-        user = User.where(:name => "#{params[:term]}")
-        p user.ids
-        Top.where('name LIKE ? OR wearer_id LIKE ?', "%#{params[:term]}%", "%#{1}%")
-        else
-        Top.where(wearer_id: wearer).order(:wearer_id).order(:item_id)
+        @person = User.where(family_id:current_user.family_id).order(:wearer_id)
+        @top = if params[:term] && params[:term] != ""
+          person = User.find("#{params[:term]}")
+          Top.where('wearer_id LIKE ?', "#{person.id}")
+          else
+          Top.where(wearer_id: wearer).order(:wearer_id).order(:item_id)
          end
-      else
-      @top = if params[:term]
-        Top.where('name LIKE ?', "%#{params[:term]}%")
         else
-        Top.where(wearer_id: current_user.id).order(:item_id)
-        end
+          @top = Top.where(wearer_id: current_user.id).order(:item_id)
       end
     end
   end
