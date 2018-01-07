@@ -25,8 +25,15 @@ class OutfitsController < ApplicationController
           end
         end
       end
-    #scoped to view to show all wearers in the family if the current user is a family admin
-    @outfit = Outfit.where(wearer_id: wearer) 
+    
+      #scoped to view to show all wearers in the family if the current user is a family admin
+      @person = User.where(family_id:current_user.family_id).order(:wearer_id)
+      @outfit = if params[:term] && params[:term] != ""
+        person = User.find("#{params[:term]}")
+        Outfit.where('wearer_id LIKE ?', "#{person.id}")
+        else
+          Outfit.where(wearer_id: wearer).order(:wearer_id).order(:item_id)
+        end
 
     #otherwise, only show the user their stuff
     else
