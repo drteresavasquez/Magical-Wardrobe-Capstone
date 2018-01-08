@@ -69,26 +69,34 @@ class RandomController < ApplicationController
             @rand_outterwear = any_outterwear[Random.rand(any_outterwear.count)]
           elsif !outterwear.empty? && any_outterwear.empty?
             @rand_outterwear = outterwear[Random.rand(outterwear.count)]
+          else
+            @rand_outterwear == 0
           end
-        else
-          @rand_outterwear == 0
+      else
+        @rand_outterwear == 0
       end
     
     # if there are outfits that meet the weather type, show those
-    else
+    elsif !outfit.empty? && any_outfit.empty?
       rand_outfit = outfit[Random.rand(outfit.count)]
       @selected = rand_outfit
 
-      if @selected.outterwear_id.nil?
+      if @selected.outterwear_id.nil? && (@temp_code == 2 || @temp_code == 1)
         if outterwear.empty? && any_outterwear.empty?
           @rand_outterwear == 0
         elsif outterwear.empty? && !any_outterwear.empty?
           @rand_outterwear = any_outterwear[Random.rand(any_outterwear.count)]
         elsif !outterwear.empty? && any_outterwear.empty?
           @rand_outterwear = outterwear[Random.rand(outterwear.count)]
+        else
+          @rand_outterwear == 0
         end
+      else
+        @rand_outterwear == 0
       end
 
+    else
+      @selected == nil
     end
 
     p "Temp: #{@temp}F Code: #{@temp_code} and weather = #{@weather}"

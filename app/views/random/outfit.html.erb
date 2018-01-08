@@ -79,7 +79,25 @@
                             <div class="display_none"></div>
                         <%end%>
 
-               
+                <% if @rand_outterwear != 0 %>
+                    <% if @rand_accessory == 0 && @rand_outterwear != 0%>
+                        <div class="col-sm-6 outfit">
+                    <% else %>
+                        <div class="col-sm-4 outfit">
+                    <%end%>
+                    <h4>
+                            <%= @rand_outterwear.name %> 
+                            # <%= @rand_outterwear.item_id %>
+                        </h4>
+                        <% if @rand_outterwear.picture? %>
+                            <%= link_to image_tag(@rand_outterwear.picture.url), @rand_outterwear%>
+                        <%end%>
+                        <h5>It's Chilly! You may need this item too!</h5>
+                        <%= link_to 'See Outerwear Details', @rand_outterwear, class: "btn btn-primary" %>
+                    </div>
+                <% else %>
+                    <div class="display_none"></div>
+                <%end%>
                 </div>
 
 
