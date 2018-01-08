@@ -10,10 +10,12 @@
   <div class="col-sm-8">
     <center>
       <% if @bottom.empty? %>
-      <center><h3>You Don't Have Any Bottoms...</h3>
+      <center><h1>No Bottoms...</h1>
       <%= link_to 'Add a Bottom', new_bottom_path, class: "btn btn-primary" %></center>
+      <hr>
     <% else %>
     <center><h1>Bottoms</h1></center>
+    <hr>
   <% @bottom.each do |bottom| %>
   <div class="col-sm-4">
     <div class="thumbnail">

@@ -10,10 +10,12 @@
   <div class="col-sm-8">
     <center>
       <% if @accessory.empty? %>
-      <center><h3>You Don't Have Any Accessories...</h3>
+      <center><h1>No Accessories...</h1>
       <%= link_to 'Add an Accessory', new_accessory_path, class: "btn btn-primary" %></center>
+      <hr>
     <% else %>
     <center><h1>Accessories</h1></center>
+    <hr>
   <% @accessory.each do |accessory| %>
   <div class="col-sm-4">
     <div class="thumbnail">

@@ -11,8 +11,11 @@
 
         <% if @top.empty? && @bottom.empty? && @outfit.empty?%>
         <center><h3>Everything is Clean...</h3>
+          <hr>
         <% else %>
-        <center><h1>Items in Hamper</h1>  <%= button_to 'Wash Everything', hamper_wash_all_path, class: "btn btn-success washeverything", method: :post %></center>
+        <center><h1>Items in Hamper</h1>  
+          <hr>
+          <%= button_to 'Wash Everything', hamper_wash_all_path, class: "btn btn-success washeverything", method: :post %></center>
 
         <%= render 'hamper_tops'%>
         <%= render 'hamper_bottoms'%>

@@ -29,8 +29,10 @@ class RandomController < ApplicationController
       @temp_code = 4
     elsif @temp >= 50
       @temp_code = 2
+      @outter_code = 2
     else
       @temp_code = 1
+      @outter_code = 1
     end
 
     wearer = User.where(family_id: current_user.family_id)
@@ -38,8 +40,8 @@ class RandomController < ApplicationController
     @temp_type = TemperatureType.find(@temp_code).name
     outfit = Outfit.where(wearer_id: current_user.id, temperature_type_id: @temp_code, active:true)
     any_outfit = Outfit.where(wearer_id: current_user.id, temperature_type_id: 5, active:true)
-    @outterwear = Outterwear.where(wearer_id: current_user.id, temperature_type_id: @temp_code, active:true)
-    @any_outterwear = Outterwear.where(wearer_id: current_user.id, temperature_type_id: 5, active:true)
+    @outterwear = Outterwear.where(wearer_id: current_user.id, temperature_type_id: @temp_code, outterwear_type_id: @outter_code, active:true)
+    @any_outterwear = Outterwear.where(wearer_id: current_user.id, temperature_type_id: 5, outterwear_type_id: @outter_code, active:true)
 
     if @weather_code == 1
       accessory = Accessory.where(wearer_id: current_user.id, weather_type_id: @weather_code, active:true)
@@ -78,7 +80,7 @@ class RandomController < ApplicationController
       p "RANDOM OUTTERWEARXXXXXXXXXXXXXXXX:  #{@rand_outterwear}"
     
     # if there are outfits that meet the weather type, show those
-    elsif !outfit.empty? && any_outfit.empty?
+    else 
       rand_outfit = outfit[Random.rand(outfit.count)]
       @selected = rand_outfit
 
@@ -96,9 +98,6 @@ class RandomController < ApplicationController
         @rand_outterwear == nil
       end
       p "RANDOM OUTTERWEARXXXXXXXXXXXXXXXX:  #{@rand_outterwear}"
-
-    else
-      @selected == nil
     end
 
     p "Temp: #{@temp}F Code: #{@temp_code} and weather = #{@weather}"

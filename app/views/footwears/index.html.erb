@@ -10,10 +10,12 @@
   <div class="col-sm-8">
     <center>
       <% if @footwear.empty? %>
-      <center><h3>You Don't Have Any Footwear...</h3>
+      <center><h1>No Footwear...</h1>
       <%= link_to 'Add a Pair', new_footwear_path, class: "btn btn-primary" %></center>
+      <hr>
     <% else %>
     <center><h1>Footwear</h1></center>
+    <hr>
   <% @footwear.each do |footwear| %>
   <div class="col-sm-4">
     <div class="thumbnail">

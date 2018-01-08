@@ -10,10 +10,12 @@
 
 <center>
   <% if @outterwear.empty? %>
-  <center><h3>You Don't Have Any Outerwear...</h3>
+  <center><h1>No Outerwear...</h1>
   <%= link_to 'Add an Outerwear', new_outterwear_path, class: "btn btn-primary" %></center>
+  <hr>
       <% else %>
       <center><h1>Outerwear</h1></center>
+      <hr>
     <% @outterwear.each do |outterwear| %>
     <div class="col-sm-4">
       <div class="thumbnail">
