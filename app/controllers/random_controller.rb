@@ -47,13 +47,13 @@ class RandomController < ApplicationController
         @rand_accessory = accessory[Random.rand(accessory.count)]
       end
     else
-      @rand_accessory = 0
+      @rand_accessory == 0
     end
     
     
     #if both the temp and any outfit categories are empty show none
     if outfit.empty? && any_outfit.empty?
-      @selected = nil
+      @selected == nil
     
     #if the temp outfit is empty, but there are outfits in the "any" category, show those.
     elsif outfit.empty? && !any_outfit.empty?
@@ -62,14 +62,14 @@ class RandomController < ApplicationController
   
       if @selected.outterwear_id.nil? && (@temp_code == 2 || @temp_code == 1)
           if outterwear.empty? && any_outterwear.empty?
-            @rand_outterwear = 0
+            @rand_outterwear == 0
           elsif outterwear.empty? && !any_outterwear.empty?
             @rand_outterwear = any_outterwear[Random.rand(any_outterwear.count)]
           else
             @rand_outterwear = outterwear[Random.rand(outterwear.count)]
           end
         else
-          @rand_outterwear = 0
+          @rand_outterwear == 0
       end
     
     # if there are outfits that meet the weather type, show those
@@ -79,7 +79,7 @@ class RandomController < ApplicationController
 
       if @selected.outterwear_id.nil?
         if outterwear.empty? && any_outterwear.empty?
-          @rand_outterwear = 0
+          @rand_outterwear == 0
         elsif outterwear.empty? && !any_outterwear.empty?
           @rand_outterwear = any_outterwear[Random.rand(any_outterwear.count)]
         else
