@@ -163,10 +163,10 @@ class OutfitsController < ApplicationController
         @person = User.find(@outfit.wearer_id)
         end
 
-    #if the user doesn't own it or they are not the family admin, they are redirected to all outfits
-    else
-      redirect_to outfits_url
-    end
+      #if the user doesn't own it or they are not the family admin, they are redirected to all outfits
+      else
+        redirect_to outfits_url
+      end
     end
   end
 
