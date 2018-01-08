@@ -18,8 +18,8 @@ class TopsController < ApplicationController
           else
           Top.where(wearer_id: wearer).order(:wearer_id).order(:item_id)
          end
-        else
-          @top = Top.where(wearer_id: current_user.id).order(:item_id)
+      else
+        @top = Top.where(wearer_id: current_user.id).order(:item_id)
       end
     end
   end
