@@ -46,10 +46,10 @@ class RandomController < ApplicationController
       unless accessory.empty?
         @rand_accessory = accessory[Random.rand(accessory.count)]
       else
-        @rand_accessory == 0
+        @rand_accessory == nil
       end
     else
-      @rand_accessory == 0
+      @rand_accessory == nil
     end
     
     
@@ -64,16 +64,16 @@ class RandomController < ApplicationController
   
       if @selected.outterwear_id.nil? && (@temp_code == 2 || @temp_code == 1)
           if @outterwear.empty? && @any_outterwear.empty?
-            @rand_outterwear == 0
+            @rand_outterwear == nil
           elsif @outterwear.empty? && !@any_outterwear.empty?
             @rand_outterwear = @any_outterwear[Random.rand(@any_outterwear.count)]
           elsif !@outterwear.empty? && @any_outterwear.empty?
             @rand_outterwear = @outterwear[Random.rand(@outterwear.count)]
           else
-            @rand_outterwear == 0
+            @rand_outterwear == nil
           end
       else
-        @rand_outterwear == 0
+        @rand_outterwear == nil
       end
       p "RANDOM OUTTERWEARXXXXXXXXXXXXXXXX:  #{@rand_outterwear}"
     
@@ -84,16 +84,16 @@ class RandomController < ApplicationController
 
       if @selected.outterwear_id.nil? && (@temp_code == 2 || @temp_code == 1)
         if @outterwear.empty? && @any_outterwear.empty?
-          @rand_outterwear == 0
+          @rand_outterwear == nil
         elsif @outterwear.empty? && !@any_outterwear.empty?
           @rand_outterwear = @any_outterwear[Random.rand(@any_outterwear.count)]
         elsif !@outterwear.empty? && @any_outterwear.empty?
           @rand_outterwear = @outterwear[Random.rand(@outterwear.count)]
         else
-          @rand_outterwear == 0
+          @rand_outterwear == nil
         end
       else
-        @rand_outterwear == 0
+        @rand_outterwear == nil
       end
       p "RANDOM OUTTERWEARXXXXXXXXXXXXXXXX:  #{@rand_outterwear}"
 
