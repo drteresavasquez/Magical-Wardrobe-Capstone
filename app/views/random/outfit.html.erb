@@ -21,98 +21,16 @@
                     </div>
                 </div>
                 <hr>
-                <div class="row">
-                    <% if @rand_accessory != 0 && @rand_outterwear != 0%>
-                    <div class="col-sm-4">
-                    <% elsif (@rand_accessory == 0 && @rand_outterwear != 0) || (@rand_accessory != 0 && @rand_outterwear == 0)%>
-                    <div class="col-sm-6">
-                    <%else%>
-                    <div class="col-sm-12">
-                    <%end%>
-                        <h4>
-                            <% unless @selected.favorite? %>
-                                <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-                                <% else %>
-                                    <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span>
-                                    <% end %>
-                                        <%= @selected.name %>
-                                            #
-                                            <%= @selected.item_id %>
-                        </h4>
-                        <%= link_to image_tag(@selected.picture.url), @selected %>
-                            <p>
-                                <strong>Temperature Type:</strong>
-                                <%= @selected.temperature_type.name %>
-                            </p>
+                
+                <!-- PLACE CUTOUT HERE -->
 
-                            <p>
-                                <strong>Style:</strong>
-                                <%= @selected.style_type.name %>
-                            </p>
-                            <p>
-                                <strong>Description:</strong>
-                                <%= @selected.description %>
-                            </p>
-                            <%= link_to 'See Outfit Details', @selected, class: "btn btn-primary" %>
-                    </div>
-
-                    <% if @rand_accessory != 0 %>
-                        <% if @rand_accessory != 0 && @rand_outterwear == 0%>
-                            <div class="col-sm-6 outfit">
-                        <% else %>
-                        <div class="col-sm-4 outfit">
-                        <%end%>
-                        <h4>
-                            <% unless @rand_accessory.favorite? %>
-                                <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-                             <% else %>
-                                <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span>
-                            <% end %>
-                            <%= @rand_accessory.name %> 
-                            # <%= @rand_accessory.item_id %>
-                        </h4>                            
-                            <% if @rand_accessory.picture? %>
-                                <%= link_to image_tag(@rand_accessory.picture.url), @rand_accessory%>
-                            <%end%>
-                            <h5>It's Raining! You may need this item too!</h5>
-                            <%= link_to 'See Accessory Details', @rand_accessory, class: "btn btn-primary" %>
-                        </div>
-                        <% else %>
-                            <div class="display_none"></div>
-                        <%end%>
-
-                <% if @rand_outterwear != 0 %>
-                    <% if @rand_accessory == 0 && @rand_outterwear != 0%>
-                    <div class="col-sm-6 outfit">
-                    <% else %>
-                    <div class="col-sm-4 outfit">
-                    <%end%>
-                    <h4>
-                     <% unless @rand_outterwear.favorite? %>
-                        <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-                    <% else %>
-                        <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span>
-                    <% end %>
-                            <%= @rand_outterwear.name %> 
-                            # <%= @rand_outterwear.item_id %>
-                        </h4>
-                        <% if @rand_outterwear.picture? %>
-                            <%= link_to image_tag(@rand_outterwear.picture.url), @rand_outterwear%>
-                        <%end%>
-                        <h5>It's Chilly! You may need this item too!</h5>
-                        <%= link_to 'See Outerwear Details', @rand_outterwear, class: "btn btn-primary" %>
-                    </div>
-                    <% else %>
-                        <div class="display_none"></div>
-                        <%end%>
-                </div>
                 <% else %>
                     <h3>You don't have any available outfits for this
                         <%= @temp_type %> (<%=@temp%>&#8457;) day.</h3>
                     <% if User.find(current_user.id).family_admin? || User.find(current_user.id).family_id == 0 %>
                         <%= link_to 'Create an Outfit', new_outfit_path, class: "btn btn-primary" %>
                             <% end %>
-                                <% end %>
+                <% end %>
             </center>
         </div>
     </div>
