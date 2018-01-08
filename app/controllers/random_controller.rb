@@ -38,8 +38,8 @@ class RandomController < ApplicationController
     @temp_type = TemperatureType.find(@temp_code).name
     outfit = Outfit.where(wearer_id: current_user.id, temperature_type_id: @temp_code, active:true)
     any_outfit = Outfit.where(wearer_id: current_user.id, temperature_type_id: 5, active:true)
-    outterwear = Outterwear.where(wearer_id: current_user.id, temperature_type_id: @temp_code, active:true)
-    any_outterwear = Outterwear.where(wearer_id: current_user.id, temperature_type_id: 5, active:true)
+    @outterwear = Outterwear.where(wearer_id: current_user.id, temperature_type_id: @temp_code, active:true)
+    @any_outterwear = Outterwear.where(wearer_id: current_user.id, temperature_type_id: 5, active:true)
 
     if @weather_code == 1
       accessory = Accessory.where(wearer_id: current_user.id, weather_type_id: @weather_code, active:true)
@@ -63,12 +63,12 @@ class RandomController < ApplicationController
       @selected = rand_outfit
   
       if @selected.outterwear_id.nil? && (@temp_code == 2 || @temp_code == 1)
-          if outterwear.empty? && any_outterwear.empty?
+          if @outterwear.empty? && @any_outterwear.empty?
             @rand_outterwear == 0
-          elsif outterwear.empty? && !any_outterwear.empty?
-            @rand_outterwear = any_outterwear[Random.rand(any_outterwear.count)]
-          elsif !outterwear.empty? && any_outterwear.empty?
-            @rand_outterwear = outterwear[Random.rand(outterwear.count)]
+          elsif @outterwear.empty? && !@any_outterwear.empty?
+            @rand_outterwear = @any_outterwear[Random.rand(@any_outterwear.count)]
+          elsif !@outterwear.empty? && @any_outterwear.empty?
+            @rand_outterwear = @outterwear[Random.rand(@outterwear.count)]
           else
             @rand_outterwear == 0
           end
@@ -83,12 +83,12 @@ class RandomController < ApplicationController
       @selected = rand_outfit
 
       if @selected.outterwear_id.nil? && (@temp_code == 2 || @temp_code == 1)
-        if outterwear.empty? && any_outterwear.empty?
+        if @outterwear.empty? && @any_outterwear.empty?
           @rand_outterwear == 0
-        elsif outterwear.empty? && !any_outterwear.empty?
-          @rand_outterwear = any_outterwear[Random.rand(any_outterwear.count)]
-        elsif !outterwear.empty? && any_outterwear.empty?
-          @rand_outterwear = outterwear[Random.rand(outterwear.count)]
+        elsif @outterwear.empty? && !@any_outterwear.empty?
+          @rand_outterwear = @any_outterwear[Random.rand(@any_outterwear.count)]
+        elsif !@outterwear.empty? && @any_outterwear.empty?
+          @rand_outterwear = @outterwear[Random.rand(@outterwear.count)]
         else
           @rand_outterwear == 0
         end
