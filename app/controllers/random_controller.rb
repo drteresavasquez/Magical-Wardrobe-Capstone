@@ -75,7 +75,7 @@ class RandomController < ApplicationController
       else
         @rand_outterwear == 0
       end
-      p @rand_outterwear
+      p "RANDOM OUTTERWEARXXXXXXXXXXXXXXXX:  #{@rand_outterwear}"
     
     # if there are outfits that meet the weather type, show those
     elsif !outfit.empty? && any_outfit.empty?
@@ -95,13 +95,15 @@ class RandomController < ApplicationController
       else
         @rand_outterwear == 0
       end
-      p @rand_outterwear
-      
+      p "RANDOM OUTTERWEARXXXXXXXXXXXXXXXX:  #{@rand_outterwear}"
+
     else
       @selected == nil
     end
 
     p "Temp: #{@temp}F Code: #{@temp_code} and weather = #{@weather}"
+    p "RANDOM OUTTERWEARXXXXXXXXXXXXXXXX:  #{@rand_outterwear}"
+
   end
 
   def clothes
