@@ -229,9 +229,13 @@ class OutfitsController < ApplicationController
       if @outfit.active?
         Top.where(wearer_id: @top.wearer_id, id: @outfit.top_id).update_all(:active => false)
         Bottom.where(wearer_id: @bottom.wearer_id, id: @outfit.bottom_id).update_all(:active => false)
+        Outfit.where(wearer_id: @outfit.wearer_id, top_id: @top.id).update_all(:active => false)
+        Outfit.where(wearer_id: @outfit.wearer_id, bottom_id: @bottom.id).update_all(:active => false)
       else
         Top.where(wearer_id: @top.wearer_id, id: @outfit.top_id).update_all(:active => true)
         Bottom.where(wearer_id: @bottom.wearer_id, id: @outfit.bottom_id).update_all(:active => true)
+        Outfit.where(wearer_id: @outfit.wearer_id, top_id: @top.id).update_all(:active => true)
+        Outfit.where(wearer_id: @outfit.wearer_id, bottom_id: @bottom.id).update_all(:active => true)
       end
 
     respond_to do |format|
