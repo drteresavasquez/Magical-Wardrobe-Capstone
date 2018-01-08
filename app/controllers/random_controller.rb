@@ -45,6 +45,8 @@ class RandomController < ApplicationController
       accessory = Accessory.where(wearer_id: current_user.id, weather_type_id: @weather_code, active:true)
       unless accessory.empty?
         @rand_accessory = accessory[Random.rand(accessory.count)]
+      else
+        @rand_accessory == 0
       end
     else
       @rand_accessory == 0
