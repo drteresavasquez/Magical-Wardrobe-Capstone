@@ -67,7 +67,7 @@ class RandomController < ApplicationController
             @rand_outterwear == 0
           elsif outterwear.empty? && !any_outterwear.empty?
             @rand_outterwear = any_outterwear[Random.rand(any_outterwear.count)]
-          else
+          elsif !outterwear.empty? && any_outterwear.empty?
             @rand_outterwear = outterwear[Random.rand(outterwear.count)]
           end
         else
@@ -84,7 +84,7 @@ class RandomController < ApplicationController
           @rand_outterwear == 0
         elsif outterwear.empty? && !any_outterwear.empty?
           @rand_outterwear = any_outterwear[Random.rand(any_outterwear.count)]
-        else
+        elsif !outterwear.empty? && any_outterwear.empty?
           @rand_outterwear = outterwear[Random.rand(outterwear.count)]
         end
       end
