@@ -10,11 +10,18 @@
     <div class="col-sm-8">
       <center>
         <% if @top.empty? %>
-        <center><h3>You Don't Have Any Tops...</h3>
+        <center><h1>No Tops...</h1>
         <%= link_to 'Add a Top', new_top_path, class: "btn btn-primary" %></center>
+        <hr>
+        <%if User.find(current_user.id).family_admin? %>
+          <%= render 'shared/search_form'%>
+        <%end%>
       <% else %>
       <center><h1>Tops</h1></center>
+      <hr>
+      <%if User.find(current_user.id).family_admin? %>
       <%= render 'shared/search_form'%>
+      <%end%>
     <% @top.each do |top| %>
     <div class="col-sm-4">
       <div class="thumbnail">
@@ -41,10 +48,10 @@
             <%= form_for(top) do |form| -%>
             <% if top.active? %>
             <%= form.hidden_field :active, :value => false %>
-            <%= submit_tag 'Wear This!', class: "btn btn-info" -%>
+            <%= submit_tag 'Wear This!', class: "btn btn-info wearit" -%>
               <% else %>
               <%= form.hidden_field :active, :value => true %>
-              <%= submit_tag 'Wash This!', class: "btn btn-warning" -%>
+              <%= submit_tag 'Wash This!', class: "btn btn-warning wearit" -%>
             <% end %>
             <% end %>
           <p> <center><%= link_to 'Info', top, class: "btn btn-info"%>

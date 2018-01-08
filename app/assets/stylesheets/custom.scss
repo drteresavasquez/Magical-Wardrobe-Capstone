@@ -225,7 +225,6 @@ select{
   @include box_sizing;
 }
 
-
 input, textarea, .uneditable-input {
   // border: 1px solid #bbb;
   width: 100%;
@@ -266,6 +265,18 @@ input {
   width: auto;
   margin-left: 0;
 }
+
+/* SEARCH */
+
+.btn.btn-success.search{
+  width: 10%;
+  margin-bottom: 15px;
+}
+
+.form-control.search{
+  width: 50%;
+}
+
 
 /* Users index */
 
@@ -351,6 +362,22 @@ input {
     margin-top:10px;
     width: 100%;
   }
+  /* SEARCH */
+
+  .btn.btn-success.search{
+    width: 70%;
+    margin-bottom: 15px;
+    margin-top: -5px;
+  }
+
+  .form-control.search{
+    width: 70%;
+  }
+
+  .wearit{
+    width: 55%;
+    margin: 5px 0px;
+  }
  
 }
 
@@ -370,6 +397,22 @@ input {
   .form-btn{
     margin-top:10px;
     width: 100%;
+  }
+  /* SEARCH */
+
+  .btn.btn-success.search{
+    width: 70%;
+    margin-bottom: 15px;
+    margin-top: -5px;
+  }
+
+  .form-control.search{
+    width: 70%;
+  }
+
+  .wearit{
+    width: 55%;
+    margin: 5px 0px;
   }
  
 }

@@ -10,10 +10,18 @@
   <div class="col-sm-8">
     <center>
       <% if @outfit.empty? %>
-      <center><h3>You Don't Have Any Outfits...</h3>
+      <center><h1>No Outfits...</h1>
       <%= link_to 'Add an Outfit', new_outfit_path, class: "btn btn-primary" %></center>
+      <hr>
+        <%if User.find(current_user.id).family_admin? %>
+          <%= render 'shared/search_form'%>
+        <%end%>
     <% else %>
     <center><h1>Outfits</h1></center>
+    <hr>
+      <%if User.find(current_user.id).family_admin? %>
+      <%= render 'shared/search_form'%>
+      <%end%>
   <% @outfit.each do |outfit| %>
   <div class="col-sm-4">
     <div class="thumbnail">
