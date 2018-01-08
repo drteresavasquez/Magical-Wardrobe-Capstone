@@ -66,11 +66,6 @@
                         <div class="col-sm-4 outfit">
                         <%end%>
                         <h4>
-                            <% unless @rand_accessory.favorite? %>
-                                <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-                             <% else %>
-                                <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span>
-                            <% end %>
                             <%= @rand_accessory.name %> 
                             # <%= @rand_accessory.item_id %>
                         </h4>                            
@@ -91,11 +86,6 @@
                         <div class="col-sm-4 outfit">
                     <%end%>
                     <h4>
-                    <% unless @rand_outterwear.favorite? %>
-                        <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-                    <% else %>
-                        <span class="glyphicon glyphicon-heart fav" aria-hidden="true"></span>
-                    <% end %>
                             <%= @rand_outterwear.name %> 
                             # <%= @rand_outterwear.item_id %>
                         </h4>
