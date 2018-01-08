@@ -31,7 +31,7 @@ class OutfitsController < ApplicationController
       @person = User.where(family_id:current_user.family_id).order(:wearer_id)
       @outfit = if params[:term] && params[:term] != ""
         # person = User.find("#{params[:term]}")
-        Outfit.where('wearer_id LIKE ?', "#{params[:term]}")
+        Outfit.where('wearer_id LIKE ?', "%#{params[:term]}%")
         else
           Outfit.where(wearer_id: wearer).order(:wearer_id).order(:item_id)
         end
