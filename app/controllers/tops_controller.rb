@@ -13,8 +13,8 @@ class TopsController < ApplicationController
       if current_user.family_admin?
         @person = User.where(family_id:current_user.family_id).order(:wearer_id)
         @top = if params[:term] && params[:term] != ""
-          person = User.find("#{params[:term]}")
-          Top.where('wearer_id LIKE ?', "#{person.id}")
+          owner = User.find("#{params[:term]}")
+          Top.where('wearer_id LIKE ?', "#{owner.id}")
           else
           Top.where(wearer_id: wearer).order(:wearer_id).order(:item_id)
          end

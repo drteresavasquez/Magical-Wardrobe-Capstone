@@ -30,8 +30,8 @@ class OutfitsController < ApplicationController
       #for filter, if used, change @outfit to the params else show everything
       @person = User.where(family_id:current_user.family_id).order(:wearer_id)
       @outfit = if params[:term] && params[:term] != ""
-        # person = User.find("#{params[:term]}")
-        Outfit.where('wearer_id LIKE ?', "%#{params[:term]}%")
+        owner = User.find("#{params[:term]}")
+        Outfit.where('wearer_id LIKE ?', "#{owner.id}")
         else
           Outfit.where(wearer_id: wearer).order(:wearer_id).order(:item_id)
         end
