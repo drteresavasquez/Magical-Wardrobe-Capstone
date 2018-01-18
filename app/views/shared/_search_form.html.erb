@@ -1,3 +1,6 @@
- <!-- search form begin -->
-<!-- The code is in "use_search_form" -->
-<!-- search form end -->
+<%= form_tag(@path, method: :get, class: "form-inline my-2 my-lg-0") do %>
+<div class="col-sm-12">
+<%= select_tag :term, options_from_collection_for_select(@person, "id", "name"), :prompt => 'View All', class: "form-control search"%>
+<%= submit_tag 'GO', name: nil, class: "btn btn-success search" %>
+</div>
+<% end %>
