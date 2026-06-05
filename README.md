@@ -1,11 +1,3 @@
-# Magical Wardrobe App
-Check out the thought process behind the app: [Magical Wardrobe Journey](http://www.drteresavasquez.com/nss-journey-week-22-back-end-capstone-magical-wardrobe/)
-
-## Magical Wardrobe Video Walk Through
-See the magic and the through process behind the app and how it can make a difference in the lives of users.
-[![Magical Wardrobe Video Walk Through](https://img.youtube.com/vi/xM627_phZbo/0.jpg)](https://www.youtube.com/watch?v=xM627_phZbo)
-
-
 ## Getting started
 
 To get started with the app, clone the repo and then install the needed gems:
