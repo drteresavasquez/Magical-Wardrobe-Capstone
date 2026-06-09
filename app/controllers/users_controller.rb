@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     if @user.save && @user.family_id.nil?
       @user.update(:family_id => 0)
       @user.activate
-      # @user.send_activation_email
+      @user.send_activation_email
       flash[:info] = "User Created! Please login."
       redirect_to root_path
     elsif @user.save && @user.family_id != 0

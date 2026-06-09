@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-
-
-  get 'random/outfit'
+  get    'random/outfit'
   root   'sessions#new'
   get    '/users',    to: 'sessions#new'
   get    '/help',    to: 'static_pages#help'
@@ -13,11 +11,11 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
   get    '/hamper',  to: 'hamper#index'
   post   'hamper/wash_all', to: 'hamper#wash_all'
-  get 'random/clothes', to: 'random#outfit'
-  get '/myfamily', to: 'families#index'
-  get '/newfamily', to: 'families#new'
-  get '/newfamilymember', to: 'families#new_member'
-  post '/newfamilymember', to: 'families#create_new_member'
+  get    'random/clothes', to: 'random#outfit'
+  get    '/myfamily', to: 'families#index'
+  get    '/newfamily', to: 'families#new'
+  get    '/newfamilymember', to: 'families#new_member'
+  post   '/newfamilymember', to: 'families#create_new_member'
 
   resources :outterwears
   resources :users
